@@ -20,7 +20,26 @@ public class AppController {
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String indexApp(ModelMap model){
-        System.out.println("Indexx");
         return "index";
+    }
+    
+    @RequestMapping(value = "/kursus", method = RequestMethod.GET)
+    public String kursusApp(ModelMap model){
+        return "kursus";
+    }
+    
+    @RequestMapping(value = "/hobi", method = RequestMethod.GET)
+    public String hobiApp(ModelMap model){
+        return "hobi";
+    }
+    
+    @RequestMapping(value = "/profesional", method = RequestMethod.GET)
+    public String profesionalApp(ModelMap model){
+        return "profesional";
+    }
+    
+    @RequestMapping(value = "/about", method = RequestMethod.GET)
+    public String aboutApp(ModelMap model){
+        return "about";
     }
 }

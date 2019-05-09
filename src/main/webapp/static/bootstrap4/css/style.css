@@ -1,0 +1,537 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 1, 2019, 10:07:17 AM
+    Author     : Aldis-PC
+*/
+
+.navhome {
+    position: relative; 
+    z-index: 22;
+}
+
+.navbar-brand img {
+    width: 130px;
+}
+
+.nav-link {
+    color: #040505 !important;
+}
+
+.profesional {
+
+}
+
+/*AWAL LEVEL CSS*/
+.level {
+    height: 600px;
+    background-color: #44a36a;
+    margin-bottom: -16px;
+}
+
+.level h2 {
+    color: #eaff69;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 50px;
+    font-weight: 500;
+    padding-top: 50px;
+    margin-bottom: -50px;
+}
+
+.level #skillmenu {
+    text-align: center;
+    margin: 30px;
+    margin-top: 100px;
+    padding-bottom: 100px;
+    background-color: #eaff69;
+}
+
+.level #skillmenu h5 {
+    color: #475173;
+    margin-top: 15px;
+    font-size: 35px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.level #skillmenu p {
+    color: #751111;
+    text-align: center;
+    font-weight: 500;
+    margin: 0;
+    margin-top: 75px;
+}
+/*AKHIR LEVEL CSS*/
+
+
+/*AWAL FOOTER CSS*/
+.footer {
+    padding-bottom: 50px;
+    background-color: #232320;
+}
+.footer h3 {
+    font-size: 50px;
+    font-style: italic;
+    text-align: center;
+    color: #fcfcfc;
+    padding-bottom: 175px;
+    padding-top: 30px;
+}
+
+.footer p {
+    text-align: center;
+    color: #fcfcfc;
+    margin: 0;
+    padding-bottom: 15px;
+}
+/*AKHIR FOOTER CSS*/
+
+
+/*---------------------
+    Helper CSS
+-----------------------*/
+.spad {
+    padding-top: 130px;
+    padding-bottom: 130px;
+}
+
+.sp-pad {
+    padding-left: 150px;
+    padding-right: 150px;
+}
+
+.sp-sub-title {
+    color: #868686;
+    font-size: 12px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.sp-title {
+    font-size: 30px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 45px;
+    letter-spacing: 6px;
+}
+
+.section-title h2 {
+    display: inline-block;
+    position: relative;
+    margin-bottom: 110px;
+    padding-bottom: 2px;
+    line-height: normal;
+}
+
+.section-title h2:after {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 2px;
+    left: 0;
+    bottom: 0;
+    background: #40424a;
+}
+
+.set-bg {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center 0;
+}
+
+
+/*---------------------
+    Hero section
+-----------------------*/
+.hero-slider {
+    position: relative;
+}
+
+.hero-slider .owl-nav {
+    position: absolute;
+    display: inline-block;
+    right: 150px;
+    top: 50%;
+    font-size: 20px;
+    z-index: 999;
+    color: #fff;
+}
+
+.hero-slider .owl-nav i {
+    margin-left: 2px;
+}
+
+.hero-slider .owl-nav .owl-prev {
+    display: none;
+}
+
+.hero-slider .owl-dots {
+    position: absolute;
+    bottom: -5px;
+    left: 150px;
+}
+
+.hero-slider .owl-dots .owl-dot {
+    display: inline-block;
+    margin-right: 30px;
+    color: #fff;
+    font-size: 14px;
+    padding-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-slider .owl-dots .owl-dot.active span {
+    color: #cc1847;
+}
+
+.hero-slider .owl-dots .owl-dot.active:after {
+    height: 100%;
+}
+
+.hero-slider .owl-dots .owl-dot:after {
+    position: absolute;
+    content: '';
+    width: 2px;
+    height: 0;
+    left: 50%;
+    top: 30px;
+    margin-left: -2px;
+    background: #fff;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+.hs-item {
+    min-height: 950px;
+    position: relative;
+    display: table;
+    width: 100%;
+    min-height: 750px;
+}
+
+.hs-item:after {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: #000;
+    opacity: 0.7;
+}
+
+.hs-item .hs-text {
+    position: relative;
+    display: table-cell;
+    vertical-align: middle;
+    z-index: 2;
+}
+
+.hs-item .hs-title {
+    color: #fff;
+    font-size: 130px;
+    font-weight: 300;
+    margin-bottom: 40px;
+    position: relative;
+    left: 150px;
+    opacity: 0;
+}
+
+.hs-item .hs-des {
+    color: #fff;
+    font-size: 60px;
+    line-height: 1.4;
+    position: relative;
+    left: 150px;
+    opacity: 0;
+}
+
+.owl-item.active .hs-item .hs-title,
+.owl-item.active .hs-item .hs-des {
+    left: 0;
+    opacity: 1;
+}
+
+.owl-item.active .hs-item .hs-title {
+    -webkit-transition: all 0.5s ease 0.6s;
+    -o-transition: all 0.5s ease 0.6s;
+    transition: all 0.5s ease 0.6s;
+}
+
+.owl-item.active .hs-item .hs-des {
+    -webkit-transition: all 0.5s ease 0.8s;
+    -o-transition: all 0.5s ease 0.8s;
+    transition: all 0.5s ease 0.8s;
+}
+
+
+/*KURSUS PAGE CSS*/
+/*VOKAL CSS*/
+.navkursus {
+    background-color: #292929;
+}
+
+.vokal {
+    margin: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: center;
+    background-color: #cccccc;
+}
+
+.vokal h2 {
+    font-size: 75px;
+    font-weight: 700;
+}
+
+.vokal p {
+    text-align: justify;
+    padding-top: 55px;
+}
+/*VOKAL CSS*/
+
+/*GITAR CSS*/
+.gitar {
+    margin: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: center;
+    background-color: #ffd8d8;
+}
+
+.gitar h2 {
+    font-size: 75px;
+    font-weight: 700;
+}
+
+.gitar p {
+    text-align: justify;
+    padding-top: 55px;
+}
+/*GITAR CSS*/
+
+/*BASS CSS*/
+.bass {
+    margin: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: center;
+    background-color: #fff3d8;
+}
+
+.bass h2 {
+    font-size: 75px;
+    font-weight: 700;
+}
+
+.bass p {
+    text-align: justify;
+    padding-top: 55px;
+}
+/*BASS CSS*/
+
+/*DRUM CSS*/
+.drum {
+    margin: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: center;
+    background-color: #dcd8ff;
+}
+
+.drum h2 {
+    font-size: 75px;
+    font-weight: 700;
+}
+
+.drum p {
+    text-align: justify;
+    padding-top: 55px;
+}
+/*DRUM CSS*/
+
+.gambar {
+    border-style: solid;
+}
+
+/*AKHIR KURSUS PAGE CSS*/
+
+
+/*HOBI PAGE CSS*/
+.hobiprlx {
+    position: relative;
+    margin-top: -85px;
+    height: 700px;
+}
+
+.hobiprlx::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-image: linear-gradient(to top, rgba(35,25,25,0.50), rgba(0,0,0,0.50));
+    bottom: 0;
+}
+
+.hobiprlx h1 {
+    position: relative;
+    padding-top: 300px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #fddddd;
+    font-weight: 700;
+    font-size: 100px;
+    z-index: 12;
+}
+
+.desk {
+    background-color:#dbd0d0;
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.desk p {
+    text-align: justify;
+}
+
+.jadwal {
+    background-color: #9fc3c3;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    text-align: center;
+}
+
+.jadwal h2 {
+    font-size: 50px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.jadwal #daftar {
+    background-color: #fdf28a;
+    margin: 35px;
+}
+
+.jadwal #daftar h5 {
+    font-size: 35px;
+    padding: 10px;
+}
+
+.jadwal #daftar p {
+    padding-top: 30px;
+    padding-bottom: 50px;
+    font-weight: 500;
+}
+
+.jadwal #tombol {
+    font-weight: 500;
+    font-size: 35px;
+    width: 200px;
+}
+/*HOBI PAGE CSS*/
+
+/*PROFESIONAL PAGE CSS*/
+
+/*PROFESIONAL PAGE CSS*/
+
+/*ABOUT PAGE CSS*/
+.about-con {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+#about #tab {
+    padding: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color: #282824 !important;
+}
+#about #tab:hover {
+    background-color: #c8cfff;
+}
+/*ABOUT PAGE CSS*/
+
+/*DESKTOP VERSION*/
+@media (min-width: 768px) {
+    .nav-link {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-align: center;
+        margin-right: 30px;
+        width: 100px;
+    }
+
+    .nav-link:hover {
+        transition: all 1s;
+        background-color: yellow;
+        ;
+    }
+
+    .owl-carousel {
+        margin-top: -85px;
+    }
+
+    .dropdown:hover>.dropdown-menu {
+        display: block;
+        margin-top: 0px;
+    }
+
+    .dropdown-item:hover {
+        background-color: yellow;
+    }
+
+    .deskripsi {
+        padding-top: 100px;
+        padding-bottom: 100px;
+        background-color: #f6ffab;
+    }
+
+    .deskripsi h1 {
+        text-align: center;
+        color: #40416e;
+        font-weight: 1000;
+        font-size: 50pt;
+        padding-bottom: 30px;
+    }
+
+    .deskripsi p {
+        text-align: center;
+        color: #272961;
+    }
+
+    .hobi {
+        position:relative;
+        margin-top: -50px;
+        background-size: cover;
+        background: transparent;
+        height: 500px;
+
+    }
+
+    .hobi h1 {
+        text-align: center;
+        padding-top: 100px;
+        color: #0090fa;
+        font-size: 72pt;
+        font-weight: 900;
+        padding-bottom: 50px;
+    }
+
+    .hobi p {
+        font-size: 35px;
+        color: #e3f3ff;
+        text-align: center;
+    }
+
+
+}
