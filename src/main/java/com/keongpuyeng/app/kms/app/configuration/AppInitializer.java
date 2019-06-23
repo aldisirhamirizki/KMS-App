@@ -1,7 +1,5 @@
 package com.keongpuyeng.app.kms.app.configuration;
 
-
-import com.keongpuyeng.app.kms.app.configuration.AppConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /*
@@ -17,16 +15,17 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[] {AppConfig.class};
+        return new Class[]{PersistenceJPAConfig.class};
     }
-    
+
     @Override
-    protected Class<?>[] getServletConfigClasses(){
-    return null;
+    protected Class<?>[] getServletConfigClasses() {
+//        return null;
+        return new Class[]{AppConfig.class};
     }
-    
+
     @Override
     protected String[] getServletMappings() {
-    return new String[]{"/"};
+        return new String[]{"/"};
     }
 }

@@ -21,16 +21,22 @@ import org.springframework.web.servlet.view.JstlView;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.keongpuyeng.app.kms.app")
+@ComponentScan(basePackages = {
+    "com.keongpuyeng.app.kms.app"
+})
 public class AppConfig implements WebMvcConfigurer {
 
+    /**
+     *
+     * @param registry
+     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("/static/");
     }
-    
+
     @Bean
-    public ViewResolver vierResolver(){
+    public ViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
         viewResolver.setViewClass(JstlView.class);
         viewResolver.setPrefix("/WEB-INF/views/");

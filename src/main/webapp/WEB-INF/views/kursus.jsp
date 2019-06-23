@@ -42,6 +42,7 @@
                         </div>
                     </div>
                     <a class="nav-item nav-link" href="/KMS-App/keong/about/">About Us</a>
+                    <a class="nav-item nav-link" href="/KMS-App/keong/">Login</a>
                 </div>
             </div>
         </nav>

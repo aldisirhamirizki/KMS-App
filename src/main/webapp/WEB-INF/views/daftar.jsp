@@ -11,13 +11,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link href="<c:url value="/static/bootstrap4/css/bootstrap.css"/>" rel="stylesheet"/>
-        <link href="<c:url value="/static/bootstrap4/css/owl.carousel.css"/>" rel="stylesheet"/>
-        <link href="<c:url value="/static/bootstrap4/css/animate.css"/>" rel="stylesheet"/>
-        <link href="<c:url value="/static/bootstrap4/css/style.css"/>" rel="stylesheet"/>
-        <title>KMS - App</title>
+    <title>KMS - App</title>
         <style>
 
+ 
             #tmbl {
                 background-color: #232320;
             }
@@ -25,14 +22,19 @@
                 position: relative;
                 left: 80%;
             }
-            .kartudaftar {
-                max-width: 600px;
-                position: relative;
+            .wrap {
                 margin: auto;
-                margin-top: 180px;
+                max-width: 600px;
+            }
+            .kartudaftar {
+                position: relative;
+                overflow: hidden;
+                background: #232320;
+                margin-top: 150px;
                 width: 100%;
                 display: table;
-                -webkit-border-radius: 2px;
+                border: 0;
+                -webkit-border-radius: 8px;
             }
 
             .kartudaftar .card-heading {
@@ -41,18 +43,42 @@
                 width: 50%;
             }
             .kartudaftar .card-body {
-                background-color: #232320;
-                padding: 50px 25px;
+                padding: 25px 25px 50px;
                 display: table-cell;
+                -webkit-border-radius: 2px;
+            }
+
+            .title {
+                color:#cdcbcb;
+                text-align: center;
+                margin-bottom: 30px;
             }
             .input-group {
                 margin: 5px;
                 border-bottom: 1px solid rgba(225, 225, 225, 0.2);
             }
-            .input-form {
-                background: 0;
+            .kartudaftar .input-form {
+                background: #232320;
+                padding: 5px;
+                border: 0;
+                width: 250px;
+            }
+            input:valid {
+                color: #cdcbcb;
+            }
+
+            #pilihan {
+                background-color: #232320;
                 border: 0;
             }
+
+            #pilihan:valid {
+                color: #cdcbcb;
+            }
+            ::placeholder {
+                color: #cdcbcb;
+            }
+            
 
         </style>
     </head>
@@ -63,28 +89,44 @@
 
         <!--modal-->
         <div class="modal" id="formDaftar" tabindex="-1" role="dialog">
-            <div class="card kartudaftar">
-                <div class="card-heading">
-                </div>
-                <div class="card-body">
-                    <form method="POST">
-                        <div class="input-group">
-                            <input class="input-form" type="text" placeholder="nama" name="Nama">
-                        </div>
-                        <div class="input-group">
-                            <input class="input-form" type="text" placeholder="email" name="Nama">
-                        </div>
-                        <div class="input-group">
-                            <input class="input-form" type="text" placeholder="alamat" name="Nama">
-                        </div>
-                        <div class="input-group">
-                            <input class="input-form" type="date" placeholder="tanggal lahir" name="Nama">
-                        </div>
-                        <div class="input-group">
-                            <input class="input-form" type="text" placeholder="kursus" name="Nama">
-                        </div>
-                    </form>
-                    <button class="btn btn-primary">Daftar</button>
+            <div class="wrap">
+                <div class="card kartudaftar">
+                    <div class="card-heading">
+                    </div>
+                    <div class="card-body">
+                        <h3 class="title">form pendaftaran</h3>
+                        <form method="POST">
+                            <div class="input-group">
+                                <input class="input-form" type="text" placeholder="nama" name="Nama">
+                            </div>
+                            <div class="input-group">
+                                <input class="input-form" type="text" placeholder="alamat" name="alamat">
+                            </div>
+                            <div class="input-group">
+                                <input class="input-form" type="text" placeholder="email" name="email">
+                            </div>
+                            <div class="input-group">
+                                <input class="input-form" type="tel" placeholder="telepon" name="telepon">
+                            </div>
+                            <div class="input-group">
+                                <select class="custom-select" id="pilihan" name="program">
+                                    <option selected>pilih program</option>
+                                    <option value="1">Profesional</option>
+                                    <option value="2">Hobi</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <select class="custom-select" id="pilihan" name="kursus">
+                                    <option selected>pilih kursus</option>
+                                    <option value="1">vokal</option>
+                                    <option value="2">gitar</option>
+                                    <option value="2">bass</option>
+                                    <option value="2">drum</option>
+                                </select>
+                            </div>
+                        </form>
+                        <button class="btn btn-primary">Daftar</button>
+                    </div>
                 </div>
             </div>
         </div>
