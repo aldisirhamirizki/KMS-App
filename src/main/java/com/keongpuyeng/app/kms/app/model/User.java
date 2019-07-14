@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
@@ -27,8 +28,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
     @NamedQuery(name = "User.findByIdUser", query = "SELECT u FROM User u WHERE u.idUser = :idUser"),
-    @NamedQuery(name = "User.findByNamaUser", query = "SELECT u FROM User u WHERE u.namaUser = :namaUser"),
     @NamedQuery(name = "User.findByEmailUser", query = "SELECT u FROM User u WHERE u.emailUser = :emailUser"),
+    @NamedQuery(name = "User.findByNamaUser", query = "SELECT u FROM User u WHERE u.namaUser = :namaUser"),
     @NamedQuery(name = "User.findByPasswordUser", query = "SELECT u FROM User u WHERE u.passwordUser = :passwordUser")})
 public class User implements Serializable {
 
@@ -36,22 +37,22 @@ public class User implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 15)
+//    @Size(min = 1, max = 15)
     @Column(name = "id_user")
     private String idUser;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 30)
-    @Column(name = "nama_user")
-    private String namaUser;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
+    @Size(min = 1, max = 25)
     @Column(name = "email_user")
     private String emailUser;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 30)
+//    @Size(min = 1, max = 30)
+    @Column(name = "nama_user")
+    private String namaUser;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
     @Column(name = "password_user")
     private String passwordUser;
 
@@ -62,10 +63,10 @@ public class User implements Serializable {
         this.idUser = idUser;
     }
 
-    public User(String idUser, String namaUser, String emailUser, String passwordUser) {
+    public User(String idUser, String emailUser, String namaUser, String passwordUser) {
         this.idUser = idUser;
-        this.namaUser = namaUser;
         this.emailUser = emailUser;
+        this.namaUser = namaUser;
         this.passwordUser = passwordUser;
     }
 
@@ -77,20 +78,20 @@ public class User implements Serializable {
         this.idUser = idUser;
     }
 
-    public String getNamaUser() {
-        return namaUser;
-    }
-
-    public void setNamaUser(String namaUser) {
-        this.namaUser = namaUser;
-    }
-
     public String getEmailUser() {
         return emailUser;
     }
 
     public void setEmailUser(String emailUser) {
         this.emailUser = emailUser;
+    }
+
+    public String getNamaUser() {
+        return namaUser;
+    }
+
+    public void setNamaUser(String namaUser) {
+        this.namaUser = namaUser;
     }
 
     public String getPasswordUser() {

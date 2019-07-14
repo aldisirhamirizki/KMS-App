@@ -6,16 +6,20 @@
 package com.keongpuyeng.app.kms.app.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -48,6 +52,8 @@ public class Bank implements Serializable {
     @Size(min = 1, max = 25)
     @Column(name = "rekening")
     private String rekening;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bank")
+    private Collection<KonfirmasiPembayaran> konfirmasiPembayaranCollection;
 
     public Bank() {
     }
@@ -84,6 +90,15 @@ public class Bank implements Serializable {
 
     public void setRekening(String rekening) {
         this.rekening = rekening;
+    }
+
+    @XmlTransient
+    public Collection<KonfirmasiPembayaran> getKonfirmasiPembayaranCollection() {
+        return konfirmasiPembayaranCollection;
+    }
+
+    public void setKonfirmasiPembayaranCollection(Collection<KonfirmasiPembayaran> konfirmasiPembayaranCollection) {
+        this.konfirmasiPembayaranCollection = konfirmasiPembayaranCollection;
     }
 
     @Override

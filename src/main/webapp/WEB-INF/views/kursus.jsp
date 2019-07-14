@@ -19,33 +19,7 @@
     </head>
     <body>
         <!--navbar-->
-        <nav class="navbar navbar-expand-md navbar-light navkursus">
-            <div class="container">    
-                <a class="navbar-brand" href="/KMS-App/keong/index/">
-                    <img src="<c:url value="/static/img/logo.png" />" alt="kms"/>
-                </a>
-            </div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
-                <div class="navbar-nav ml-auto">
-                    <a class="nav-item nav-link active" href="/KMS-App/keong/index/">Home</a>
-                    <a class="nav-item nav-link" href="/KMS-App/keong/kursus/">Kursus</a>
-                    <div class="dropdown">
-                        <a class="nav-link dropdown" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" >
-                            Program
-                        </a>
-                        <div class="dropdown-menu" id="drp">
-                            <a class="dropdown-item" href="/KMS-App/keong/profesional/">Profesional</a>
-                            <a class="dropdown-item" href="/KMS-App/keong/hobi/">Hobi</a>
-                        </div>
-                    </div>
-                    <a class="nav-item nav-link" href="/KMS-App/keong/about/">About Us</a>
-                    <a class="nav-item nav-link" href="/KMS-App/keong/">Login</a>
-                </div>
-            </div>
-        </nav>
+         <jsp:include page="navbar2.jsp"/>
         <!--akhir navbar-->
 
         <!--vokal-->
@@ -56,7 +30,10 @@
             <div class="col-md-5">
                 <h2>Vokal</h2>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    Sebagai seorang penyanyi yang menjadi nahkoda dari sebuah performa musik band,
+                    harus memiliki jiwa leadership di atas panggung. Dan penyanyi harus memiliki basic
+                    vocal yang baik, memiliki suara yang jelas dan jernih serta tidak fals, dan dapat 
+                    mengharmonikan diri dengan paduan suara alat musik yang lain
                 </p>
             </div>
         </div>
@@ -67,7 +44,12 @@
             <div class="col-md-5 offset-md-1">
                 <h2>Gitar</h2>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Gitaris adalah pemusik yang memainkan alat musik gitar atau yang berprofesi sebagai pemain gitar.
+                Seorang gitaris dapat bermain solo atau gitar tunggal, duet, maupun bergabung dalam sebuah grup musik atau grup band.
+                Perkembangan dunia gitar rock di Indonesia diawali oleh munculnya gitaris-gitaris seperti Ian Antono dalam band God Bless. 
+                Eet Sjahranie , John Paul Ivan, Andra Ramadhan, andry Muhammad, Beng beng , Aria Baron, Puguh Kribo Dan masih banyak lagi
+                legenda dari luar negeri seperti Jimi Hendrix, Wes Montgomery, Stevie Ray Vaughan, Eddie Van Halen, Ritchie blackmore, 
+                Ritchie sambora, Steve vai, Joe Satriani, Yngwie J Malmsteen, Paul Gilbert, Eric Johnson, Gary Moore, B.B king, Eric Clapton   
                 </p>
             </div>
             <div class="col-md-5">
@@ -84,7 +66,10 @@
             <div class="col-md-5">
                 <h2>Bass</h2>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                secara teknis bass adalah instrumen yang paling mampu memperlihatkan teknik dari sebuah lagu y
+                ang sesungguhnya. Bassist juga memiliki peran penting dalam membangun arah harmonik dan melodi musik. 
+                Penelitian lain yang dilakukan Universitas Northwestern, telah menemukan bahwa suara bass lebih 
+                efektif untuk memberikan efek menginspirasi dan memainkan perasaan penonton.   
                 </p>
             </div>
         </div>
@@ -95,7 +80,10 @@
             <div class="col-md-5 offset-md-1">
                 <h2>Drum</h2>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Drum adalah jenis alat musik perkusi yang digunakan sebagai penuntuk ketukan bagi alat musik lainnya, 
+                sehingga dalam suatu kelompok musik (group band) akan tercipta suatu harmonisasi suara yang kompak.
+                Untuk menjadi seorang pemain drum yang ahli dibutuhkan proses belajar yang tepat, dengan kurikulum yang 
+                dirancang secara tepat, dan yang terutama dibimbing oleh guru yang kompeten, profesional, serta ramah.
                 </p>
             </div>
             <div class="col-md-5">

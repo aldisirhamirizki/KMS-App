@@ -5,13 +5,16 @@
  */
 package com.keongpuyeng.app.kms.app.service.serviceImplement;
 
+import com.google.gson.Gson;
 import com.keongpuyeng.app.kms.app.dao.ProgramDao;
 import com.keongpuyeng.app.kms.app.model.Program;
+import com.keongpuyeng.app.kms.app.model.ProgramDto;
 import com.keongpuyeng.app.kms.app.service.IProgramService;
 import java.text.DecimalFormat;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -25,27 +28,33 @@ public class ProgramServiceImpl implements IProgramService{
     private ProgramDao programDao;
     
     @Override
+    @Transactional
     public List<Program> getListPrograms() {
-        return programDao.findAll();
+        List<Program> pList = programDao.findAll();        
+        return pList;
     }
 
     @Override
+    @Transactional
     public void saveProgram(Program program) {
         program.setIdProgram(progId());
         programDao.save(program);
     }
 
     @Override
+    @Transactional
     public Program getProgram(String id) {
-        return programDao.getOne(id);
+        return programDao.findById(id).orElse(null);
     }
 
     @Override
+    @Transactional
     public void updateProgram(Program program) {
         programDao.save(program);
     }
 
     @Override
+    @Transactional
     public void deleteProgram(String id) {
         programDao.deleteById(id);
     }

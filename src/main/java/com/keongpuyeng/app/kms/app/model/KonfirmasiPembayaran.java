@@ -32,8 +32,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "KonfirmasiPembayaran.findAll", query = "SELECT k FROM KonfirmasiPembayaran k"),
     @NamedQuery(name = "KonfirmasiPembayaran.findByIdKonfirmasi", query = "SELECT k FROM KonfirmasiPembayaran k WHERE k.idKonfirmasi = :idKonfirmasi"),
+    @NamedQuery(name = "KonfirmasiPembayaran.findByIdSiswa", query = "SELECT k FROM KonfirmasiPembayaran k WHERE k.idSiswa = :idSiswa"),
     @NamedQuery(name = "KonfirmasiPembayaran.findByTglKonfirmasi", query = "SELECT k FROM KonfirmasiPembayaran k WHERE k.tglKonfirmasi = :tglKonfirmasi"),
-    @NamedQuery(name = "KonfirmasiPembayaran.findByKet", query = "SELECT k FROM KonfirmasiPembayaran k WHERE k.ket = :ket"),
+    @NamedQuery(name = "KonfirmasiPembayaran.findByTotalBiaya", query = "SELECT k FROM KonfirmasiPembayaran k WHERE k.totalBiaya = :totalBiaya"),
     @NamedQuery(name = "KonfirmasiPembayaran.findByIdImage", query = "SELECT k FROM KonfirmasiPembayaran k WHERE k.idImage = :idImage")})
 public class KonfirmasiPembayaran implements Serializable {
 
@@ -46,22 +47,26 @@ public class KonfirmasiPembayaran implements Serializable {
     private String idKonfirmasi;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 15)
+    @Column(name = "id_siswa")
+    private String idSiswa;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "tgl_konfirmasi")
     @Temporal(TemporalType.DATE)
     private Date tglKonfirmasi;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 30)
-    @Column(name = "ket")
-    private String ket;
+    @Column(name = "total_biaya")
+    private double totalBiaya;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 20)
+    @Size(min = 1, max = 30)
     @Column(name = "id_image")
     private String idImage;
-    @JoinColumn(name = "id_siswa", referencedColumnName = "id_siswa")
+    @JoinColumn(name = "bank", referencedColumnName = "id_bank")
     @ManyToOne(optional = false)
-    private Pendaftaran idSiswa;
+    private Bank bank;
 
     public KonfirmasiPembayaran() {
     }
@@ -70,10 +75,11 @@ public class KonfirmasiPembayaran implements Serializable {
         this.idKonfirmasi = idKonfirmasi;
     }
 
-    public KonfirmasiPembayaran(String idKonfirmasi, Date tglKonfirmasi, String ket, String idImage) {
+    public KonfirmasiPembayaran(String idKonfirmasi, String idSiswa, Date tglKonfirmasi, double totalBiaya, String idImage) {
         this.idKonfirmasi = idKonfirmasi;
+        this.idSiswa = idSiswa;
         this.tglKonfirmasi = tglKonfirmasi;
-        this.ket = ket;
+        this.totalBiaya = totalBiaya;
         this.idImage = idImage;
     }
 
@@ -85,6 +91,14 @@ public class KonfirmasiPembayaran implements Serializable {
         this.idKonfirmasi = idKonfirmasi;
     }
 
+    public String getIdSiswa() {
+        return idSiswa;
+    }
+
+    public void setIdSiswa(String idSiswa) {
+        this.idSiswa = idSiswa;
+    }
+
     public Date getTglKonfirmasi() {
         return tglKonfirmasi;
     }
@@ -93,12 +107,12 @@ public class KonfirmasiPembayaran implements Serializable {
         this.tglKonfirmasi = tglKonfirmasi;
     }
 
-    public String getKet() {
-        return ket;
+    public double getTotalBiaya() {
+        return totalBiaya;
     }
 
-    public void setKet(String ket) {
-        this.ket = ket;
+    public void setTotalBiaya(double totalBiaya) {
+        this.totalBiaya = totalBiaya;
     }
 
     public String getIdImage() {
@@ -109,12 +123,12 @@ public class KonfirmasiPembayaran implements Serializable {
         this.idImage = idImage;
     }
 
-    public Pendaftaran getIdSiswa() {
-        return idSiswa;
+    public Bank getBank() {
+        return bank;
     }
 
-    public void setIdSiswa(Pendaftaran idSiswa) {
-        this.idSiswa = idSiswa;
+    public void setBank(Bank bank) {
+        this.bank = bank;
     }
 
     @Override

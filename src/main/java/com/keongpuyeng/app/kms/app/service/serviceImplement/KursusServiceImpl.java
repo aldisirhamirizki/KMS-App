@@ -12,6 +12,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -24,27 +25,33 @@ public class KursusServiceImpl implements IKursusService {
     private KursusDao kursusDao;
 
     @Override
+    @Transactional
     public List<Kursus> getListKursus() {
-        return kursusDao.findAll();
+        List<Kursus> kList = kursusDao.findAll();
+        return kList;
     }
 
     @Override
+    @Transactional
     public void saveKursus(Kursus kursus) {
         kursus.setIdKursus(kursId());
         kursusDao.save(kursus);
     }
 
     @Override
+    @Transactional
     public Kursus getKursus(String id) {
-        return kursusDao.getOne(id);
+         return kursusDao.findById(id).orElse(null);
     }
 
     @Override
+    @Transactional
     public void updateKursus(Kursus kursus) {
         kursusDao.save(kursus);
     }
 
     @Override
+    @Transactional
     public void deleteKursus(String id) {
         kursusDao.deleteById(id);
     }

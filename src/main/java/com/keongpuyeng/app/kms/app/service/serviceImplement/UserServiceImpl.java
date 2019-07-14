@@ -12,6 +12,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -25,29 +26,43 @@ public class UserServiceImpl implements IUserService {
     private UserDao userDao;
     
     @Override
+    @Transactional
     public List<User> getUsers() {
         return userDao.findAll();
     }
 
     @Override
+    @Transactional
     public void saveUser(User users) {
         users.setIdUser(automatedId());
         userDao.save(users);
     }
 
     @Override
+    @Transactional
     public User getUser(String id) {
-        return userDao.getOne(id);
+        System.out.println("String ID: " + id);
+        // ganti method jadi findById()
+//        return userDao.getOne;
+        return userDao.findById(id).orElse(null);
     }
 
     @Override
+    @Transactional
     public void updateUser(User user) {
         userDao.save(user);
     }
 
     @Override
+    @Transactional
     public void deleteUser(String id) {
         userDao.deleteById(id);
+    }
+    
+    @Override
+    public User getLogin(User user) {
+        User p = userDao.adminLogin(user.getEmailUser(), user.getPasswordUser());
+        return p;
     }
 
     private String automatedId() {

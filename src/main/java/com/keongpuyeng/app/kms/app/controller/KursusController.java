@@ -13,10 +13,12 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -32,7 +34,7 @@ public class KursusController {
     @Autowired
     private IKursusService kurService;
     
-    @GetMapping("/list")    
+    @GetMapping("/list_kursus")    
     public String listKursus(Model theModel) {
         List<Kursus> listKursus = kurService.getListKursus();
         theModel.addAttribute("kursus", listKursus);
@@ -41,7 +43,15 @@ public class KursusController {
             System.out.println(kursus.getNamaKursus());
         }
         
-        return "list-users"; // belum ada jsp
+        return "list_kursus"; // belum ada jsp
+    }
+    
+    @GetMapping("/form_kursus")
+    public String showFormForAdd(Model theModel) {
+        LOG.debug("inside show kursus-form handler method");
+        Kursus kursus = new Kursus();
+        theModel.addAttribute("kursus", kursus);
+        return "form_kursus";
     }
     
     @PostMapping("/saveKursus")
@@ -49,12 +59,16 @@ public class KursusController {
                
         String json = new Gson().toJson(kursus);
         System.out.println(json);
-        kurService.saveKursus(kursus);
-        return "redirect:/keong/form_kursus";
+        if(kursus.getIdKursus() == null || kursus.getIdKursus().isEmpty()){
+            kurService.saveKursus(kursus);
+        }else {
+            kurService.updateKursus(kursus);
+        }
+        return "redirect:/kursus/list_kursus";
     }
     
-    @GetMapping("updateForm")
-    public String showFormForUpdate(@RequestParam("kursusId") String theId,
+    @GetMapping("updateKursus")
+    public String showFormForUpdate(@RequestParam("idKursus") String theId,
             Model theModel) {
         Kursus listKursus = kurService.getKursus(theId);
         theModel.addAttribute("kursus", listKursus);
@@ -62,8 +76,11 @@ public class KursusController {
     }
     
     @GetMapping("/delete")
-    public String deleteKursus(@RequestParam("kursusId") String theId) {
+    public String deleteKursus(@RequestParam("idKursus") String theId) {
         kurService.deleteKursus(theId);
-        return "redirect:/user/list";
+        return "redirect:/kursus/list_kursus";
     }
-}
+    
+       
+    }
+

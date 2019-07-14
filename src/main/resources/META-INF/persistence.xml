@@ -8,6 +8,10 @@
     <class>com.keongpuyeng.app.kms.app.model.Program</class>
     <class>com.keongpuyeng.app.kms.app.model.Image</class>
     <class>com.keongpuyeng.app.kms.app.model.Kursus</class>
+    <class>com.keongpuyeng.app.kms.app.model.Level</class>
+    <class>com.keongpuyeng.app.kms.app.model.Siswa</class>
+    <class>com.keongpuyeng.app.kms.app.model.User</class>
+    <class>com.keongpuyeng.app.kms.app.model.KonfirmasiPembayaran_1</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/kursus_musik?zeroDateTimeBehavior=convertToNull"/>

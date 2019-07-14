@@ -472,6 +472,7 @@ and open the template in the editor.
     }
 
     .nav-link:hover {
+        color: #231100 !important;
         transition: all 1s;
         background-color: yellow;
         ;
@@ -511,7 +512,7 @@ and open the template in the editor.
 
     .hobi {
         position:relative;
-        margin-top: -50px;
+        margin-bottom: -50px;
         background-size: cover;
         background: transparent;
         height: 500px;
@@ -528,6 +529,7 @@ and open the template in the editor.
     }
 
     .hobi p {
+        padding-top: 150px;
         font-size: 35px;
         color: #e3f3ff;
         text-align: center;

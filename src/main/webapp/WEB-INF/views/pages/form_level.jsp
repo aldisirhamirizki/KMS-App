@@ -1,6 +1,6 @@
 <%-- 
-    Document   : form_kursus
-    Created on : Jun 23, 2019, 6:56:19 PM
+    Document   : form_level
+    Created on : Jun 26, 2019, 4:28:27 PM
     Author     : Aldis-PC
 --%>
 
@@ -19,11 +19,19 @@
     <body>
         <h1>FORM KURSUS</h1>
         <div class="container">
-            <form:form action="${pageContext.request.contextPath}/kursus/saveKursus" method="POST" modelAttribute="kursus">
+            <form:form action="${pageContext.request.contextPath}/level/saveLevel" method="POST" modelAttribute="level">
                 <div Class="form-group">
-                    <form:hidden path="idKursus"></form:hidden>
-                        <label for="namaKursus">Nama Program</label>
-                    <form:input cssClass="form-control" placeholder="masukan nama kursus" path="namaKursus" />
+                    <form:hidden path="idLevel"></form:hidden>
+                        <label for="namaLevel">Nama Level</label>
+                    <form:input cssClass="form-control" path="namaLevel" />
+                </div>
+                <div class="form-group">
+                    <label for="keterangan">Keterangan</label>
+                    <form:input cssClass="form-control" type="text"  path="keterangan"/>
+                </div>
+                <div class="form-group">
+                    <label for="biaya">biaya</label>
+                    <form:input cssClass="form-control" type="text"  path="biaya"/>
                 </div>
 
                 <button Class="btn btn-primary">Submit</button>

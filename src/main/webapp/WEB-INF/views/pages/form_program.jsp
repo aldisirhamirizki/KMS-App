@@ -24,11 +24,11 @@
                 <div Class="form-group">
                     <form:hidden path="idProgram"></form:hidden>
                         <label for="namaProgram">Nama Program</label>
-                    <form:input cssClass="form-control" placeholder="masukan nama program" path="namaProgram" />
+                    <form:input cssClass="form-control"  path="namaProgram" />
                 </div>
                 <div class="form-group">
-                    <label for="ket">Keterangan</label>
-                    <form:input cssClass="form-control" type="text" placeholder="keterangan" path="ket"/>
+                    <label for="biaya">biaya</label>
+                    <form:input cssClass="form-control" path="biaya"/>
                 </div>
 
                 <button Class="btn btn-primary">Submit</button>

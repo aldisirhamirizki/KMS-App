@@ -32,21 +32,14 @@ public class ProgramController {
     @Autowired
     private IProgramService progService;
 
-    @GetMapping("/list")
+    @GetMapping("/list_program")
     public String listProgram(Model theModel) {
         List<Program> listProg = progService.getListPrograms();
         theModel.addAttribute("program", listProg);
-
-        for (Program program : listProg) {
-            System.out.println(program.getIdProgram());
-            System.out.println(program.getNamaProgram());
-            System.out.println(program.getKet());
-        }
-
-        return "list-users"; // belum ada jsp
+        return "list_program"; 
     }
 
-    @GetMapping("/showForm")
+    @GetMapping("/form_program")
     public String showFormForAdd(Model theModel) {
         LOG.debug("inside show program-form handler method");
         Program program = new Program();
@@ -59,21 +52,25 @@ public class ProgramController {
 
         String json = new Gson().toJson(program);
         System.out.println(json);
-        progService.saveProgram(program);
-        return "redirect:/keong/form_program";
+        if(program.getIdProgram() == null || program.getIdProgram().isEmpty()){
+            progService.saveProgram(program);
+        }else {
+            progService.updateProgram(program);
+        }
+        return "redirect:/program/list_program";
     }
     
-    @GetMapping("updateForm")
-    public String showFormForUpdate(@RequestParam("progId") String theId,
+    @GetMapping("updateProgram")
+    public String showFormForUpdate(@RequestParam("idProgram") String theId,
             Model theModel) {
-        Program program = progService.getProgram(theId);
-        theModel.addAttribute("program", program);
+        Program programs = progService.getProgram(theId);
+        theModel.addAttribute("program", programs);
         return "form_program";
     }
 
     @GetMapping("/delete")
-    public String deleteProg(@RequestParam("progId") String theId) {
+    public String deleteProg(@RequestParam("idProgram") String theId) {
         progService.deleteProgram(theId);
-        return "redirect:/user/list";
+        return "redirect:/program/list_program";
     }
 }

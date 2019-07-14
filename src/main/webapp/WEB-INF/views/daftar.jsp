@@ -5,132 +5,259 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>KMS - App</title>
-        <style>
+<head>
+    <style>
+        #tab {
+            color: #17a2b8 !important;
+        }
+        #tab:hover {
+            color: white !important;
+            background-color: #17a2b8;
+        }
+        #tab.active {
+            color: white !important;
+            background-color: #17a2b8;
+        }
+    </style>
+    <link href="<c:url value="/static/bootstrap4/css/bootstrap.css"/>" rel="stylesheet"/>
+</head>
+<!--Modal: Login / Register Form-->
+<div class="modal fade" id="modalLRForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog cascading-modal" role="document">
+        <!--Content-->
+        <div class="modal-content">
 
- 
-            #tmbl {
-                background-color: #232320;
-            }
-            #pencetan {
-                position: relative;
-                left: 80%;
-            }
-            .wrap {
-                margin: auto;
-                max-width: 600px;
-            }
-            .kartudaftar {
-                position: relative;
-                overflow: hidden;
-                background: #232320;
-                margin-top: 150px;
-                width: 100%;
-                display: table;
-                border: 0;
-                -webkit-border-radius: 8px;
-            }
+            <!--Modal cascading tabs-->
+            <div class="modal-c-tabs">
 
-            .kartudaftar .card-heading {
-                background: url(../..//static/img/misa.jpg)top left/cover no-repeat;
-                display: table-cell;
-                width: 50%;
-            }
-            .kartudaftar .card-body {
-                padding: 25px 25px 50px;
-                display: table-cell;
-                -webkit-border-radius: 2px;
-            }
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs justify-content-center" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="tab" data-toggle="tab" href="#panel7" role="tab"><i class="fas fa-user mr-1"></i>
+                            Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="tab" data-toggle="tab" href="#panel8" role="tab"><i class="fas fa-user-plus mr-1"></i>
+                            Register</a>
+                    </li>
+                </ul>
 
-            .title {
-                color:#cdcbcb;
-                text-align: center;
-                margin-bottom: 30px;
-            }
-            .input-group {
-                margin: 5px;
-                border-bottom: 1px solid rgba(225, 225, 225, 0.2);
-            }
-            .kartudaftar .input-form {
-                background: #232320;
-                padding: 5px;
-                border: 0;
-                width: 250px;
-            }
-            input:valid {
-                color: #cdcbcb;
-            }
+                <!-- Tab panels -->
+                <div class="tab-content">
+                    <!--Panel 7-->
+                    
+                    <div class="tab-pane fade in show active" id="panel7" role="tabpanel">
+                        <div class="modal-body">
+                            <!--Body-->
+                            <form:form action="${pageContext.request.contextPath}/login/doLogin" method="POST" modelAttribute="login" name="loginForm">
+                                <form:hidden path="idDaftar"></form:hidden>
+                                <form:hidden path="namaDaftar"></form:hidden>
+                                
+                                <div class="md-form form-sm">
+                                        <label data-error="wrong" data-success="right" for="emailLogin">Email</label>
+                                    <form:input type="email" id="emailLogin" class="form-control form-control-sm validate" path="emailDaftar" />
+                                </div>
+                                <div class="md-form form-sm">
+                                    <label data-error="wrong" data-success="right" for="passwordLogin">Password</label>
+                                    <form:input type="password" id="passwordLogin" class="form-control form-control-sm validate" path="passwordDaftar" />
+                                </div>
+                                <div class="text-center form-sm mt-2">
+                                    <button class="btn btn-info">Login</button>
+                                </div>
+                            </form:form>
+                        </div>
 
-            #pilihan {
-                background-color: #232320;
-                border: 0;
-            }
+                        <div class="modal-footer">
+                            <div class="options text-center text-md-right mt-1">
+                                <p>Not a member? <a href="#" class="blue-text">Sign Up</a></p>
+                                <p>Forgot <a href="#" class="blue-text">Password?</a></p>
+                            </div>
+                            <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Close</button>
+                        </div>
 
-            #pilihan:valid {
-                color: #cdcbcb;
-            }
-            ::placeholder {
-                color: #cdcbcb;
-            }
-            
-
-        </style>
-    </head>
-    <body>
-        <nav class="navbar navbar-light fixed-bottom" id="tmbl">
-            <button class="btn btn-outline-info" data-toggle="modal" id="pencetan" data-target="#formDaftar">Daftar sekarang</button>
-        </nav>
-
-        <!--modal-->
-        <div class="modal" id="formDaftar" tabindex="-1" role="dialog">
-            <div class="wrap">
-                <div class="card kartudaftar">
-                    <div class="card-heading">
                     </div>
-                    <div class="card-body">
-                        <h3 class="title">form pendaftaran</h3>
-                        <form method="POST">
-                            <div class="input-group">
-                                <input class="input-form" type="text" placeholder="nama" name="Nama">
-                            </div>
-                            <div class="input-group">
-                                <input class="input-form" type="text" placeholder="alamat" name="alamat">
-                            </div>
-                            <div class="input-group">
-                                <input class="input-form" type="text" placeholder="email" name="email">
-                            </div>
-                            <div class="input-group">
-                                <input class="input-form" type="tel" placeholder="telepon" name="telepon">
-                            </div>
-                            <div class="input-group">
-                                <select class="custom-select" id="pilihan" name="program">
-                                    <option selected>pilih program</option>
-                                    <option value="1">Profesional</option>
-                                    <option value="2">Hobi</option>
-                                </select>
-                            </div>
-                            <div class="input-group">
-                                <select class="custom-select" id="pilihan" name="kursus">
-                                    <option selected>pilih kursus</option>
-                                    <option value="1">vokal</option>
-                                    <option value="2">gitar</option>
-                                    <option value="2">bass</option>
-                                    <option value="2">drum</option>
-                                </select>
-                            </div>
-                        </form>
-                        <button class="btn btn-primary">Daftar</button>
+                    <!--/.Panel 7-->
+
+                    <!--Panel 8-->
+                    <div class="tab-pane fade" id="panel8" role="tabpanel">
+
+                        <!--Body-->
+                        <div class="modal-body">
+                            <form:form action="${pageContext.request.contextPath}/pendaftaran/savePendaftaran" method="POST" modelAttribute="pendaftaran">
+                                <form:hidden path="idDaftar" style="0"></form:hidden>
+
+                                    <div class="md-form form-sm">
+                                        <label data-error="wrong" data-success="right" for="namaDaftar">Nama</label>
+                                    <form:input type="text" id="namaDaftar" cssClass="form-control form-control-sm validate" path="namaDaftar" />
+
+                                    <%--<form:errors path="namaDaftar"/>--%>
+                                </div>
+
+                                <div class="md-form form-sm">
+                                    <label data-error="wrong" data-success="right" for="emailDaftar">Email</label>
+                                    <form:input type="email" id="emailDaftar" class="form-control form-control-sm validate" path="emailDaftar" />
+                                </div>
+
+                                <div class="md-form form-sm">
+                                    <label data-error="wrong" data-success="right" for="passwordDaftar">Password</label>
+                                    <form:input type="password" id="passwordDaftar" class="form-control form-control-sm validate" path="passwordDaftar" />
+                                </div>
+
+                                <div class="text-center form-sm mt-2">
+                                    <button id="signUp" class="btn btn-info">Sign up</button>
+                                </div>
+                            </form:form>
+
+                        </div>
+                        <!--Footer-->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Close</button>
+                        </div>
                     </div>
+                    <!--/.Panel 8-->
                 </div>
+
             </div>
         </div>
-        <!--modal-->
+        <!--/.Content-->
+    </div>
+    <!--Modal: Login / Register Form-->
 
-    </body>
-</html>
+
+    <script src="<c:url value="/static/bootstrap4/js/sweetalert2.all.js"/>"></script>
+    <script src="<c:url value="/static/bootstrap4/jquery-3.3.1.min.js"/>"></script>
+    <script>
+
+        // daftar function
+        $('#pendaftaran').submit(function (e) {
+            
+            e.preventDefault();
+            let form = $(this);
+            let url = form.attr('action');
+//            form.find('input:hidden[id="idDaftar"]').val("INIT_VALUE");
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: form.serialize(),
+                success: function (data)
+                {
+                    let responseData = JSON.parse(data);
+                    console.log("RESPONSE: " + JSON.stringify(responseData));
+                    if (responseData.status === "SUCCESS") {
+                        $('#modalLRForm').modal('hide');
+                        Swal.fire({
+                            title: 'Success',
+                            text: 'Anda Berhasil Daftar',
+                            type: 'success'
+                        }).then(function (result) {
+                            if (result.value) {
+                                window.location.href = responseData.redirectUrl;
+                            }
+                        });
+
+                    } else if (responseData.status === "FAIL") {
+                        clearErrorElement();
+                        showFormDaftarError(responseData.listErrorMessages);
+                    }
+                }
+            });
+        });
+
+        let namaField = $('#namaDaftar');
+        let emailField = $('#emailDaftar');
+        let passwordField = $('#passwordDaftar');
+
+        function clearFormDaftar(){
+            namaField.next('div').remove();
+            emailField.next('div').remove();
+            passwordField.next('div').remove();
+        }
+
+        function showFormDaftarError(errorVal) {
+            for (var i = 0; i < errorVal.length; i++) {
+                if (errorVal[i].fieldName === 'namaDaftar') {
+                    createElementError(namaField, errorVal[i].message);
+                } else if (errorVal[i].fieldName === 'emailDaftar') {
+                    createElementError(emailField, errorVal[i].message);
+                } else if (errorVal[i].fieldName === 'passwordDaftar') {
+                    createElementError(passwordField, errorVal[i].message);
+                }
+            }
+        }
+        // end daftar
+
+        // login function
+        $('#login').submit(function (e) {
+            e.preventDefault();
+            let form = $(this);
+            let url = form.attr('action');
+            
+            // inisialisasi idDaftar & namaDaftar
+            form.find('input:hidden[id="idDaftar"]').val("INIT_VALUE");
+            form.find('input:hidden[id="namaDaftar"]').val("INIT_VALUE");
+            console.log("Serialize: " + form.serialize());
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: form.serialize(),
+                success: function (data)
+                {
+                    console.log("Login Response: " + data);
+                    let responseData = JSON.parse(data);
+
+                    console.log("Login Response Object: " + JSON.stringify(responseData));
+                    if (responseData.status === "SUCCESS") {
+                        $('#modalLRForm').modal('hide');
+                        Swal.fire({
+                            title: 'Success',
+                            text: 'Login Sukses',
+                            type: 'success'
+                        }).then(function (result) {
+                            if (result.value) {
+                                window.location.href = responseData.redirectUrl;
+                            }
+                        });
+
+                    } else if (responseData.status === "FAIL") {
+                        clearErrorElement();
+                        showFormLoginError(responseData.listErrorMessages);
+                    }
+                }
+            });
+        });
+
+        let emailLoginField = $('#emailLogin');
+        let passwordLoginField = $('#passwordLogin');
+
+        function showFormLoginError(errorVal) {
+            for (var i = 0; i < errorVal.length; i++) {
+                if (errorVal[i].fieldName === 'emailDaftar') {
+                    createElementError(emailLoginField, errorVal[i].message);
+                } else if (errorVal[i].fieldName === 'passwordDaftar') {
+                    createElementError(passwordLoginField, errorVal[i].message);
+                }
+                // tampilkan error email dan password tidak valid
+                else if (errorVal[i].fieldName === 'loginNotif') {
+                    createElementError(passwordLoginField, errorVal[i].message);
+                }
+            }
+        }
+        //end login function
+
+        function createElementError(field, textMessage) {
+            let newElement = document.createElement("div");
+            let textNode = document.createTextNode(textMessage);
+            let errorClass = "error-field";
+            newElement.appendChild(textNode);
+            newElement.setAttribute("class", "text-danger small " + errorClass);
+
+            field.after(newElement);
+        }
+
+        function clearErrorElement() {
+            $(".error-field").remove();
+        }
+    </script>

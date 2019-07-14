@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+    <!--Setiap nama definitions bisa diperlakukan sebagai tiles-view-->
+    <!--base definitions-->
+    <definition name="base-definition" template="/WEB-INF/views/tiles/layouts/defaultLayouts.jsp">
+        <put-attribute name="title" value=""/>
+        <put-attribute name="header" value="/WEB-INF/views/tiles/template/defaultHeader.jsp"/>
+        <put-attribute name="menu" value="/WEB-INF/views/tiles/template/defaultMenu.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/home.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/views/tiles/template/defaultFooter.jsp"/>
+    </definition>
+
+
+    <definition name="home" extends="base-definition">
+        <put-attribute name="title" value="Home"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/home.jsp"/>
+    </definition>
+    
+    <definition name="list_kursus" extends="base-definition">
+        <put-attribute name="title" value="List Kursus"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/list_kursus.jsp"/>
+    </definition>
+
+    <!--List Kursus-->
+    <definition name="form_kursus" extends="base-definition">
+        <put-attribute name="title" value="Form Kursus"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/form_kursus.jsp"/>
+    </definition>
+    
+    <!--List Level-->
+    <definition name="list_level" extends="base-definition">
+        <put-attribute name="title" value="List Level"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/list_level.jsp"/>
+    </definition>
+
+    <!--List Level-->
+    <definition name="form_level" extends="base-definition">
+        <put-attribute name="title" value="Form Level"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/form_level.jsp"/>
+    </definition>
+    
+    <!--List Program-->
+    <definition name="list_program" extends="base-definition">
+        <put-attribute name="title" value="List Program"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/list_program.jsp"/>
+    </definition>
+
+    <!--List Program-->
+    <definition name="form_program" extends="base-definition">
+        <put-attribute name="title" value="Form Program"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/form_program.jsp"/>
+    </definition>
+    
+    <!--List Bank-->
+    <definition name="list_bank" extends="base-definition">
+        <put-attribute name="title" value="List Bank"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/list_bank.jsp"/>
+    </definition>
+
+    <!--List Bank-->
+    <definition name="form_bank" extends="base-definition">
+        <put-attribute name="title" value="Form Bank"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/form_bank.jsp"/>
+    </definition>
+    
+    <!--List Siswa-->
+    <definition name="list_siswa" extends="base-definition">
+        <put-attribute name="title" value="List Siswa"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/list_siswa.jsp"/>
+    </definition>
+
+    <!--List User-->
+    <definition name="list_user" extends="base-definition">
+        <put-attribute name="title" value="List User"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/list_user.jsp"/>
+    </definition>
+
+    <!--List User-->
+    <definition name="form_user" extends="base-definition">
+        <put-attribute name="title" value="Form User"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/form_user.jsp"/>
+    </definition>
+</tiles-definitions>

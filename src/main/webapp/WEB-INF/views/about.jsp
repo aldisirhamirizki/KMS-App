@@ -20,33 +20,7 @@
     <body>
 
         <!--navbar-->
-        <nav class="navbar navbar-expand-md navbar-light navkursus">
-            <div class="container">    
-                <a class="navbar-brand" href="/KMS-App/keong/index/">
-                    <img src="<c:url value="/static/img/logo.png" />" alt="kms"/>
-                </a>
-            </div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
-                <div class="navbar-nav ml-auto">
-                    <a class="nav-item nav-link active" href="/KMS-App/keong/index/">Home</a>
-                    <a class="nav-item nav-link" href="/KMS-App/keong/kursus/">Kursus</a>
-                    <div class="dropdown">
-                        <a class="nav-link dropdown" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" >
-                            Program
-                        </a>
-                        <div class="dropdown-menu" id="drp">
-                            <a class="dropdown-item" href="/KMS-App/keong/profesional/">Profesional</a>
-                            <a class="dropdown-item" href="/KMS-App/keong/hobi/">Hobi</a>
-                        </div>
-                    </div>
-                    <a class="nav-item nav-link" href="/KMS-App/keong/about/">About Us</a>
-                    <a class="nav-item nav-link" href="/KMS-App/keong/">Login</a>
-                </div>
-            </div>
-        </nav>
+        <jsp:include page="navbar2.jsp"/>
         <!--akhir navbar-->
 
         <!--about-->
@@ -80,7 +54,6 @@
         <!--about-->
 
         <%@include file="footer.jsp" %>
-        <%@include file="daftar.jsp" %>
 
         <script src="<c:url value="/static/bootstrap4/jquery-3.3.1.min.js"/>"></script>
         <script src="<c:url value="/static/bootstrap4/js/bootstrap.js"/>"></script>

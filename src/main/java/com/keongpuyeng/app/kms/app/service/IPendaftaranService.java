@@ -16,11 +16,13 @@ public interface IPendaftaranService {
 
     public List<Pendaftaran> getListPendaftaran();
 
-    public void savePendaftaran(Pendaftaran pendaftaran);
+    public boolean savePendaftaran(Pendaftaran pendaftaran);
 
     public Pendaftaran getPendaftaran(String id);
 
     public void updatePendaftaran(Pendaftaran pendaftaran);
 
     public void deletePendaftaran(String id);
+    
+    public Pendaftaran getLogin(Pendaftaran pendaftaran);
 }

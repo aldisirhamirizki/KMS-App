@@ -6,16 +6,20 @@
 package com.keongpuyeng.app.kms.app.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -28,7 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Program.findAll", query = "SELECT p FROM Program p"),
     @NamedQuery(name = "Program.findByIdProgram", query = "SELECT p FROM Program p WHERE p.idProgram = :idProgram"),
     @NamedQuery(name = "Program.findByNamaProgram", query = "SELECT p FROM Program p WHERE p.namaProgram = :namaProgram"),
-    @NamedQuery(name = "Program.findByKet", query = "SELECT p FROM Program p WHERE p.ket = :ket")})
+    @NamedQuery(name = "Program.findByBiaya", query = "SELECT p FROM Program p WHERE p.biaya = :biaya")})
 public class Program implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,9 +49,10 @@ public class Program implements Serializable {
     private String namaProgram;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 30)
-    @Column(name = "ket")
-    private String ket;
+    @Column(name = "biaya")
+    private double biaya;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProgram")
+    private Collection<Siswa> siswaCollection;
 
     public Program() {
     }
@@ -56,10 +61,10 @@ public class Program implements Serializable {
         this.idProgram = idProgram;
     }
 
-    public Program(String idProgram, String namaProgram, String ket) {
+    public Program(String idProgram, String namaProgram, double biaya) {
         this.idProgram = idProgram;
         this.namaProgram = namaProgram;
-        this.ket = ket;
+        this.biaya = biaya;
     }
 
     public String getIdProgram() {
@@ -78,12 +83,21 @@ public class Program implements Serializable {
         this.namaProgram = namaProgram;
     }
 
-    public String getKet() {
-        return ket;
+    public double getBiaya() {
+        return biaya;
     }
 
-    public void setKet(String ket) {
-        this.ket = ket;
+    public void setBiaya(double biaya) {
+        this.biaya = biaya;
+    }
+
+    @XmlTransient
+    public Collection<Siswa> getSiswaCollection() {
+        return siswaCollection;
+    }
+
+    public void setSiswaCollection(Collection<Siswa> siswaCollection) {
+        this.siswaCollection = siswaCollection;
     }
 
     @Override

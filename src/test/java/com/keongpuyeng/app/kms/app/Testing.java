@@ -8,40 +8,33 @@ package com.keongpuyeng.app.kms.app;
 import com.google.gson.Gson;
 import com.keongpuyeng.app.kms.app.configuration.AppConfig;
 import com.keongpuyeng.app.kms.app.controller.UserController;
+import com.keongpuyeng.app.kms.app.dao.ProgramDao;
 import com.keongpuyeng.app.kms.app.dao.UserDao;
-import com.keongpuyeng.app.kms.app.model.Binatang;
-import com.keongpuyeng.app.kms.app.model.User;
+import com.keongpuyeng.app.kms.app.model.KonfirmasiPembayaran;
+import com.keongpuyeng.app.kms.app.service.IMailService;
+import com.keongpuyeng.app.kms.app.service.IPendaftaranService;
+import com.keongpuyeng.app.kms.app.service.ISiswaService;
 import com.keongpuyeng.app.kms.app.service.IUserService;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.List;
-import javax.persistence.Basic;
-import javax.servlet.ServletContext;
-import org.junit.Before;
+import java.util.Date;
 import org.junit.Test;
 
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
-import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 /**
  *
  * @author Aldis-PC
  */
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(classes = {AppConfig.class})
-//@WebAppConfiguration
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {AppConfig.class})
+@WebAppConfiguration
 public class Testing {
 
     @Autowired
@@ -53,16 +46,63 @@ public class Testing {
     @Autowired
     private UserDao userDao;
     
+    @Autowired
+    private IPendaftaranService pendService;
+    
+    @Autowired
+    private ProgramDao programDao;
+    
+    @Autowired
+    private ISiswaService siswaService;
+    
+    @Autowired
+    private IMailService mailService;
+    
     private MockMvc mockMvc;
 
 //    @Before
     public void setup() throws Exception {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
     }
-
-//    @Test
+    
+    @Test
+    @Transactional
     public void myTesting() {
-        ServletContext servletContext = wac.getServletContext();
+//        KonfirmasiPembayaran konfirmasiPembayaran = new KonfirmasiPembayaran();
+//        konfirmasiPembayaran.setTglKonfirmasi(new Date());
+//        
+//        System.out.println("KONFIRMASI: " + new Gson().toJson(konfirmasiPembayaran));
+//
+
+//        ServletContext servletContext = wac.getServletContext();
+//        SiswaDto siswa = new SiswaDto();
+//        siswa.setIdDaftar("D-009");
+//        siswa.setIdSiswa("S-009");
+////        siswa.setEmailDaftar("muhammad.abdu@indocyber.co.id");
+////        siswa.setNamaDaftar("Candi Mahendra");
+//        siswa.setEmailDaftar("aldisirhamirizki@gmail.com");
+//        siswa.setNamaDaftar("Aldis Irhami Rizki");
+//        
+//        DateTimeFormatter dtf = DateTimeFormat.forPattern("EEEE, dd MMMM yyyy").withLocale(Locale.forLanguageTag("id-ID"));
+//        DateTimeFormatter dtf2 = DateTimeFormat.forPattern("dd-MM-yyyy");
+//        LocalDateTime dt = LocalDateTime.parse("31-01-1990", dtf2);
+//        
+////        siswa.setTanggalLahir(dt.toDate());
+//        siswa.setJenisKelamin("Pria");
+//        siswa.setTelepon("089999888800");
+//        siswa.setTempatTinggal("Ciledug");
+//        mailService.sendMail(siswa);
+        
+        
+//        Siswa siswa = siswaService.getSiswaByIdDaftar("D-0001");
+//        
+//        System.out.println("INI SISWA: " + siswa.toString());
+//        System.out.println("JENIS KELAMIN: " + siswa.getJenisKelamin().name());
+//        String x = new Gson().toJson(siswa);
+//        System.out.println("XXX " + x);
+        
+        
+        
 //        List<User> listUser = userService.getUsers();
 //        
 //        String id = null;

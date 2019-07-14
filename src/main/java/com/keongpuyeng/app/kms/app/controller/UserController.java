@@ -22,6 +22,7 @@ import com.keongpuyeng.app.kms.app.service.IUserService;
 import java.util.ArrayList;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
@@ -37,51 +38,49 @@ public class UserController {
     @Autowired
     private IUserService uService;
 
-    @GetMapping("/list")    
+    @GetMapping("/list_user")
     public String listUser(Model theModel) {
         List<User> users = uService.getUsers();
-        theModel.addAttribute("users", users);
-        
-        for (User user : users) {
-            System.out.println(user.getNamaUser());
-            System.out.println(user.getEmailUser());
-            System.out.println(user.getPasswordUser());
-        }
-        
-        return "list-users"; // belum ada jsp
+        theModel.addAttribute("user", users);
+        return "list_user";
     }
 
-    @GetMapping("/showForm")
-    public String showFormForAdd(Model theModel) {
+    @GetMapping("/form_user")
+    public String showFormForAdd(Model theModel
+    ) {
         LOG.debug("inside show user-form handler method");
         User Users = new User();
         theModel.addAttribute("user", Users);
         return "form_user";
     }
-
+    
+   
     @PostMapping("/saveUser")
-//    @RequestMapping(value = "/saveUser", method = RequestMethod.POST)
     public String saveUser(@ModelAttribute("user") User user) {
-               
-        // 
-        
         String json = new Gson().toJson(user);
         System.out.println(json);
-        uService.saveUser(user);
-        return "redirect:/keong/form_user";
+        if(user.getIdUser() == null || user.getIdUser().isEmpty()){
+            uService.saveUser(user);
+        }else {
+            uService.updateUser(user);
+        }
+        return "redirect:/user/list_user";
     }
-    
-    @GetMapping("updateForm")
-    public String showFormForUpdate(@RequestParam("customerId") String theId,
+
+    @GetMapping("/updateUser")
+    public String showFormForUpdate(@RequestParam("idUser") String theId,
             Model theModel) {
         User Users = uService.getUser(theId);
         theModel.addAttribute("user", Users);
+        
+        System.out.println("sssss" + Users.getNamaUser());
         return "form_user";
     }
 
     @GetMapping("/delete")
-    public String deleteUser(@RequestParam("userId") String theId) {
+    public String deleteUser(@RequestParam("idUser") String theId)
+    {
         uService.deleteUser(theId);
-        return "redirect:/user/list";
+        return "redirect:/user/list_user";
     }
 }

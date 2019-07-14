@@ -6,6 +6,7 @@
 package com.keongpuyeng.app.kms.app.service;
 
 import com.keongpuyeng.app.kms.app.model.Program;
+import com.keongpuyeng.app.kms.app.model.ProgramDto;
 import java.util.List;
 
 /**
@@ -22,4 +23,5 @@ public interface IProgramService {
     public void updateProgram(Program program);
     
     public void deleteProgram(String id);
+    
 }

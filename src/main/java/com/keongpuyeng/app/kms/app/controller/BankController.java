@@ -32,7 +32,7 @@ public class BankController {
     @Autowired
     private IBankService bankService;
     
-    @GetMapping("list")
+    @GetMapping("list_bank")
     public String listBank(Model theModel) {
         List<Bank> listBank = bankService.getListBank();
         theModel.addAttribute("bank", listBank);
@@ -43,14 +43,14 @@ public class BankController {
             System.out.println(bank.getRekening());
         }
         
-        return "list-bank"; // belum ada jsp
+        return "list_bank"; // belum ada jsp
 }
-    @GetMapping("/showForm")
+    @GetMapping("/form_bank")
     public String showFormForAdd(Model theModel) {
         LOG.debug("inside show bank-form handler method");
         Bank bank = new Bank();
         theModel.addAttribute("bank", bank);
-        return "form_user";
+        return "form_bank";
     }
     
     @PostMapping("/saveBank")
@@ -58,12 +58,16 @@ public class BankController {
                
         String json = new Gson().toJson(bank);
         System.out.println(json);
-        bankService.saveBank(bank);
-        return "redirect:/keong/form_bank";
+        if(bank.getIdBank() == null || bank.getIdBank().isEmpty()){
+            bankService.saveBank(bank);
+        }else {
+            bankService.updateBank(bank);
+        }
+        return "redirect:/bank/list_bank";
     }
     
-    @GetMapping("updateForm")
-    public String showFormForUpdate(@RequestParam("bankId") String theId,
+    @GetMapping("updateBank")
+    public String showFormForUpdate(@RequestParam("idBank") String theId,
             Model theModel) {
         Bank bank = bankService.getBank(theId);
         theModel.addAttribute("bank", bank);
@@ -71,8 +75,8 @@ public class BankController {
     }
     
     @GetMapping("/delete")
-    public String deleteBank(@RequestParam("bankId") String theId) {
+    public String deleteBank(@RequestParam("idBank") String theId) {
         bankService.deleteBank(theId);
-        return "redirect:/bank/list";
+        return "redirect:/bank/list_bank";
     }
 }

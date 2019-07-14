@@ -24,4 +24,6 @@ public interface IUserService {
     
     public void deleteUser(String id);
     
+     public User getLogin(User user);
+    
 }
