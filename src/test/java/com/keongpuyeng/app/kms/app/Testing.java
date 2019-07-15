@@ -11,15 +11,27 @@ import com.keongpuyeng.app.kms.app.controller.UserController;
 import com.keongpuyeng.app.kms.app.dao.ProgramDao;
 import com.keongpuyeng.app.kms.app.dao.UserDao;
 import com.keongpuyeng.app.kms.app.model.KonfirmasiPembayaran;
+import com.keongpuyeng.app.kms.app.model.Kursus;
+import com.keongpuyeng.app.kms.app.model.Level;
+import com.keongpuyeng.app.kms.app.model.Program;
+import com.keongpuyeng.app.kms.app.model.SiswaDto;
 import com.keongpuyeng.app.kms.app.service.IMailService;
 import com.keongpuyeng.app.kms.app.service.IPendaftaranService;
 import com.keongpuyeng.app.kms.app.service.ISiswaService;
 import com.keongpuyeng.app.kms.app.service.IUserService;
+import java.io.File;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.HashMap;
+import org.joda.time.format.DateTimeFormat;
 import org.junit.Test;
 
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -67,32 +79,59 @@ public class Testing {
     
     @Test
     @Transactional
-    public void myTesting() {
-//        KonfirmasiPembayaran konfirmasiPembayaran = new KonfirmasiPembayaran();
-//        konfirmasiPembayaran.setTglKonfirmasi(new Date());
+    public void myTesting() throws Exception{
+        
+//        File file = new ClassPathResource("fmtemplates/logo.png").getFile();
 //        
-//        System.out.println("KONFIRMASI: " + new Gson().toJson(konfirmasiPembayaran));
+//        
+//        System.out.println("FILE: " + file.getPath());
+//        System.out.println("FILE: " + file.getCanonicalPath());
+//        System.out.println("FILE: " + file.getAbsolutePath());
+//        System.out.println("FILE: " + file.getName());
+//        System.out.println("FILE: " + file.exists());
+//        
+////        KonfirmasiPembayaran konfirmasiPembayaran = new KonfirmasiPembayaran();
+////        konfirmasiPembayaran.setTglKonfirmasi(new Date());
+////        
+////        System.out.println("KONFIRMASI: " + new Gson().toJson(konfirmasiPembayaran));
+////
 //
-
-//        ServletContext servletContext = wac.getServletContext();
+////        ServletContext servletContext = wac.getServletContext();
 //        SiswaDto siswa = new SiswaDto();
+//        Program program = new Program();
+//        Kursus kursus = new Kursus();
+//        Level level = new Level();
+//        
+//        HashMap<String, Object> model = new HashMap();
+//        KonfirmasiPembayaran konfirmasi = new KonfirmasiPembayaran();
 //        siswa.setIdDaftar("D-009");
 //        siswa.setIdSiswa("S-009");
-////        siswa.setEmailDaftar("muhammad.abdu@indocyber.co.id");
-////        siswa.setNamaDaftar("Candi Mahendra");
-//        siswa.setEmailDaftar("aldisirhamirizki@gmail.com");
-//        siswa.setNamaDaftar("Aldis Irhami Rizki");
-//        
-//        DateTimeFormatter dtf = DateTimeFormat.forPattern("EEEE, dd MMMM yyyy").withLocale(Locale.forLanguageTag("id-ID"));
-//        DateTimeFormatter dtf2 = DateTimeFormat.forPattern("dd-MM-yyyy");
-//        LocalDateTime dt = LocalDateTime.parse("31-01-1990", dtf2);
-//        
+//        siswa.setEmailDaftar("muhammad.abdu@indocyber.co.id");
+//        siswa.setNamaDaftar("Candi Mahendra");
+////        siswa.setEmailDaftar("aldisirhamirizki@gmail.com");
+////        siswa.setNamaDaftar("Aldis Irhami Rizki");
+////        DateTimeFormatter dtf = DateTimeFormat.forPattern("EEEE, dd MMMM yyyy").withLocale(Locale.forLanguageTag("id-ID"));
+////        DateTimeFormatter dtf2 = DateTimeFormat.forPattern("dd-MM-yyyy");
+////        LocalDateTime dt = LocalDateTime.parse("31-01-1990", dtf2);
 ////        siswa.setTanggalLahir(dt.toDate());
 //        siswa.setJenisKelamin("Pria");
 //        siswa.setTelepon("089999888800");
 //        siswa.setTempatTinggal("Ciledug");
-//        mailService.sendMail(siswa);
-        
+//        program.setNamaProgram("Profesional");
+//        program.setBiaya(200000);
+//        kursus.setNamaKursus("Guitar");
+//        kursus.setBiaya(100000);
+//        level.setNamaLevel("Beginner");
+//        level.setBiaya(175000);
+//        konfirmasi.setTotalBiaya(150000);
+//        
+//        model.put("siswa", siswa);
+//        model.put("program", program);
+//        model.put("kursus", kursus);
+//        model.put("level", level);
+//        model.put("konfirmasi", konfirmasi);
+//        mailService.sendMail(model, siswa.getEmailDaftar());
+//        
         
 //        Siswa siswa = siswaService.getSiswaByIdDaftar("D-0001");
 //        

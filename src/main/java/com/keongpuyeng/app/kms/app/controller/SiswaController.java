@@ -21,6 +21,7 @@ import com.keongpuyeng.app.kms.app.service.IBankService;
 import com.keongpuyeng.app.kms.app.service.IKonfirmasiService;
 import com.keongpuyeng.app.kms.app.service.IKursusService;
 import com.keongpuyeng.app.kms.app.service.ILevelService;
+import com.keongpuyeng.app.kms.app.service.IMailService;
 import com.keongpuyeng.app.kms.app.service.IPendaftaranService;
 import com.keongpuyeng.app.kms.app.service.IProgramService;
 import java.io.IOException;
@@ -75,6 +76,9 @@ public class SiswaController {
 
     @Autowired
     private IKonfirmasiService konfirmasiService;
+    
+    @Autowired
+    private IMailService mailService;
 
     @GetMapping("/list_siswa")
     public String listSiswa(Model theModel) {
@@ -204,7 +208,7 @@ public class SiswaController {
         siswa.setIdLevel(level);
         siswa.setIdBank(bank);
         System.out.println("INI SISWA: " + siswa.toString());
-
+        KonfirmasiPembayaran kp;
         if (siswaDto.getIdSiswa() == null || siswaDto.getIdSiswa().isEmpty()) {
             System.out.println("SISWA DTO: " + new Gson().toJson(siswaDto));
             System.out.println("SISWA IS NULL");
@@ -216,10 +220,10 @@ public class SiswaController {
             konfirmasiPembayaran.setTglKonfirmasi(new Date());
             konfirmasiPembayaran.setTotalBiaya(siswaDto.getTotalBiaya());
             konfirmasiPembayaran.setBank(bank);
-            konfirmasiPembayaran.setIdImage(null);
-            System.out.println("KONFIRMASI PEMBAYARAN: " + new Gson().toJson(konfirmasiPembayaran));
+            konfirmasiPembayaran.setIdImage("TES IMAGE");
             konfirmasiService.saveKonfirmasi(konfirmasiPembayaran);
-
+            kp = konfirmasiPembayaran;
+            
             SessionModel sessionModel = new SessionModel();
             sessionModel.setIdDaftar(siswaDto.getIdDaftar());
             sessionModel.setNamaDaftar(siswaDto.getNamaDaftar());
@@ -241,7 +245,6 @@ public class SiswaController {
                 konfirmasiPembayaran.setTotalBiaya(siswaDto.getTotalBiaya());
                 konfirmasiPembayaran.setBank(bank);
                 konfirmasiPembayaran.setIdImage("TES IMAGE");
-                //System.out.println("KONFIRMASI:: " + new Gson().toJson(konfirmasiPembayaran));
                 konfirmasiService.saveKonfirmasi(konfirmasiPembayaran);
             }else{
                 konfirmasiPembayaran.setIdSiswa(siswaDto.getIdSiswa());
@@ -251,15 +254,40 @@ public class SiswaController {
                 konfirmasiPembayaran.setIdImage("TES IMAGE");
                 konfirmasiService.updateKonfirmasi(konfirmasiPembayaran);
             }
-            //System.out.println("KONFIRMASI PEMBAYARAN: " + new Gson().toJson(konfirmasiPembayaran));
+            kp = konfirmasiPembayaran;
             
-
             SessionModel sessionModel = new SessionModel();
             sessionModel.setIdDaftar(siswaDto.getIdDaftar());
             sessionModel.setNamaDaftar(siswaDto.getNamaDaftar());
             sessionModel.setEmailDaftar(siswaDto.getEmailDaftar());
             req.getSession().setAttribute("sessionModel", sessionModel);
         }
+        
+        // send email with new thread
+        final SiswaDto sendSiswa = siswaDto;
+        final Program sendProgram = program;
+        final Kursus sendKursus = kursus;
+        final Level sendLevel = level;
+        final Bank sendBank = bank;
+        final KonfirmasiPembayaran sendKp = kp;
+        final String emailAddress = siswaDto.getEmailDaftar();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("START RUN NEW THREAD -> SEND EMAIL");
+                System.out.println("SISWA DTO NEW THREAD -> " + new Gson().toJson(sendSiswa));
+                HashMap<String, Object> model = new HashMap<>();
+                model.put("siswa", sendSiswa);
+                model.put("program", sendProgram);
+                model.put("kursus", sendKursus);
+                model.put("level", sendLevel);
+                model.put("bank", sendBank);
+                model.put("konfirmasi", sendKp);
+                mailService.sendMail(model, emailAddress);
+            }
+        });
+        thread.start();
+        
         System.out.println("OKE DEHHHH");
         return "redirect:/siswa/profil";
     }

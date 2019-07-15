@@ -69,7 +69,7 @@ public class KonfirmasiServiceImpl implements IKonfirmasiService {
         if (listKonfirmasi.isEmpty()) {
             id = "KP-0001";
         } else {
-            DecimalFormat formatId = new DecimalFormat("K-0000");
+            DecimalFormat formatId = new DecimalFormat("KP-0000");
             String nomorUrut = listKonfirmasi.stream().reduce((first, second) -> second).orElse(null).getIdKonfirmasi().substring(4);
             id = formatId.format(Double.parseDouble(nomorUrut) + 1);
         }

@@ -5,10 +5,13 @@
  */
 package com.keongpuyeng.app.kms.app.configuration;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Properties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
@@ -100,7 +103,8 @@ public class AppConfig implements WebMvcConfigurer {
     @Bean
     public FreeMarkerConfigurationFactoryBean getFreeMarkerConfiguration(){
         FreeMarkerConfigurationFactoryBean freeMarkerConfigurationFactoryBean = new FreeMarkerConfigurationFactoryBean();
-        freeMarkerConfigurationFactoryBean.setTemplateLoaderPath("/fmtemplates/");
+//        freeMarkerConfigurationFactoryBean.setTemplateLoaderPath("/fmtemplates/");
+        freeMarkerConfigurationFactoryBean.setTemplateLoaderPath("classpath:/fmtemplates/");
         return freeMarkerConfigurationFactoryBean;
     }
 //    @Bean

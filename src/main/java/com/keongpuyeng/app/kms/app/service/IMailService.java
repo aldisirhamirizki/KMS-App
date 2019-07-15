@@ -5,10 +5,12 @@
  */
 package com.keongpuyeng.app.kms.app.service;
 
+import java.util.HashMap;
+
 /**
  *
  * @author Aldis-PC
  */
 public interface IMailService {
-    void sendMail(Object object);
+    void sendMail(HashMap<String, Object> model, String emailAddress);
 }

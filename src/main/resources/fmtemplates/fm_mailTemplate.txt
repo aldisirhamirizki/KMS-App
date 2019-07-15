@@ -1,0 +1,90 @@
+
+<html>
+<head>
+<style>
+.header{
+    background-repeat: no-repeat;
+    background-size: 100px;
+    height: 50px;
+}
+.header img {
+    width: 150px;
+}
+</style>
+</head>
+    <body>
+        <div class="header">
+            <img src= ${image} alt= "Logo image"/>
+        </div>
+        <br>
+        <h3>Dear ${siswa.namaDaftar}, ID: ${siswa.idSiswa}</h3>
+        <p>
+            Terimakasih telah mendaftar dengan nomor id ${siswa.idDaftar}.<br>
+            Berikut ini adalah data kamu:<br>
+        </p>
+        <table>
+            <tbody>
+                <tr>
+                    <td>Nama</td>
+                    <td>: ${siswa.namaDaftar}</td>
+                </tr>
+                <tr>
+                    <td>Jenis Kelamin</td>
+                    <td>: ${siswa.jenisKelamin}</td>
+                </tr>
+                <tr>
+                    <td>Telepon</td>
+                    <td>: ${siswa.telepon}</td>
+                </tr>
+                <tr>
+                    <td>Tempat tinggal</td>
+                    <td>: ${siswa.tempatTinggal}</td>
+                </tr>
+                <tr>
+                    <td>Program</td>
+                    <td>: ${program.namaProgram}</td>
+                </tr>
+                <tr>
+                    <td>Kursus</td>
+                    <td>: ${kursus.namaKursus}</td>
+                </tr>
+                <tr>
+                    <td>Level</td>
+                    <td>: ${level.namaLevel}</td>
+                </tr>
+
+
+            </tbody>
+        </table>
+        <hr>
+        <hr>
+        <p>Dengan Total Biaya Sebesar:</p>
+        <table>
+        <tbody>
+            <tr>
+                <td>Program</td>
+                <td>: ${program.biaya}</td>
+            </tr>
+            <tr>
+                <td>Kursus</td>
+                <td>: ${kursus.biaya}</td>
+            </tr>
+            <tr>
+                <td>Level</td>
+                <td>: ${level.biaya}</td>
+            </tr>
+            <hr>
+            <tr>
+                <td>Total</td>
+                <td>: ${konfirmasi.totalBiaya}</td>
+            </tr>
+        </tbody>
+        </table>
+        <p>Silahkan melakukan pembayaran ke no rekening: ${bank.rekening}</p>
+        <br><br>
+        <div>
+            Regards!<br><br>
+            <b>KMS-Musik</b>
+        </div>
+    </body>
+</html>
