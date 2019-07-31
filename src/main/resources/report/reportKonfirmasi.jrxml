@@ -6,6 +6,9 @@
 	<parameter name="cari" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="imgPath" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT kp.id_siswa, kp.id_konfirmasi, p.nama_daftar, kp.bank, kp.tgl_konfirmasi, kp.total_biaya FROM konfirmasi_pembayaran kp
              LEFT JOIN siswa s ON kp.id_siswa = s.id_siswa
@@ -53,12 +56,12 @@
 			</rectangle>
 			<image>
 				<reportElement x="14" y="16" width="64" height="31" uuid="cd00dc2e-1482-46ff-b20b-ec1cda5631eb"/>
-				<imageExpression><![CDATA["E:\\Pindah\\Aldis\\MATA KULIAH\\KeongPuyeng\\KMS-App\\src\\main\\webapp\\static\\img\\logo.png"]]></imageExpression>
+				<imageExpression><![CDATA[$P{imgPath}]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement mode="Transparent" x="148" y="16" width="297" height="31" forecolor="#000000" backcolor="#FFFFFF" uuid="311325ac-b2f2-452a-a640-23507270f208"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Geometr212 BkCn BT" size="18" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="Arial" size="18" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[LAPORAN DATA KONFIRMASI]]></text>
