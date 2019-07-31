@@ -17,6 +17,8 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.JasperRunManager;
 import net.sf.jasperreports.engine.util.JRSaver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.StaticApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -49,7 +51,11 @@ public class GenerateReportImpl implements IGenerateReport {
             JRSaver.saveObject(jasperReport, jasperFile);
 
             Locale local = new Locale("id", "ID");
+
+            String imgPath = getReportImgPath();
+
             parameters.put(JRParameter.REPORT_LOCALE, local);
+            parameters.put("imgPath", imgPath);
             parameters.put("cari", cari);
 
             pdf = JasperRunManager.runReportToPdf(jasperFile, parameters, datasource.getConnection());
@@ -72,8 +78,11 @@ public class GenerateReportImpl implements IGenerateReport {
             String jasperFile = file.getPath().replace(".jrxml", ".jasper");
             JRSaver.saveObject(jasperReport, jasperFile);
 
+            String imgPath = getReportImgPath();
+
             Locale local = new Locale("id", "ID");
             parameters.put(JRParameter.REPORT_LOCALE, local);
+            parameters.put("imgPath", imgPath);
             parameters.put("cari", cari);
 
             pdf = JasperRunManager.runReportToPdf(jasperFile, parameters, datasource.getConnection());
@@ -81,6 +90,18 @@ public class GenerateReportImpl implements IGenerateReport {
             e.printStackTrace();
         }
         return pdf;
+    }
+
+    /**
+     * get dynamic image path from resources package
+     * @return
+     * @throws Exception
+     */
+    public String getReportImgPath() throws Exception{
+        // get dynamic image location path to jasper report
+        Resource resource = new ClassPathResource("report/logo.png");
+        String imgPath = resource.getFile().getPath();
+        return imgPath;
     }
 
 }

@@ -6,7 +6,10 @@
 	<parameter name="cari" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
-	<queryString language="SQL">
+	<parameter name="imgPath" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
 		<![CDATA[SELECT
 	s.id_siswa AS id_siswa,
 	p.nama_daftar AS nama_daftar,
@@ -76,14 +79,14 @@ ORDER BY s.id_siswa ASC]]>
 			<staticText>
 				<reportElement mode="Transparent" x="180" y="16" width="225" height="31" forecolor="#000000" backcolor="#FFFFFF" uuid="81aa61f2-5ebf-437c-a22d-25fe03d53bde"/>
 				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Geometr212 BkCn BT" size="18" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="Arial" size="18" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[LAPORAN DATA SISWA]]></text>
 			</staticText>
 			<image>
 				<reportElement x="14" y="16" width="64" height="31" uuid="e026e821-16b3-4054-a47a-ea48b9614da5"/>
-				<imageExpression><![CDATA["E:\\Pindah\\Aldis\\MATA KULIAH\\KeongPuyeng\\KMS-App\\src\\main\\webapp\\static\\img\\logo.png"]]></imageExpression>
+				<imageExpression><![CDATA[$P{imgPath}]]></imageExpression>
 			</image>
 		</band>
 	</title>

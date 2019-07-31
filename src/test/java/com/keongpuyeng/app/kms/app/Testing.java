@@ -97,6 +97,8 @@ public class Testing {
 //    @Test
 //    @Transactional
     public void myTesting() throws Exception{
+        String myPath = this.getClass().getClassLoader().getResource("").toString();
+        System.out.println("PATH: " + myPath);
 //        konfirmService.getKonfirmasiForm("S-0005");
         
 
