@@ -15,9 +15,9 @@
         <!--footer-->
         <section class="footer">
             <div class="container">
-                <h3>Let's Join With Us</h3>
+                <h3>Let's Join Us</h3>
                 <div class="sosial">
-                    <p>Copyright&COPY; 2019 | made with dengdong by <a href="http://instagram/aldisirhami/">KeongPuyeng</a></p>
+                    <p>Copyright&COPY; 2019 | made with dengdong by <a href="https://www.instagram.com/aldisirhami/">KeongPuyeng</a></p>
                 </div>
             </div>
         </section>

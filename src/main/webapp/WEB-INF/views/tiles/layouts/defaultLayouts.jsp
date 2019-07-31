@@ -14,6 +14,8 @@
         <link href="<c:url value="/static/bootstrap4/css/styleAdmin.css"/>" rel="stylesheet"/>
         <link href="<c:url value="/static/bootstrap4/css/bootstrap.css"/>" rel="stylesheet"/>
         <style>
+            
+            
             #site-content {
                 margin-top: 20px;
                 width: 900px;
@@ -28,10 +30,16 @@
                 margin: 20px 0 20px 0;
             }
             .row {
+                color: white;
+                background-image: url("<c:url value="../static/img/monyet.jpg" />");
+                background-size: cover;
                 padding-bottom: 75px;
             }
+            .table {
+                color: white !important;
+            }
         </style>
-        <title>JSP Page</title>
+        <title>KMS-App Dashboard Admin</title>
     </head>
     <body>
         <div id="header">

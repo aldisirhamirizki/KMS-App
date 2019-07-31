@@ -17,24 +17,30 @@ import com.keongpuyeng.app.kms.app.model.SessionModel;
 import com.keongpuyeng.app.kms.app.service.ISiswaService;
 import com.keongpuyeng.app.kms.app.model.Siswa;
 import com.keongpuyeng.app.kms.app.model.SiswaDto;
+import com.keongpuyeng.app.kms.app.param.Param;
 import com.keongpuyeng.app.kms.app.service.IBankService;
+import com.keongpuyeng.app.kms.app.service.IGenerateReport;
 import com.keongpuyeng.app.kms.app.service.IKonfirmasiService;
 import com.keongpuyeng.app.kms.app.service.IKursusService;
 import com.keongpuyeng.app.kms.app.service.ILevelService;
 import com.keongpuyeng.app.kms.app.service.IMailService;
 import com.keongpuyeng.app.kms.app.service.IPendaftaranService;
 import com.keongpuyeng.app.kms.app.service.IProgramService;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
+import org.apache.tika.Tika;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -44,6 +50,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 /**
@@ -76,19 +83,56 @@ public class SiswaController {
 
     @Autowired
     private IKonfirmasiService konfirmasiService;
-    
+
     @Autowired
     private IMailService mailService;
+    
+    @Autowired
+    private IGenerateReport report;
 
     @GetMapping("/list_siswa")
     public String listSiswa(Model theModel) {
         List<Siswa> listSiswa = siswaService.getListSiswa();
-        theModel.addAttribute("siswa", listSiswa);
+        List<KonfirmasiPembayaran> listKonfirm = konfirmasiService.getListKonfirmasi();
+        List<SiswaDto> listDto = new ArrayList<>();
+
+        for (Siswa siswa : listSiswa) {
+            SiswaDto siswaDto = new SiswaDto();
+
+            siswaDto.setIdSiswa(siswa.getIdSiswa());
+            siswaDto.setIdDaftar(siswa.getIdDaftar().getIdDaftar());
+            siswaDto.setNamaDaftar(siswa.getIdDaftar().getNamaDaftar());
+            siswaDto.setTanggalLahir(siswa.getTanggalLahir());
+            siswaDto.setJenisKelamin(siswa.getJenisKelamin().name());
+            siswaDto.setTempatTinggal(siswa.getTempatTinggal());
+            siswaDto.setTelepon(siswa.getTelepon());
+            siswaDto.setIdProgram(siswa.getIdProgram().getNamaProgram());
+            siswaDto.setIdKursus(siswa.getIdKursus().getNamaKursus());
+            siswaDto.setIdLevel(siswa.getIdLevel().getNamaLevel());
+            siswaDto.setIdBank(siswa.getIdBank().getNamaBank());
+            String statusPembayaran = listKonfirm.stream()
+                    .filter(p -> p.getIdSiswa().equalsIgnoreCase(siswa.getIdSiswa()))
+                    .map(x -> x.getStatus())
+                    .collect(Collectors.joining());
+            siswaDto.setStatus(statusPembayaran);
+            // list dto
+            listDto.add(siswaDto);
+
+        }
+        theModel.addAttribute("siswa", listDto);
         return "list_siswa"; // belum ada jsp
     }
 
+    @GetMapping("/search")
+    public String search(Model theModel, @RequestParam("cariSiswa") String cari) {
+        System.out.println("CARI:" + cari);
+        List<SiswaDto> listSearch = siswaService.getSearch(cari);
+        theModel.addAttribute("siswa", listSearch);
+        return "list_siswa";
+    }
+
     @GetMapping("/profil")
-    @Transactional
+    //    @Transactional
     public String showFormForAdd(Model theModel, HttpServletRequest req, HttpServletResponse response) {
 
         LOG.debug("inside show siswa-form handler method");
@@ -97,7 +141,7 @@ public class SiswaController {
         // CHECK SISWA PUNYA ID DAFTAR ATAU BELUM
         String idDaftar = sessionModel2.getIdDaftar();
         Siswa siswa = siswaService.getSiswaByIdDaftar(idDaftar);
-
+        String displayImage = "";
         SiswaDto siswaDto = new SiswaDto();
         if (siswa == null) {
             Pendaftaran pendaftaran = pendService.getPendaftaran(idDaftar);
@@ -108,6 +152,8 @@ public class SiswaController {
 
             theModel.addAttribute("pendaftaran", pendaftaran);
         } else {
+
+            KonfirmasiPembayaran konfirmasiPembayaran = konfirmasiService.getKonfirmasiByIdSiswa(siswa.getIdSiswa());
 
             siswaDto.setIdSiswa(siswa.getIdSiswa());
             siswaDto.setIdDaftar(siswa.getIdDaftar().getIdDaftar());
@@ -124,7 +170,16 @@ public class SiswaController {
             siswaDto.setIdKursus(siswa.getIdKursus().getIdKursus());
             siswaDto.setIdLevel(siswa.getIdLevel().getIdLevel());
             siswaDto.setIdBank(siswa.getIdBank().getIdBank());
-            System.out.println("SISWA DTO: " + new Gson().toJson(siswaDto));
+            siswaDto.setTotalBiaya(konfirmasiPembayaran.getTotalBiaya());
+            siswaDto.setIdKonfirmasi(konfirmasiPembayaran.getIdKonfirmasi());
+
+            Tika tika = new Tika();
+            if (siswa.getImage() != null) {
+            String contentType = tika.detect(siswa.getImage());
+            String encodedImage = Base64.encodeBase64String(siswa.getImage());
+            displayImage = Param.IMG_SRC_PREFIX + contentType + Param.IMG_SRC_SUFIX + encodedImage;
+                System.out.println("DISPLAY IMAGE:" + displayImage);
+            }
         }
 
         List<EnumJenisKelamin> jenisKelamin = Arrays.asList(EnumJenisKelamin.values());
@@ -154,6 +209,8 @@ public class SiswaController {
             mapBank.put(p.getIdBank(), p.getNamaBank());
         });
 
+        theModel.addAttribute("imageDisplay", displayImage);
+
         theModel.addAttribute("jenisKelamin", jenisKelamin);
         theModel.addAttribute("program", listProgram);
         theModel.addAttribute("kursus", listKursus);
@@ -165,24 +222,31 @@ public class SiswaController {
         return "profil";
     }
 
-    @GetMapping("/imageDisplay")
-    public void showImage(HttpServletRequest req, HttpServletResponse response) throws IOException {
-        SessionModel sessionModel2 = (SessionModel) req.getSession().getAttribute("sessionModel");
-        String idDaftar = sessionModel2.getIdDaftar();
-        Siswa siswa2 = siswaService.getSiswaByIdDaftar(idDaftar);
-
-        response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
-        response.getOutputStream().write(siswa2.getImage());
-
-        response.getOutputStream().close();
-    }
-
+//    @GetMapping("/imageDisplay")
+//    public void showImage(HttpServletRequest req, HttpServletResponse response) throws IOException {
+//        SessionModel sessionModel2 = (SessionModel) req.getSession().getAttribute("sessionModel");
+//        String idDaftar = sessionModel2.getIdDaftar();
+//        Siswa siswa2 = siswaService.getSiswaByIdDaftar(idDaftar);
+//
+//        response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
+//        response.getOutputStream().write(siswa2.getImage());
+//
+//        response.getOutputStream().close();
+//    }
     @PostMapping("/saveSiswa")
     @Transactional
     public String saveSiswa(@ModelAttribute("siswa") @Valid SiswaDto siswaDto,
             BindingResult bindingResult,
             HttpServletRequest req,
             @RequestParam CommonsMultipartFile imageUpload) {
+        
+
+        System.out.println("IMAGE UPLOAD: " + imageUpload.getName());
+        System.out.println("IMAGE UPLOAD: " + imageUpload.getBytes());
+        System.out.println("IMAGE UPLOAD: " + imageUpload.getContentType());
+        System.out.println("IMAGE UPLOAD: " + imageUpload.getOriginalFilename());
+        System.out.println("IMAGE UPLOAD: " + imageUpload.getStorageDescription());
+        System.out.println("IMAGE UPLOAD: " + imageUpload.toString());
 
         String json = new Gson().toJson(siswaDto);
         System.out.println("This is SISWA: " + json);
@@ -194,10 +258,15 @@ public class SiswaController {
         Kursus kursus = kursusService.getKursus(siswaDto.getIdKursus());
         Level level = levelService.getLevel(siswaDto.getIdLevel());
         Bank bank = bankService.getBank(siswaDto.getIdBank());
-        System.out.println("BANKOK BANK: " + bank.toString());
+//        System.out.println("BANKOK BANK: " + bank.toString());
 
         Siswa siswa = new Siswa();
-        siswa.setImage(imageUpload.getBytes());
+
+        if (imageUpload.isEmpty()) {
+            siswa.setImage(siswaService.getImageSiswa(siswaDto.getIdSiswa()));
+        } else {
+            siswa.setImage(imageUpload.getBytes());
+        }
         siswa.setJenisKelamin(EnumJenisKelamin.valueOf(siswaDto.getJenisKelamin()));
         siswa.setTanggalLahir(siswaDto.getTanggalLahir());
         siswa.setTempatTinggal(siswaDto.getTempatTinggal());
@@ -220,10 +289,11 @@ public class SiswaController {
             konfirmasiPembayaran.setTglKonfirmasi(new Date());
             konfirmasiPembayaran.setTotalBiaya(siswaDto.getTotalBiaya());
             konfirmasiPembayaran.setBank(bank);
-            konfirmasiPembayaran.setIdImage("TES IMAGE");
+            konfirmasiPembayaran.setStatus(Param.BELUM_BAYAR);
+//            konfirmasiPembayaran.setImageBukti("TES IMAGE");
             konfirmasiService.saveKonfirmasi(konfirmasiPembayaran);
             kp = konfirmasiPembayaran;
-            
+
             SessionModel sessionModel = new SessionModel();
             sessionModel.setIdDaftar(siswaDto.getIdDaftar());
             sessionModel.setNamaDaftar(siswaDto.getNamaDaftar());
@@ -244,25 +314,25 @@ public class SiswaController {
                 konfirmasiPembayaran.setTglKonfirmasi(new Date());
                 konfirmasiPembayaran.setTotalBiaya(siswaDto.getTotalBiaya());
                 konfirmasiPembayaran.setBank(bank);
-                konfirmasiPembayaran.setIdImage("TES IMAGE");
+                konfirmasiPembayaran.setStatus(Param.BELUM_BAYAR);
+//                konfirmasiPembayaran.setImageBukti("TES IMAGE");
                 konfirmasiService.saveKonfirmasi(konfirmasiPembayaran);
-            }else{
+            } else {
                 konfirmasiPembayaran.setIdSiswa(siswaDto.getIdSiswa());
                 konfirmasiPembayaran.setTglKonfirmasi(new Date());
                 konfirmasiPembayaran.setTotalBiaya(siswaDto.getTotalBiaya());
                 konfirmasiPembayaran.setBank(bank);
-                konfirmasiPembayaran.setIdImage("TES IMAGE");
                 konfirmasiService.updateKonfirmasi(konfirmasiPembayaran);
             }
             kp = konfirmasiPembayaran;
-            
+
             SessionModel sessionModel = new SessionModel();
             sessionModel.setIdDaftar(siswaDto.getIdDaftar());
             sessionModel.setNamaDaftar(siswaDto.getNamaDaftar());
             sessionModel.setEmailDaftar(siswaDto.getEmailDaftar());
             req.getSession().setAttribute("sessionModel", sessionModel);
         }
-        
+
         // send email with new thread
         final SiswaDto sendSiswa = siswaDto;
         final Program sendProgram = program;
@@ -287,7 +357,7 @@ public class SiswaController {
             }
         });
         thread.start();
-        
+
         System.out.println("OKE DEHHHH");
         return "redirect:/siswa/profil";
     }
@@ -304,5 +374,12 @@ public class SiswaController {
     public String deleteProg(@RequestParam("idSiswa") String theId) {
         siswaService.deleteSiswa(theId);
         return "redirect:/siswa/list_siswa";
+    }
+    
+    @GetMapping(value = "/getPdf", produces = MediaType.APPLICATION_PDF_VALUE)
+    @Transactional
+    public @ResponseBody byte[] downloadReport(@RequestParam("cariReport") String cariReport){
+        byte[] pdf = report.generatePdfReportSiswa(cariReport);        
+        return pdf;
     }
 }

@@ -9,13 +9,22 @@
 <!DOCTYPE html>
 <head>
     <link href="<c:url value="/static/bootstrap4/css/bootstrap.css"/>" rel="stylesheet"/>
+    <style>
+        #t1 {
+            font-size: 70px;
+            color: khaki;
+        }
+    </style>
 </head>
-<div class="badge-info">
-    <h1>Selamat Datang</h1>
+<div class="text-center">
+    <h1><span id="t1">S</span>elamat <span id="t1">D</span>atang</h1>
 </div>
 <div >
-<h3>Hy Admin, selamat datang Di Halaman Admin Kursus Musik<br>
-    silahkan memilih menu untuk mengelola data
-</h3>
+    <h3>Hy 
+        <c:if test="${sessionModel.idUser != null}">
+            ${sessionModel.namaUser}
+        </c:if>, selamat datang Di Halaman Admin Kursus Musik<br>
+        silahkan memilih menu untuk mengelola data
+    </h3>
 
 </div>

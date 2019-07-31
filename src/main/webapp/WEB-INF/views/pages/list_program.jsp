@@ -16,12 +16,12 @@
     </head>
     <body>
         <div class="panel-heading text-right">
-            <input type="button" value="Add Program"
+            <input type="button" value="Tambah Program"
                    onclick="window.location.href = 'form_program'; return false;"
                    class="btn btn-primary" />
         </div>
         <div class="panel-title">
-            Program List
+           Daftar Program
         </div>
     <div class="panel-body">
         <table class="table table-striped table-bordered">

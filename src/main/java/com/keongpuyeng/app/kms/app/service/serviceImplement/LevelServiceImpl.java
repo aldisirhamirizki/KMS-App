@@ -25,7 +25,7 @@ public class LevelServiceImpl implements ILevelService{
     private LevelDao levelDao;
     
     @Override
-    @Transactional
+    //@Transactional
     public List<Level> getListLevel() {
         List<Level> lList = levelDao.findAll(); 
         return lList;

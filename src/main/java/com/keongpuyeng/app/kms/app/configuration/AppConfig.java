@@ -5,18 +5,14 @@
  */
 package com.keongpuyeng.app.kms.app.configuration;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Properties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -77,10 +73,10 @@ public class AppConfig implements WebMvcConfigurer {
         multipartResolver.setMaxUploadSize(16777216);
         return multipartResolver;
     }
-    
+
     // email configuration
     @Bean
-    public JavaMailSender getMailSender(){
+    public JavaMailSender getMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 
         //send using gmail
@@ -98,17 +94,14 @@ public class AppConfig implements WebMvcConfigurer {
         mailSender.setJavaMailProperties(javaMailProperties);
         return mailSender;
     }
-    
+
     // Freemarker configuration
     @Bean
-    public FreeMarkerConfigurationFactoryBean getFreeMarkerConfiguration(){
+    public FreeMarkerConfigurationFactoryBean getFreeMarkerConfiguration() {
         FreeMarkerConfigurationFactoryBean freeMarkerConfigurationFactoryBean = new FreeMarkerConfigurationFactoryBean();
 //        freeMarkerConfigurationFactoryBean.setTemplateLoaderPath("/fmtemplates/");
         freeMarkerConfigurationFactoryBean.setTemplateLoaderPath("classpath:/fmtemplates/");
         return freeMarkerConfigurationFactoryBean;
     }
-//    @Bean
-//    public StandardServletMultipartResolver multipartResolver() {
-//        return new StandardServletMultipartResolver();
-//    }
+
 }

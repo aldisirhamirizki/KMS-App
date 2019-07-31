@@ -17,12 +17,12 @@
     <body>
         <div class="container">
             <div class="panel-heading">
-                <input type="button" value="Add Bank"
+                <input type="button" value="Tambah Bank"
                        onclick="window.location.href = 'form_bank'; return false;"
                        class="btn btn-primary" />
             </div>
             <div class="panel-title">
-                Bank List
+                Daftar Bank
             </div>
             <div class="panel-body">
                 <table class="table table-striped table-bordered">

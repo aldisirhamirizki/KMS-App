@@ -38,9 +38,6 @@
                     <a class="nav-item btn btn-info" href="" data-toggle="modal" data-target="#modalLRForm">Daftar/Login</a>
                 </c:when>
                 <c:otherwise>
-                    <a class="nav-item nav-link" id="profil" href="/KMS-App/siswa/profil">
-                        Hai, ${sessionModel.namaDaftar}
-                    </a>
                     <a class="nav-item btn btn-danger" href="/KMS-App/login/logout">Logout</a>
                 </c:otherwise>
             </c:choose>

@@ -56,7 +56,7 @@
 </style>
 
 <div class="nav-item">
-    <a class="nav-link active" href="${pageContext.request.contextPath}/keong/">Home</a>
+    <a class="nav-link active" href="${pageContext.request.contextPath}/keong/admin">Home</a>
 </div>
 <div class="nav-item">
     <a class="nav-link" href="${pageContext.request.contextPath}/program/list_program">Program</a>
@@ -72,6 +72,9 @@
 </div>
 <div class="nav-item">
     <a class="nav-link" href="${pageContext.request.contextPath}/siswa/list_siswa">Daftar Siswa</a>
+</div>
+<div class="nav-item">
+    <a class="nav-link" href="${pageContext.request.contextPath}/konfirmasi/list_konfirmasi">Daftar Konfirmasi</a>
 </div>
 <div class="nav-item">
     <a class="nav-link" href="${pageContext.request.contextPath}/user/list_user">User</a>

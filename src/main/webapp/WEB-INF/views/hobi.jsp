@@ -64,13 +64,13 @@
                         <p>3 X Pertemuan seminggu<br>60 menit</p>
                     </div>
                 </div>
-                <button class="btn btn-outline-primary" id="tombol">Daftar</button>
             </div>
         </section>
         <!--jadwal-->
-        
+
         <%@include file="login.jsp" %>
         <%@include file="footer.jsp" %>
+        <jsp:include page="daftar.jsp" />
 
         <script src="<c:url value="/static/bootstrap4/jquery-3.3.1.min.js"/>"></script>
         <script src="<c:url value="/static/bootstrap4/js/bootstrap.js"/>"></script>

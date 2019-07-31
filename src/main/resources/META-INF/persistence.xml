@@ -12,6 +12,7 @@
     <class>com.keongpuyeng.app.kms.app.model.Siswa</class>
     <class>com.keongpuyeng.app.kms.app.model.User</class>
     <class>com.keongpuyeng.app.kms.app.model.KonfirmasiPembayaran_1</class>
+    <class>com.keongpuyeng.app.kms.app.model.Bank_1</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/kursus_musik?zeroDateTimeBehavior=convertToNull"/>

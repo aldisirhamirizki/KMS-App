@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -50,14 +51,14 @@ public class Level implements Serializable {
     private String namaLevel;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 30)
+    @Size(min = 1, max = 40)
     @Column(name = "keterangan")
     private String keterangan;
     @Basic(optional = false)
     @NotNull
     @Column(name = "biaya")
     private double biaya;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idLevel")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idLevel", fetch = FetchType.LAZY)
     private Collection<Siswa> siswaCollection;
 
     public Level() {

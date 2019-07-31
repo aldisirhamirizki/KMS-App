@@ -55,21 +55,37 @@ public class AppController {
 
     @RequestMapping(value = "/kursus", method = RequestMethod.GET)
     public String kursusApp(ModelMap model) {
+        
+        Pendaftaran pendaftaran = new Pendaftaran();
+        model.addAttribute("pendaftaran", pendaftaran);
+        model.addAttribute("login", pendaftaran);
         return "kursus";
     }
-
+    
     @RequestMapping(value = "/hobi", method = RequestMethod.GET)
     public String hobiApp(ModelMap model) {
+        
+        Pendaftaran pendaftaran = new Pendaftaran();
+        model.addAttribute("pendaftaran", pendaftaran);
+        model.addAttribute("login", pendaftaran);
         return "hobi";
     }
 
     @RequestMapping(value = "/profesional", method = RequestMethod.GET)
     public String profesionalApp(ModelMap model) {
+        
+        Pendaftaran pendaftaran = new Pendaftaran();
+        model.addAttribute("pendaftaran", pendaftaran);
+        model.addAttribute("login", pendaftaran);
         return "profesional";
     }
 
     @RequestMapping(value = "/about", method = RequestMethod.GET)
     public String aboutApp(ModelMap model) {
+        
+        Pendaftaran pendaftaran = new Pendaftaran();
+        model.addAttribute("pendaftaran", pendaftaran);
+        model.addAttribute("login", pendaftaran);
         return "about";
     }
 

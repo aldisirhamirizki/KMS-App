@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportKonfirmasi" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="47f344de-a20d-4725-b782-0e30cbb68c8a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="cari" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT kp.id_siswa, kp.id_konfirmasi, p.nama_daftar, kp.bank, kp.tgl_konfirmasi, kp.total_biaya FROM konfirmasi_pembayaran kp
+             LEFT JOIN siswa s ON kp.id_siswa = s.id_siswa
+             LEFT JOIN pendaftaran p ON s.id_daftar = p.id_daftar
+             WHERE s.id_siswa LIKE CONCAT('%', $P{cari}, '%') OR
+             kp.id_konfirmasi LIKE CONCAT('%', $P{cari}, '%') OR
+             p.nama_daftar LIKE CONCAT('%', $P{cari}, '%') OR
+             kp.tgl_konfirmasi LIKE CONCAT('%', $P{cari}, '%')
+             ORDER BY s.id_siswa ASC]]>
+	</queryString>
+	<field name="id_siswa" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_konfirmasi" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama_daftar" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="bank" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tgl_konfirmasi" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_biaya" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="total_biaya_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_biaya}]]></variableExpression>
+	</variable>
+	<variable name="total_biaya_2" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{total_biaya}]]></variableExpression>
+	</variable>
+	<variable name="total_biaya_3" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_biaya}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="79" backcolor="#F1E3FF" uuid="2afb9ee6-5225-4344-98c6-bccb719db40e"/>
+			</rectangle>
+			<image>
+				<reportElement x="14" y="16" width="64" height="31" uuid="cd00dc2e-1482-46ff-b20b-ec1cda5631eb"/>
+				<imageExpression><![CDATA["E:\\Pindah\\Aldis\\MATA KULIAH\\KeongPuyeng\\KMS-App\\src\\main\\webapp\\static\\img\\logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement mode="Transparent" x="148" y="16" width="297" height="31" forecolor="#000000" backcolor="#FFFFFF" uuid="311325ac-b2f2-452a-a640-23507270f208"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Geometr212 BkCn BT" size="18" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[LAPORAN DATA KONFIRMASI]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="26" splitType="Stretch">
+			<textField pattern="EEEE, dd-MM-yyyy">
+				<reportElement x="349" y="0" width="189" height="20" uuid="c0d599aa-a164-411c-9457-4a508cb28259"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Segoe UI Light" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.FULL, $P{REPORT_LOCALE}).format(new java.util.Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" backcolor="#F1E3FF" uuid="a90ccf6a-636f-4e8b-b32b-3284e593f22a"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="78" height="20" uuid="cc29cbc2-792f-4085-8ea3-e70f3de06bc8"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Id Siswa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="78" y="0" width="100" height="20" uuid="7bd6cc61-c4d2-4f93-90b2-2de792e7b21d"/>
+				<text><![CDATA[Nama Siswa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="178" y="0" width="100" height="20" uuid="9e59ff49-f9b5-4d54-b752-8f9a2b240a72"/>
+				<text><![CDATA[Id Konfirmasi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="378" y="0" width="57" height="20" uuid="fedf86dc-5043-4570-8a7b-29c4a751888c"/>
+				<text><![CDATA[Bank]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="278" y="0" width="100" height="20" uuid="02016e98-1633-4eb5-ba34-741e801d8d18"/>
+				<text><![CDATA[Tanggal Konfirmasi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="435" y="0" width="100" height="20" uuid="a044a690-7957-4001-a902-a93d98409ba8"/>
+				<text><![CDATA[Biaya]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="78" height="20" uuid="b6a001a1-27d4-46a8-b213-fe89aa0d92ad"/>
+				<textFieldExpression><![CDATA[$F{id_siswa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="78" y="0" width="100" height="20" uuid="082e47e8-963d-4be3-9d2c-049a3f0a11a3"/>
+				<textFieldExpression><![CDATA[$F{nama_daftar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="178" y="0" width="100" height="20" uuid="a2cf40de-b0c9-4b2f-979d-5156bccedd28"/>
+				<textFieldExpression><![CDATA[$F{id_konfirmasi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="378" y="0" width="57" height="20" uuid="1c1a8f19-83fc-45ab-bbd6-2e8c30d15add"/>
+				<textFieldExpression><![CDATA[$F{bank}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEE, dd-MM-yyyy">
+				<reportElement x="278" y="0" width="100" height="20" uuid="5701d0aa-7245-4871-82cf-6eeb5b85c252"/>
+				<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.FULL, $P{REPORT_LOCALE}).format($F{tgl_konfirmasi})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="435" y="0" width="100" height="20" uuid="eca81d5c-1986-44ba-8477-ce85bc29dc3b"/>
+				<textFieldExpression><![CDATA[$F{total_biaya}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="39" splitType="Stretch">
+			<textField>
+				<reportElement x="435" y="7" width="100" height="20" uuid="f42235a6-d140-4120-8121-df412f9ddf92"/>
+				<textFieldExpression><![CDATA[$V{total_biaya_3}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="404" y="9" width="31" height="20" uuid="b1ab3c3a-cfab-4e0c-9546-474cffa44a06"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<line>
+				<reportElement x="404" y="0" width="100" height="1" uuid="30fa8573-bd3c-47f1-ae0a-0c1ffe54e531"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

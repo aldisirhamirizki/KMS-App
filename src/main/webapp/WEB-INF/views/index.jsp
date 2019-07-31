@@ -23,6 +23,9 @@
         <jsp:include page="navbar.jsp"/>
         <!--akhir navbar-->
 
+        <jsp:include page="nameTag.jsp"/>
+        
+        
         <!--Carousel-->
         <section class="hero-section">
             <div class="hero-slider owl-carousel">
@@ -108,9 +111,9 @@
         <!--akhir program profesional-->
 
         <%@include file="footer.jsp" %>
-       <jsp:include page="daftar.jsp" />
-        
-        
+        <jsp:include page="daftar.jsp" />
+
+
 
 
         <script src="<c:url value="/static/bootstrap4/jquery-3.3.1.min.js"/>"></script>

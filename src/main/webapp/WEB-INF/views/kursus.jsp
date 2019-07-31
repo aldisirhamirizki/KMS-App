@@ -22,6 +22,7 @@
          <jsp:include page="navbar2.jsp"/>
         <!--akhir navbar-->
 
+        
         <!--vokal-->
         <div class="row vokal">
             <div class="col-md-5 offset-md-1">
@@ -93,6 +94,7 @@
         <!--akhir drum-->
 
         <%@include file="footer.jsp" %>
+        <jsp:include page="daftar.jsp" />
 
         <script src="<c:url value="/static/bootstrap4/jquery-3.3.1.min.js"/>"></script>
         <script src="<c:url value="/static/bootstrap4/js/bootstrap.js"/>"></script>

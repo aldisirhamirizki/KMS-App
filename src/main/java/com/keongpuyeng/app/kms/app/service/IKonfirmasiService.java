@@ -5,6 +5,7 @@
  */
 package com.keongpuyeng.app.kms.app.service;
 
+import com.keongpuyeng.app.kms.app.model.KonfirmasiDto;
 import com.keongpuyeng.app.kms.app.model.KonfirmasiPembayaran;
 import java.util.List;
 
@@ -19,7 +20,13 @@ public interface IKonfirmasiService {
     
     public KonfirmasiPembayaran getKonfirmasi(String id);
     
+    public KonfirmasiDto getKonfirmasiForm (String idSiswa);
+    
     public KonfirmasiPembayaran getKonfirmasiByIdSiswa(String id);
+    
+    public List<KonfirmasiDto> getListKonfirmasiNama();
+    
+//    public List<KonfirmasiDto> getSearchKonfirm (String cari);
     
     public void updateKonfirmasi(KonfirmasiPembayaran konfirmasi);
     

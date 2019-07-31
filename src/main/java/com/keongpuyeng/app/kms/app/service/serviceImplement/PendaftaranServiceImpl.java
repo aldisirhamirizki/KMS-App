@@ -42,7 +42,7 @@ public class PendaftaranServiceImpl implements IPendaftaranService{
     }
 
     @Override
-    @Transactional
+//    @Transactional
     public Pendaftaran getPendaftaran(String id) {
          return pendaftaranDao.findById(id).orElse(null);
     }

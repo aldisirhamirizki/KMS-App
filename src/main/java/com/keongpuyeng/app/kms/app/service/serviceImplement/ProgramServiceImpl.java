@@ -28,7 +28,7 @@ public class ProgramServiceImpl implements IProgramService{
     private ProgramDao programDao;
     
     @Override
-    @Transactional
+//    @Transactional
     public List<Program> getListPrograms() {
         List<Program> pList = programDao.findAll();        
         return pList;

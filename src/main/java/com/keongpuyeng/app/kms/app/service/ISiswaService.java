@@ -22,6 +22,10 @@ public interface ISiswaService {
     
     public Siswa getSiswaByIdDaftar(String idDaftar);
     
+    public List<SiswaDto> getSearch (String cari);
+    
+    public byte[] getImageSiswa(String idSiswa);
+    
     public void updateSiswa(Siswa siswa);
     
     public void deleteSiswa(String id);

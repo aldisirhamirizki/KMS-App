@@ -5,7 +5,6 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -15,6 +14,7 @@
     <head>
         <link href="<c:url value="/static/bootstrap4/css/bootstrap.css"/>" rel="stylesheet" />
         <link href="<c:url value="/static/bootstrap4/css/style.css"/>" rel="stylesheet" />
+        <title>KMS-App</title>
         <style>
             body {
                 background: linear-gradient(-25deg, #ffffff, #ffffff, #fffa6f, #f9cc66);
@@ -72,17 +72,13 @@
 
             #formProfil {
                 background-color: #ffffff4a;
-                padding-top: 50px;
+                padding-top: 100px;
             }
 
             #fileProfil {
                 max-width: 150px;
             }
-
-            #fileBukti {
-                max-width: 200px;
-            }
-
+            
             #optionRow {
                 margin-left: 20px;
             }
@@ -100,6 +96,7 @@
             #formBiaya {
                 margin-left: 50px;
             }
+
             .form-inline {
                 margin-bottom: 10px;
             }
@@ -111,15 +108,32 @@
             .formSlc3 {
                 padding-right: 41px;
             }
+
+            #konfirm {
+                position: absolute;
+                left: 65%;
+            }
+
+            #konfirm .btn-danger  {
+                text-align: center;
+            }
         </style>
     </head>
 
     <body>
-
         <jsp:include page="navbar2.jsp" />
         <div class="text-center" id="textTop">
             <h3>Silahkan Lengkapi Data Anda</h3>
         </div>
+        
+        
+        <!--tombol konfirmasi-->
+        <c:if test="${siswa.idKonfirmasi != null}">
+            <div class="container" id="konfirm">
+                <a href="${pageContext.request.contextPath}/konfirmasi/form_konfirmasi/${siswa.idSiswa}" class="btn btn-danger">Konfirmasi Pembayaran Anda<br>disini!!!</a> 
+            </div>
+        </c:if>
+
         <div class="container" id="formProfil">
             <div class="row">
                 <!-- edit form column -->
@@ -127,11 +141,11 @@
                     <form:form action="${pageContext.request.contextPath}/siswa/saveSiswa" method="post"
                                modelAttribute="siswa" enctype="multipart/form-data">
                         <h2>Edit Profile</h2>
-                        <img id="fileProfil" src="${pageContext.request.contextPath}/siswa/imageDisplay?id=${siswa.idSiswa}"
+                        <img id="fileProfil"  src="${imageDisplay}"
                              class="m-x-auto img-fluid img-circle" />
-                        <h6 class="m-t-2">Upload a different photo</h6>
+                        <p class="small">Max 500kb</p>
                         <label class="custom-file">
-                            <input type="file" name="imageUpload" onchange="readURL(this, '#fileProfil');" />
+                            <input type="file" name="imageUpload" onchange="readURL(this, '#fileProfil');"  />
                         </label>
                     </div>
 
@@ -177,7 +191,8 @@
                             <div class="form-inline">
                                 <label for="programSelect" class="col-md-2">Program</label>
                                 <div Class="form-group">
-                                <form:select path="idProgram" class="form-control formSlc1" id="programSelect" onchange="getBiayaProgram()">
+                                <form:select path="idProgram" class="form-control formSlc1" id="programSelect"
+                                             onchange="getBiayaProgram()">
                                     <form:option value="none">--pilih program--</form:option>
                                     <c:forEach items="${program}" var="program">
                                         <form:option value="${program.idProgram}">${program.namaProgram}
@@ -195,7 +210,8 @@
                             <div class="form-inline">
                                 <label for="kursusSelect" class="col-md-2">Kursus</label>
                                 <div Class="form-group">
-                                <form:select path="idKursus" class="form-control formSlc2" id="kursusSelect" onchange="getBiayaKursus()">
+                                <form:select path="idKursus" class="form-control formSlc2" id="kursusSelect"
+                                             onchange="getBiayaKursus()">
                                     <form:option value="none">--pilih kursus--</form:option>
                                     <c:forEach items="${kursus}" var="kursus">
                                         <form:option value="${kursus.idKursus}">${kursus.namaKursus}
@@ -212,7 +228,8 @@
                             <div class="form-inline">
                                 <label for="levelSelect" class="col-md-2">Level</label>
                                 <div Class="form-group">
-                                <form:select path="idLevel" class="form-control formSlc3" id="levelSelect" onchange="getBiayaLevel()">
+                                <form:select path="idLevel" class="form-control formSlc3" id="levelSelect"
+                                             onchange="getBiayaLevel()">
                                     <form:option value="none">--pilih level--</form:option>
                                     <c:forEach items="${level}" var="level">
                                         <form:option value="${level.idLevel}">${level.namaLevel}</form:option>
@@ -225,28 +242,19 @@
                                 </div>
                             </div>
                             <div Class="form-group">
-                                <label for="bankSelect" >Bank</label>
+                                <label for="bankSelect">Bank</label>
                             <form:select path="idBank" class="form-control" id="bankSelect">
                                 <form:option value="none">--pilih bank--</form:option>
                                 <c:forEach items="${bank}" var="bank">
                                     <form:option value="${bank.idBank}">${bank.namaBank}</form:option>
                                 </c:forEach>
                             </form:select>
-                            <form:errors path="idBank"></form:errors>
+                            <form:errors></form:errors>
                             </div>
                             <div class="form-group">
                                 <label for="totalBiaya">Total Biaya</label>
                             <form:input type="text" id="totalBiaya" class="form-control" path="totalBiaya" readonly="true" />
                         </div>
-
-                        <!--
-                        <div class="text-center">
-                                        <h5>Upload Bukti Transfer</h5>
-                                        <img id="fileBukti" src="http://placehold.it/200" class="img-thumbnail" alt="avatar" />
-                                        <label class="custom-file">
-                                            <input type="file" onchange="readURL(this, '#fileBukti');" class="form-control">
-                                        </label>
-                                    </div>-->
                         <button type="submit" Class="btn btn-primary">Submit</button>
                     </div>
                 </form:form>
@@ -254,9 +262,17 @@
             </div>
         </div>
         <hr />
-        <script src="<c:url value="/static/bootstrap4/js/sweetalert2.all.js"/>"></script>
-        <script src="<c:url value="/static/bootstrap4/jquery-3.3.1.min.js"/>"></script> 
+        <script src="<c:url value="/static/bootstrap4/jquery-3.3.1.min.js" />" ></script> 
+        <script src="<c:url value="/static/bootstrap4/js/sweetalert2.all.js" />" ></script>
+
         <script>
+
+                                var fotoKu = document.getElementById('fileProfil').src;
+                                console.log(fotoKu);
+
+                                var fileZ = new FileReader();
+
+
                                 // initial object Program
                                 function Program(idProgram, namaProgram, biaya) {
                                     this.idProgram = idProgram;
@@ -268,6 +284,8 @@
                                 var program = new Program("${list.idProgram}", "${list.namaProgram}", "${list.biaya}");
                                 listProgram.push(program);
             </c:forEach >
+
+
 
                                 // initial object Kursus
                                 function Kursus(idKursus, namaKursus, biaya) {
@@ -320,7 +338,7 @@
                                 }
 
                                 function getBiayaLevel() {
-                                    let idLevel = $('#kursusSelect option:selected').val();
+                                    let idLevel = $('#levelSelect option:selected').val();
                                     for (let i = 0; i < listLevel.length; i++) {
                                         if (listLevel[i].idLevel === idLevel) {
                                             $('#biayaLevel').val(listLevel[i].biaya);
@@ -332,6 +350,11 @@
                                     getTotal();
                                 }
 
+                                // init biaya
+                                getBiayaKursus();
+                                getBiayaLevel();
+                                getBiayaProgram();
+
                                 function getTotal() {
                                     let biayaProgram = isNaN(parseFloat($('#biayaProgram').val())) ? 0 : parseFloat($('#biayaProgram').val());
                                     let biayaKursus = isNaN(parseFloat($('#biayaKursus').val())) ? 0 : parseFloat($('#biayaKursus').val());
@@ -342,7 +365,6 @@
                                 }
 
                                 function readURL(input, imageId) {
-                                    debugger;
                                     if (input.files && input.files[0]) {
                                         var reader = new FileReader();
 

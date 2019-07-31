@@ -70,10 +70,6 @@
                         </div>
 
                         <div class="modal-footer">
-                            <div class="options text-center text-md-right mt-1">
-                                <p>Not a member? <a href="#" class="blue-text">Sign Up</a></p>
-                                <p>Forgot <a href="#" class="blue-text">Password?</a></p>
-                            </div>
                             <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Close</button>
                         </div>
 
@@ -132,11 +128,9 @@
 
         // daftar function
         $('#pendaftaran').submit(function (e) {
-            
             e.preventDefault();
             let form = $(this);
             let url = form.attr('action');
-//            form.find('input:hidden[id="idDaftar"]').val("INIT_VALUE");
 
             $.ajax({
                 type: "POST",
@@ -150,8 +144,9 @@
                         $('#modalLRForm').modal('hide');
                         Swal.fire({
                             title: 'Success',
-                            text: 'Anda Berhasil Daftar',
-                            type: 'success'
+                            text: 'Anda berhasil daftar, silakan login ke aplikasi',
+                            type: 'success',
+                            allowOutsideClick: false
                         }).then(function (result) {
                             if (result.value) {
                                 window.location.href = responseData.redirectUrl;
@@ -214,7 +209,8 @@
                         Swal.fire({
                             title: 'Success',
                             text: 'Login Sukses',
-                            type: 'success'
+                            type: 'success',
+                            allowOutsideClick: false
                         }).then(function (result) {
                             if (result.value) {
                                 window.location.href = responseData.redirectUrl;

@@ -69,6 +69,17 @@ public class SiswaDto {
     private String idKonfirmasi;
 
     private double totalBiaya;
+    
+    private String Status;
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String Status) {
+        this.Status = Status;
+    }
+    
 
     public String getIdKonfirmasi() {
         return idKonfirmasi;

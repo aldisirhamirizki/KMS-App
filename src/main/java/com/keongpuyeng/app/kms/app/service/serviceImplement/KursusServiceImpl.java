@@ -25,7 +25,7 @@ public class KursusServiceImpl implements IKursusService {
     private KursusDao kursusDao;
 
     @Override
-    @Transactional
+    //@Transactional
     public List<Kursus> getListKursus() {
         List<Kursus> kList = kursusDao.findAll();
         return kList;

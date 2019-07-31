@@ -12,4 +12,10 @@ package com.keongpuyeng.app.kms.app.param;
 public class Param {
     public static final String SUCCESS = "SUCCESS";
     public static final String FAIL = "FAIL";
+    
+    public static final String SUDAH_BAYAR = "SUDAH BAYAR";
+    public static final String BELUM_BAYAR = "BELUM BAYAR";
+    
+    public static final String IMG_SRC_PREFIX = "data:";
+    public static final String IMG_SRC_SUFIX = ";base64,";
 }

@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -53,11 +54,11 @@ public class Kursus implements Serializable {
     @Column(name = "biaya")
     private double biaya;
     @Basic(optional = false)
-    @NotNull
+//    @NotNull
     @Size(min = 1, max = 30)
     @Column(name = "ket")
     private String ket;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idKursus")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idKursus", fetch = FetchType.LAZY)
     private Collection<Siswa> siswaCollection;
 
     public Kursus() {

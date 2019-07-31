@@ -17,18 +17,19 @@
     <body>
         <div class="container">
             <div class="panel-heading">
-                <input type="button" value="Add Level"
+                <input type="button" value="Tambah Level"
                        onclick="window.location.href = 'form_level'; return false;"
                        class="btn btn-primary" />
             </div>
             <div class="panel-title">
-                Level List
+                Daftar Level
             </div>
             <div class="panel-body">
                 <table class="table table-striped table-bordered">
                     <tr>
                         <th>Id level</th>
                         <th>Nama level</th>
+                        <th>Keterangan</th>
                         <th>Biaya</th>
                         <th>Action</th>
                     </tr>
@@ -46,6 +47,7 @@
                         <tr>
                             <td>${temp.idLevel}</td>
                             <td>${temp.namaLevel}</td>
+                            <td>${temp.keterangan}</td>
                             <td>${temp.biaya}</td>
 
                             <td>

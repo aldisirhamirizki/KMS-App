@@ -85,4 +85,10 @@
         <put-attribute name="title" value="Form User"/>
         <put-attribute name="body" value="/WEB-INF/views/pages/form_user.jsp"/>
     </definition>
+    
+    <!--List User-->
+    <definition name="list_konfirmasi" extends="base-definition">
+        <put-attribute name="title" value="List Konfirmasi"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/list_konfirmasi.jsp"/>
+    </definition>
 </tiles-definitions>

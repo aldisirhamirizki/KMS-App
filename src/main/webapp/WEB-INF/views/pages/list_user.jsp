@@ -17,12 +17,12 @@
     <body>
         <div class="container">
             <div class="panel-heading">
-                <input type="button" value="Add User"
+                <input type="button" value="Tambah User"
                        onclick="window.location.href = 'form_user'; return false;"
                        class="btn btn-primary" />
             </div>
             <div class="panel-title">
-                Customer List
+                Daftar User
             </div>
             <div class="panel-body">
                 <table class="table table-striped table-bordered">

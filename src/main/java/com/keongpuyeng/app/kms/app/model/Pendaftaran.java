@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -64,7 +65,7 @@ public class Pendaftaran implements Serializable {
     @Size(min = 1, max = 30)
     @Column(name = "password_daftar")
     private String passwordDaftar;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDaftar")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDaftar", fetch = FetchType.LAZY)
     private Collection<Siswa> siswaCollection;
 
     public Pendaftaran() {

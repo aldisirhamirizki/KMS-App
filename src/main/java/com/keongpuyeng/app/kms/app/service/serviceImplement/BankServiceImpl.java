@@ -25,7 +25,7 @@ public class BankServiceImpl implements IBankService{
     private BankDao bankDao;
 
     @Override
-    @Transactional
+    //@Transactional
     public List<Bank> getListBank() {
         return bankDao.findAll();
     }

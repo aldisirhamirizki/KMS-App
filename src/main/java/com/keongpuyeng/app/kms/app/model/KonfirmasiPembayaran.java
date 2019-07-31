@@ -10,8 +10,10 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -35,7 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "KonfirmasiPembayaran.findByIdSiswa", query = "SELECT k FROM KonfirmasiPembayaran k WHERE k.idSiswa = :idSiswa"),
     @NamedQuery(name = "KonfirmasiPembayaran.findByTglKonfirmasi", query = "SELECT k FROM KonfirmasiPembayaran k WHERE k.tglKonfirmasi = :tglKonfirmasi"),
     @NamedQuery(name = "KonfirmasiPembayaran.findByTotalBiaya", query = "SELECT k FROM KonfirmasiPembayaran k WHERE k.totalBiaya = :totalBiaya"),
-    @NamedQuery(name = "KonfirmasiPembayaran.findByIdImage", query = "SELECT k FROM KonfirmasiPembayaran k WHERE k.idImage = :idImage")})
+    @NamedQuery(name = "KonfirmasiPembayaran.findByStatus", query = "SELECT k FROM KonfirmasiPembayaran k WHERE k.status = :status")})
 public class KonfirmasiPembayaran implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -59,13 +61,16 @@ public class KonfirmasiPembayaran implements Serializable {
     @NotNull
     @Column(name = "total_biaya")
     private double totalBiaya;
+//    @Lob
+    @Column(name = "image_bukti", length = 100000)
+    private byte[] imageBukti;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 30)
-    @Column(name = "id_image")
-    private String idImage;
+    @Size(min = 1, max = 20)
+    @Column(name = "status")
+    private String status;
     @JoinColumn(name = "bank", referencedColumnName = "id_bank")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Bank bank;
 
     public KonfirmasiPembayaran() {
@@ -75,12 +80,12 @@ public class KonfirmasiPembayaran implements Serializable {
         this.idKonfirmasi = idKonfirmasi;
     }
 
-    public KonfirmasiPembayaran(String idKonfirmasi, String idSiswa, Date tglKonfirmasi, double totalBiaya, String idImage) {
+    public KonfirmasiPembayaran(String idKonfirmasi, String idSiswa, Date tglKonfirmasi, double totalBiaya, String status) {
         this.idKonfirmasi = idKonfirmasi;
         this.idSiswa = idSiswa;
         this.tglKonfirmasi = tglKonfirmasi;
         this.totalBiaya = totalBiaya;
-        this.idImage = idImage;
+        this.status = status;
     }
 
     public String getIdKonfirmasi() {
@@ -115,12 +120,20 @@ public class KonfirmasiPembayaran implements Serializable {
         this.totalBiaya = totalBiaya;
     }
 
-    public String getIdImage() {
-        return idImage;
+    public byte[] getImageBukti() {
+        return imageBukti;
     }
 
-    public void setIdImage(String idImage) {
-        this.idImage = idImage;
+    public void setImageBukti(byte[] imageBukti) {
+        this.imageBukti = imageBukti;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Bank getBank() {
