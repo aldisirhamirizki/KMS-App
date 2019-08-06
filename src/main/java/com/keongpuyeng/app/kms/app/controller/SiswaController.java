@@ -86,7 +86,7 @@ public class SiswaController {
 
     @Autowired
     private IMailService mailService;
-    
+
     @Autowired
     private IGenerateReport report;
 
@@ -120,7 +120,7 @@ public class SiswaController {
 
         }
         theModel.addAttribute("siswa", listDto);
-        return "list_siswa"; // belum ada jsp
+        return "list_siswa";
     }
 
     @GetMapping("/search")
@@ -175,9 +175,9 @@ public class SiswaController {
 
             Tika tika = new Tika();
             if (siswa.getImage() != null) {
-            String contentType = tika.detect(siswa.getImage());
-            String encodedImage = Base64.encodeBase64String(siswa.getImage());
-            displayImage = Param.IMG_SRC_PREFIX + contentType + Param.IMG_SRC_SUFIX + encodedImage;
+                String contentType = tika.detect(siswa.getImage());
+                String encodedImage = Base64.encodeBase64String(siswa.getImage());
+                displayImage = Param.IMG_SRC_PREFIX + contentType + Param.IMG_SRC_SUFIX + encodedImage;
                 System.out.println("DISPLAY IMAGE:" + displayImage);
             }
         }
@@ -222,24 +222,12 @@ public class SiswaController {
         return "profil";
     }
 
-//    @GetMapping("/imageDisplay")
-//    public void showImage(HttpServletRequest req, HttpServletResponse response) throws IOException {
-//        SessionModel sessionModel2 = (SessionModel) req.getSession().getAttribute("sessionModel");
-//        String idDaftar = sessionModel2.getIdDaftar();
-//        Siswa siswa2 = siswaService.getSiswaByIdDaftar(idDaftar);
-//
-//        response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
-//        response.getOutputStream().write(siswa2.getImage());
-//
-//        response.getOutputStream().close();
-//    }
     @PostMapping("/saveSiswa")
     @Transactional
     public String saveSiswa(@ModelAttribute("siswa") @Valid SiswaDto siswaDto,
             BindingResult bindingResult,
             HttpServletRequest req,
             @RequestParam CommonsMultipartFile imageUpload) {
-        
 
         System.out.println("IMAGE UPLOAD: " + imageUpload.getName());
         System.out.println("IMAGE UPLOAD: " + imageUpload.getBytes());
@@ -365,8 +353,40 @@ public class SiswaController {
     @GetMapping("updateSiswa")
     public String showFormForUpdate(@RequestParam("idSiswa") String theId,
             Model theModel) {
-        Siswa siswas = siswaService.getSiswa(theId);
-        theModel.addAttribute("siswa", siswas);
+        Siswa siswa = siswaService.getSiswa(theId);
+        KonfirmasiPembayaran konfirmasiPembayaran = konfirmasiService.getKonfirmasiByIdSiswa(siswa.getIdSiswa());
+        SiswaDto siswaDto = new SiswaDto();
+        String displayImage = "";
+
+        siswaDto.setIdSiswa(siswa.getIdSiswa());
+        siswaDto.setIdDaftar(siswa.getIdDaftar().getIdDaftar());
+        siswaDto.setNamaDaftar(siswa.getIdDaftar().getNamaDaftar());
+        siswaDto.setEmailDaftar(siswa.getIdDaftar().getEmailDaftar());
+
+        siswaDto.setImage(siswa.getImage());
+
+        siswaDto.setTelepon(siswa.getTelepon());
+        siswaDto.setJenisKelamin(siswa.getJenisKelamin().name());
+        siswaDto.setTanggalLahir(siswa.getTanggalLahir());
+        siswaDto.setTempatTinggal(siswa.getTempatTinggal());
+        siswaDto.setNamaProgram(siswa.getIdProgram().getNamaProgram());
+        siswaDto.setNamaKursus(siswa.getIdKursus().getNamaKursus());
+        siswaDto.setNamaLevel(siswa.getIdLevel().getNamaLevel());
+        siswaDto.setNamaBank(siswa.getIdBank().getIdBank());
+
+        siswaDto.setTotalBiaya(konfirmasiPembayaran.getTotalBiaya());
+        siswaDto.setIdKonfirmasi(konfirmasiPembayaran.getIdKonfirmasi());
+
+        Tika tika = new Tika();
+        if (siswa.getImage() != null) {
+            String contentType = tika.detect(siswa.getImage());
+            String encodedImage = Base64.encodeBase64String(siswa.getImage());
+            displayImage = Param.IMG_SRC_PREFIX + contentType + Param.IMG_SRC_SUFIX + encodedImage;
+            System.out.println("DISPLAY IMAGE:" + displayImage);
+        }
+
+        theModel.addAttribute("imageDisplay", displayImage);
+        theModel.addAttribute("siswa", siswaDto);
         return "form_siswa";
     }
 
@@ -375,11 +395,12 @@ public class SiswaController {
         siswaService.deleteSiswa(theId);
         return "redirect:/siswa/list_siswa";
     }
-    
+
     @GetMapping(value = "/getPdf", produces = MediaType.APPLICATION_PDF_VALUE)
     @Transactional
-    public @ResponseBody byte[] downloadReport(@RequestParam("cariReport") String cariReport){
-        byte[] pdf = report.generatePdfReportSiswa(cariReport);        
+    public @ResponseBody
+    byte[] downloadReport(@RequestParam("cariReport") String cariReport) {
+        byte[] pdf = report.generatePdfReportSiswa(cariReport);
         return pdf;
     }
 }

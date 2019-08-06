@@ -37,23 +37,38 @@
         <div class="container about-con">
             <nav>
                 <div class="nav nav-tabs justify-content-center" id="about" role="tablist">
-                    <a class="nav-item nav-link active" id="tab" data-toggle="tab" href="#nav-profile" role="tab" aria-selected="false">Visi & Misi</a>
+                    <a class="nav-item nav-link active" id="tab" data-toggle="tab" href="#nav- cara" role="tab" aria-selected="false">Cara Pendaftaran</a>
                     <a class="nav-item nav-link" id="tab" data-toggle="tab" href="#nav-contact" role="tab" aria-selected="false">Contact</a>
+                    <a class="nav-item nav-link" id="tab" data-toggle="tab" href="#nav-profile" role="tab" aria-selected="false">Visi & Misi</a>
                 </div>
             </nav>
 
             <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                    <p>Alamat<br>Ciledug Raya, Kab.Tangerang, Banten 15151</p>
+                    <p>Email<br>KMS@gmail.com</p>
+                    <p>Telepon<br>+6281283746554</p>
+                </div>
+                <div class="tab-pane fade  show active" id="nav-cara" role="tabpanel" aria-labelledby="nav-contact-tab">
+                    <p>1. Tekan tombol <b>LOGIN/DAFTAR</b> lalu pilih tab <b>REGISTER</b><br>
+                        2. isi <b>NAMA, EMAIL</b> dan <b>PASSWORD</b> lalu <b>SIGN UP</b>, 
+                        website akan mengeluarkan notifikasi dan akan kembali ke halaman utama<br>
+                        3. Tekan tombol <b>LOGIN/DAFTAR</b> lalu pilih tab <b>LOGIN</b><br>
+                        4. Masukan <b>EMAIL</b> dan <b>PASSWORD</b> dan pilih <b>LOGIN</b><br>
+                        5. Pilih tombol <b>PROFIL</b> lalu isi <b>TANGGAL LAHIR, 
+                            JENIS KELAMIN, TEMPAT TINGGAL, TELEPON, PROGRAM, KURSUS, LEVEL, BANK</b> lalu pilih <b>SUBMIT</b><br>
+                        6. Anda akan menerima <b>EMAIL</b> dan segeralah melakukan pembayaran ke rekening yang diberikan di email<br>
+                        7. <b>UPLOAD</b> bukti transfer dengan cara tekan tombol <b>KONFIRMASI PEMBAYARAN ANDA DISINI</b>
+                        dan <b>UPLOAD</b> bukti transfer anda lalu <b>SUBMIT</b><br>
+                        8. website akan kembali ke halaman profil dan <b>SELAMAT ANDA TELAH TERDAFTAR SEBAGAI SISWA KURSUS MUSIK</b>
+                    </p>
+                </div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                     <p>VISI<br>Menciptakan regenerasi musisi yang handal dalam bermusik,<br>dan bisa menciptakan suatu karya musik yang berkualitas</p>
                     <p>MISI<br>&sstarf; Mendidik musisi untuk bermain musik dengan benar<br>
                         &sstarf; Meningkatkan dan mengasah bakat kemampuan dalam bermusik<br>
                         &sstarf; Mengajari cara berkarya beserta komposisi yang benar dalam bermusik<br>
                         &sstarf; Cepat dan berkualitas</p>
-                </div>
-                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                    <p>Alamat<br>Ciledug Raya, Kab.Tangerang, Banten 15151</p>
-                    <p>Email<br>KMS@gmail.com</p>
-                    <p>Telepon<br>+6281283746554</p>
                 </div>
             </div>
         </div>

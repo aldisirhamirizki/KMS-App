@@ -40,7 +40,7 @@ public class SiswaDto {
     @NotNull
     @NotEmpty
     private String idProgram;
-    
+        
     @NotNull
     @NotEmpty
     private String idKursus;
@@ -71,6 +71,46 @@ public class SiswaDto {
     private double totalBiaya;
     
     private String Status;
+    
+    private String namaProgram;
+    
+    private String namaKursus;
+    
+    private String namaLevel;
+    
+    private String namaBank;
+
+    public String getNamaProgram() {
+        return namaProgram;
+    }
+
+    public void setNamaProgram(String namaProgram) {
+        this.namaProgram = namaProgram;
+    }
+
+    public String getNamaKursus() {
+        return namaKursus;
+    }
+
+    public void setNamaKursus(String namaKursus) {
+        this.namaKursus = namaKursus;
+    }
+
+    public String getNamaLevel() {
+        return namaLevel;
+    }
+
+    public void setNamaLevel(String namaLevel) {
+        this.namaLevel = namaLevel;
+    }
+
+    public String getNamaBank() {
+        return namaBank;
+    }
+
+    public void setNamaBank(String namaBank) {
+        this.namaBank = namaBank;
+    }
 
     public String getStatus() {
         return Status;

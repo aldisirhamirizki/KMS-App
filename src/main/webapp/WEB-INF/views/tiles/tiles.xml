@@ -73,6 +73,12 @@
         <put-attribute name="title" value="List Siswa"/>
         <put-attribute name="body" value="/WEB-INF/views/pages/list_siswa.jsp"/>
     </definition>
+    
+    <!--Form Siswa-->
+    <definition name="form_siswa" extends="base-definition">
+        <put-attribute name="title" value="Form Siswa"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/form_siswa.jsp"/>
+    </definition>
 
     <!--List User-->
     <definition name="list_user" extends="base-definition">

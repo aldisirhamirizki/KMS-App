@@ -104,40 +104,11 @@ public class AppController {
         return "home";
     }
 
-//    @RequestMapping(value = "/profil", method = RequestMethod.GET)
-//    public String profilApp(ModelMap model) {
-//        return "redirect:/siswa/profil";
-//    }
     @RequestMapping(value = "/kursus/list_kursus", method = RequestMethod.GET)
     public String listKursusApp(ModelMap model) {
         return "list_kursus";
     }
 
-//    @RequestMapping(value = "/form_user", method = RequestMethod.GET)
-//    public String form_AdminApp(ModelMap model) {
-//        model.addAttribute("user", new User());
-//        return "form_user";
-//    }
-//    @Autowired
-//    private IUserService uService;
-//
-//    @GetMapping("/list_user")
-//    public String listUser(Model theModel) {
-//        List<User> users = uService.getUsers();
-//        theModel.addAttribute("user", users);
-//        return "list_user"; // belum ada jsp
-//    }
-//    @GetMapping("/delete")
-//    public String deleteUser(@RequestParam("idUser") String theId)
-//    {
-//        uService.deleteUser(theId);
-//        return "redirect:/user/list_user";
-//    }
-//    @RequestMapping(value = "/list_user", method = RequestMethod.GET)
-//    public String list_UserApp(ModelMap model){
-//        model.addAttribute("user", new User());
-//        return "list_user";
-//    }
     @RequestMapping(value = "/form_program", method = RequestMethod.GET)
     public String form_ProgramApp(ModelMap model) {
         model.addAttribute("program", new Program());
