@@ -5,9 +5,9 @@
  */
 package com.keongpuyeng.app.kms.app.model;
 
-import com.mysql.cj.jdbc.Blob;
 import java.util.Date;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -22,12 +22,12 @@ import org.springframework.stereotype.Component;
 public class SiswaDto {
 
     @NotNull
-    @NotEmpty(message = "harus diisi")
+    @NotEmpty(message = "Nama tidak boleh kosong")
     private String namaDaftar;
 
     @NotNull
-    @NotEmpty(message = "harus diisi")
-    @Size(min = 1, max = 30)
+    @NotEmpty(message = "Email tidak boleh kosong")
+    @Size(min = 8, max = 30, message = "Panjang karakter min. 8 dan max 30")
     @Email
     private String emailDaftar;
     
@@ -39,33 +39,41 @@ public class SiswaDto {
 
     @NotNull
     @NotEmpty
+    @Pattern(regexp = "[^none]", message = "Pilih menu program")
     private String idProgram;
     
     @NotNull
     @NotEmpty
+    @Pattern(regexp = "[^none]", message = "Pilih menu kurusus")
     private String idKursus;
     
     @NotNull
     @NotEmpty
+    @Pattern(regexp = "[^none]", message = "Pilih menu level")
     private String idLevel;
     
     @NotNull
-    @Size(min = 1, max = 15)
+    @Size(min = 1, max = 15, message = "Masukan nomor telepon")
     private String telepon;
 
     @NotNull
     @NotEmpty
+    @Pattern(regexp = "[^none]", message = "Pilih jenis kelamin")
     private String jenisKelamin;
-        
+
+    @NotNull(message = "Mohon isi tanggal lahir Anda")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date tanggalLahir;
-   
+
+    @NotNull(message = "Mohon isi tempat tinggal Anda")
+    @Size(min = 1, max = 50)
     private String tempatTinggal;
 
+    @Pattern(regexp = "[^none]", message = "Pilih menu bank")
     private String idBank;
     
     private byte[] image;
-    
+
     private String idKonfirmasi;
 
     private double totalBiaya;

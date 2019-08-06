@@ -45,6 +45,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -173,74 +174,56 @@ public class SiswaController {
             siswaDto.setTotalBiaya(konfirmasiPembayaran.getTotalBiaya());
             siswaDto.setIdKonfirmasi(konfirmasiPembayaran.getIdKonfirmasi());
 
-            Tika tika = new Tika();
             if (siswa.getImage() != null) {
-            String contentType = tika.detect(siswa.getImage());
-            String encodedImage = Base64.encodeBase64String(siswa.getImage());
-            displayImage = Param.IMG_SRC_PREFIX + contentType + Param.IMG_SRC_SUFIX + encodedImage;
-                System.out.println("DISPLAY IMAGE:" + displayImage);
+                displayImage = getImageBase64(siswa.getImage());
             }
         }
 
         List<EnumJenisKelamin> jenisKelamin = Arrays.asList(EnumJenisKelamin.values());
-
         List<Program> listProgram = progService.getListPrograms();
-        Map<String, String> mapProgram = new HashMap<>();
-        listProgram.stream().forEach(p -> {
-            mapProgram.put(p.getIdProgram(), p.getNamaProgram());
-        });
-
         List<Kursus> listKursus = kursusService.getListKursus();
-        Map<String, String> mapKursus = new HashMap<>();
-        listKursus.stream().forEach(p -> {
-            mapKursus.put(p.getIdKursus(), p.getNamaKursus());
-        });
-
         List<Level> listLevel = levelService.getListLevel();
-        Map<String, String> mapLevel = new HashMap<>();
-        listLevel.stream().forEach(p -> {
-            mapLevel.put(p.getIdLevel(), p.getNamaLevel());
-        });
-
-        // bank disini
         List<Bank> listBank = bankService.getListBank();
-        Map<String, String> mapBank = new HashMap<>();
-        listBank.stream().forEach(p -> {
-            mapBank.put(p.getIdBank(), p.getNamaBank());
-        });
 
         theModel.addAttribute("imageDisplay", displayImage);
-
         theModel.addAttribute("jenisKelamin", jenisKelamin);
         theModel.addAttribute("program", listProgram);
         theModel.addAttribute("kursus", listKursus);
         theModel.addAttribute("level", listLevel);
         theModel.addAttribute("bank", listBank);
         theModel.addAttribute("siswa", siswaDto);
-//        theModel.addAttribute("imageUpload", imageUpload);
 
         return "profil";
     }
 
-//    @GetMapping("/imageDisplay")
-//    public void showImage(HttpServletRequest req, HttpServletResponse response) throws IOException {
-//        SessionModel sessionModel2 = (SessionModel) req.getSession().getAttribute("sessionModel");
-//        String idDaftar = sessionModel2.getIdDaftar();
-//        Siswa siswa2 = siswaService.getSiswaByIdDaftar(idDaftar);
-//
-//        response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
-//        response.getOutputStream().write(siswa2.getImage());
-//
-//        response.getOutputStream().close();
-//    }
     @PostMapping("/saveSiswa")
     @Transactional
     public String saveSiswa(@ModelAttribute("siswa") @Valid SiswaDto siswaDto,
             BindingResult bindingResult,
             HttpServletRequest req,
-            @RequestParam CommonsMultipartFile imageUpload) {
-        
+            @RequestParam CommonsMultipartFile imageUpload, @RequestParam String hiddenImage, Model model) {
 
+        String json = new Gson().toJson(siswaDto);
+        System.out.println("This is SiswaDto: " + json);
+
+        bindingResult.getFieldErrors().stream().forEach(p -> {
+            System.out.println("Field: " + p.getField());
+            System.out.println("RejectedValue: " + (p.getRejectedValue() != null ? p.getRejectedValue().toString() : "ERROR NULL INI"));
+            System.out.println("BindingFailure: " + p.isBindingFailure());
+            System.out.println("Field: " + p.getField());
+            System.out.println("Code: " + p.getCode() );
+            System.out.println("DefaultMessage: " + p.getDefaultMessage());
+            System.out.println("ObjectName: " + p.getObjectName());
+            System.out.println("ToString: " + p.toString());
+            System.out.println("----------------------");
+        });
+
+        String[] splitHiddenImg = hiddenImage.split(",");
+        System.out.println("HIDDEN IMAGE: " + hiddenImage);
+        System.out.println("HIDDEN IMAGE: " + splitHiddenImg[1]);
+
+
+        System.out.println("IMAGE UPLOAD: " + imageUpload.isEmpty());
         System.out.println("IMAGE UPLOAD: " + imageUpload.getName());
         System.out.println("IMAGE UPLOAD: " + imageUpload.getBytes());
         System.out.println("IMAGE UPLOAD: " + imageUpload.getContentType());
@@ -248,8 +231,31 @@ public class SiswaController {
         System.out.println("IMAGE UPLOAD: " + imageUpload.getStorageDescription());
         System.out.println("IMAGE UPLOAD: " + imageUpload.toString());
 
-        String json = new Gson().toJson(siswaDto);
-        System.out.println("This is SISWA: " + json);
+        if(bindingResult.hasErrors()){
+            String displayImage = null;
+            if(!imageUpload.isEmpty()){
+                displayImage = getImageBase64(imageUpload.getBytes());
+            }else {
+                displayImage = hiddenImage;
+//                byte[] siswaImage = siswaService.getImageSiswa(siswaDto.getIdSiswa());
+//                if(siswaImage != null){
+//                    displayImage = getImageBase64(siswaImage);
+//                }
+            }
+
+            List<EnumJenisKelamin> jenisKelamin = Arrays.asList(EnumJenisKelamin.values());
+            List<Program> listProgram = progService.getListPrograms();
+            List<Kursus> listKursus = kursusService.getListKursus();
+            List<Level> listLevel = levelService.getListLevel();
+            List<Bank> listBank = bankService.getListBank();
+            model.addAttribute("imageDisplay", displayImage);
+            model.addAttribute("jenisKelamin", jenisKelamin);
+            model.addAttribute("program", listProgram);
+            model.addAttribute("kursus", listKursus);
+            model.addAttribute("level", listLevel);
+            model.addAttribute("bank", listBank);
+            return "profil";
+        }
 
         Pendaftaran pendaftaran = pendService.getPendaftaran(siswaDto.getIdDaftar());
         pendaftaran.setNamaDaftar(siswaDto.getNamaDaftar());
@@ -258,7 +264,6 @@ public class SiswaController {
         Kursus kursus = kursusService.getKursus(siswaDto.getIdKursus());
         Level level = levelService.getLevel(siswaDto.getIdLevel());
         Bank bank = bankService.getBank(siswaDto.getIdBank());
-//        System.out.println("BANKOK BANK: " + bank.toString());
 
         Siswa siswa = new Siswa();
 
@@ -381,5 +386,15 @@ public class SiswaController {
     public @ResponseBody byte[] downloadReport(@RequestParam("cariReport") String cariReport){
         byte[] pdf = report.generatePdfReportSiswa(cariReport);        
         return pdf;
+    }
+
+
+    private String getImageBase64(byte[] image){
+        Tika tika = new Tika();
+        String contentType = tika.detect(image);
+        String encodedImage = Base64.encodeBase64String(image);
+        String imageBase64 = Param.IMG_SRC_PREFIX + contentType + Param.IMG_SRC_SUFIX + encodedImage;
+        System.out.println("IMAGE BASE 64: " + imageBase64);
+        return imageBase64;
     }
 }
