@@ -87,7 +87,7 @@
 
                 <c:forEach var="temp" items="${siswa}">
 
-                    <c:url var="updateLink" value="">  
+                    <c:url var="updateLink" value="/siswa/updateSiswa">  
                         <c:param name="idSiswa" value="${temp.idSiswa}"/>
                     </c:url>
 

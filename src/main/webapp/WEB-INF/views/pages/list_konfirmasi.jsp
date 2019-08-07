@@ -30,7 +30,7 @@
                 </div>
             </form>
 
-            <table class="table table-striped table-bordered table-sm">
+            <table class="table table-dark table-striped table-bordered table-sm">
                 <tr>
                     <th>Id Siswa</th>
                     <th>Id Konfirmasi</th>

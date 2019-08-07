@@ -31,7 +31,7 @@
             }
             .row {
                 color: white;
-                background-image: url("<c:url value="${pageContext.request.contextPath}/static/img/monyet.jpg" />");
+                background-image: url("<c:url value="/static/img/monyet.jpg" />");
                 background-size: cover;
                 padding-bottom: 75px;
             }

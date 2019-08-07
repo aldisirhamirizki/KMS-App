@@ -38,18 +38,18 @@ public class SiswaDto {
     private String idDaftar;
 
     @NotNull
-    @NotEmpty
-    @Pattern(regexp = "[^none]", message = "Pilih menu program")
+    @NotEmpty(message = "Pilih menu program")
+    //@Pattern(regexp = "none", message = "Pilih menu program")
     private String idProgram;
-    
+        
     @NotNull
-    @NotEmpty
-    @Pattern(regexp = "[^none]", message = "Pilih menu kurusus")
+    @NotEmpty(message = "Pilih menu kursus")
+    //@Pattern(regexp = "none", message = "Pilih menu kurusus")
     private String idKursus;
     
     @NotNull
-    @NotEmpty
-    @Pattern(regexp = "[^none]", message = "Pilih menu level")
+    @NotEmpty(message = "Pilih menu level")
+    //@Pattern(regexp = "none", message = "Pilih menu level")
     private String idLevel;
     
     @NotNull
@@ -57,8 +57,8 @@ public class SiswaDto {
     private String telepon;
 
     @NotNull
-    @NotEmpty
-    @Pattern(regexp = "[^none]", message = "Pilih jenis kelamin")
+    @NotEmpty(message = "Pilih jenis kelamin")
+    //@Pattern(regexp = "none", message = "Pilih jenis kelamin")
     private String jenisKelamin;
 
     @NotNull(message = "Mohon isi tanggal lahir Anda")
@@ -69,7 +69,9 @@ public class SiswaDto {
     @Size(min = 1, max = 50)
     private String tempatTinggal;
 
-    @Pattern(regexp = "[^none]", message = "Pilih menu bank")
+    @NotNull
+    @NotEmpty(message = "Pilih menu bank")
+    //@Pattern(regexp = "none", message = "Pilih menu bank")
     private String idBank;
     
     private byte[] image;
@@ -79,6 +81,46 @@ public class SiswaDto {
     private double totalBiaya;
     
     private String Status;
+    
+    private String namaProgram;
+    
+    private String namaKursus;
+    
+    private String namaLevel;
+    
+    private String namaBank;
+
+    public String getNamaProgram() {
+        return namaProgram;
+    }
+
+    public void setNamaProgram(String namaProgram) {
+        this.namaProgram = namaProgram;
+    }
+
+    public String getNamaKursus() {
+        return namaKursus;
+    }
+
+    public void setNamaKursus(String namaKursus) {
+        this.namaKursus = namaKursus;
+    }
+
+    public String getNamaLevel() {
+        return namaLevel;
+    }
+
+    public void setNamaLevel(String namaLevel) {
+        this.namaLevel = namaLevel;
+    }
+
+    public String getNamaBank() {
+        return namaBank;
+    }
+
+    public void setNamaBank(String namaBank) {
+        this.namaBank = namaBank;
+    }
 
     public String getStatus() {
         return Status;

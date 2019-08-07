@@ -1,0 +1,94 @@
+<%-- 
+    Document   : form_siswa
+    Created on : Aug 5, 2019, 12:44:58 PM
+    Author     : Aldis-PC
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="<c:url value="/static/bootstrap4/css/bootstrap.css"/>" rel="stylesheet" />
+
+        <title>KMS-App</title>
+    </head>
+    <body>
+        <div class="container" id="formProfil">
+            <div class="row">
+                <!-- edit form column -->
+                <div class="col-lg-4 text-lg-center">
+                    <form:form action="${pageContext.request.contextPath}/siswa/saveSiswa" method="post"
+                               modelAttribute="siswa">
+                        <img id="fileProfil"  src="${imageDisplay}"
+                             class="m-x-auto img-fluid img-circle" />
+                        <label class="custom-file">
+                            <input type="file" name="imageUpload" onchange="readURL(this, '#fileProfil');"  />
+                        </label>
+                    </div>
+
+                    <div class="col-lg-8">
+                        <div Class="form-group">
+                            <form:hidden path="idSiswa"/>
+                            <form:hidden path="idDaftar" />
+                            <form:hidden path="idKonfirmasi" />
+
+                            <label data-error="wrong" data-success="right" for="namaDaftar">Nama</label>
+                            <form:input type="text" class="form-control form-control-sm" path="namaDaftar" />
+                            <form:errors path="namaDaftar"></form:errors>
+                            </div>
+                            <div class="form-group">
+                                <label data-error="wrong" data-success="right" for="emailDaftar">Email</label>
+                            <form:input type="email" class="form-control form-control-sm" path="emailDaftar" />
+                            <form:errors path="emailDaftar"></form:errors>
+                            </div>
+                            <div Class="form-group">
+                                <label data-error="wrong" data-success="right" for="tanggalLahir">Tanggal Lahir</label>
+                            <form:input type="date" class="form-control form-control-sm" path="tanggalLahir" />
+                            <form:errors path="tanggalLahir"></form:errors>
+                            </div>
+                            <div class="form-group">
+                                <label data-error="wrong" data-success="right" for="jenisKelamin">Jenis Kelamin</label>
+                            <form:input type="text" class="form-control form-control-sm" path="jenisKelamin" />
+                            <form:errors path="jenisKelamin"></form:errors>
+                            </div>
+                            <div Class="form-group">
+                                <label data-error="wrong" data-success="right" for="tempatTinggal">Tempat Tinggal</label>
+                            <form:input type="text" class="form-control form-control-sm" path="tempatTinggal" />
+                            <form:errors path="tempatTinggal"></form:errors>
+                            </div>
+                            <div Class="form-group">
+                                <label data-error="wrong" data-success="right" for="telepon">Telepon</label>
+                            <form:input type="text" class="form-control form-control-sm" path="telepon" />
+                            <form:errors path="telepon"></form:errors>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="program" >Program</label>
+                            <form:input type="text" class="form-control form-control-sm" path="namaProgram" />
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="kursus" >Kursus</label>
+                            <form:input type="text" class="form-control form-control-sm" path="namaKursus" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="levelSelect" class="col-md-2">Level</label>
+                            <form:input type="text" class="form-control form-control-sm" path="namaLevel" />
+                        </div>
+                        <div Class="form-group">
+                            <label for="bank">Bank</label>
+                            <form:input type="text" class="form-control form-control-sm" path="namaBank" />
+                        </div>
+                        <button type="submit" Class="btn btn-primary">Submit</button>
+                    </div>
+                </form:form>
+
+            </div>
+        </div>
+    </body>
+</html>

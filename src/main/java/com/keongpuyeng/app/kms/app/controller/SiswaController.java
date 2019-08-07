@@ -87,7 +87,7 @@ public class SiswaController {
 
     @Autowired
     private IMailService mailService;
-    
+
     @Autowired
     private IGenerateReport report;
 
@@ -116,12 +116,10 @@ public class SiswaController {
                     .map(x -> x.getStatus())
                     .collect(Collectors.joining());
             siswaDto.setStatus(statusPembayaran);
-            // list dto
             listDto.add(siswaDto);
-
         }
         theModel.addAttribute("siswa", listDto);
-        return "list_siswa"; // belum ada jsp
+        return "list_siswa";
     }
 
     @GetMapping("/search")
@@ -160,9 +158,7 @@ public class SiswaController {
             siswaDto.setIdDaftar(siswa.getIdDaftar().getIdDaftar());
             siswaDto.setNamaDaftar(siswa.getIdDaftar().getNamaDaftar());
             siswaDto.setEmailDaftar(siswa.getIdDaftar().getEmailDaftar());
-
             siswaDto.setImage(siswa.getImage());
-
             siswaDto.setTelepon(siswa.getTelepon());
             siswaDto.setJenisKelamin(siswa.getJenisKelamin().name());
             siswaDto.setTanggalLahir(siswa.getTanggalLahir());
@@ -201,7 +197,8 @@ public class SiswaController {
     public String saveSiswa(@ModelAttribute("siswa") @Valid SiswaDto siswaDto,
             BindingResult bindingResult,
             HttpServletRequest req,
-            @RequestParam CommonsMultipartFile imageUpload, @RequestParam String hiddenImage, Model model) {
+            @RequestParam CommonsMultipartFile imageUpload,
+            @RequestParam String hiddenImage, Model model) {
 
         String json = new Gson().toJson(siswaDto);
         System.out.println("This is SiswaDto: " + json);
@@ -217,12 +214,7 @@ public class SiswaController {
             System.out.println("ToString: " + p.toString());
             System.out.println("----------------------");
         });
-
-        String[] splitHiddenImg = hiddenImage.split(",");
-        System.out.println("HIDDEN IMAGE: " + hiddenImage);
-        System.out.println("HIDDEN IMAGE: " + splitHiddenImg[1]);
-
-
+        
         System.out.println("IMAGE UPLOAD: " + imageUpload.isEmpty());
         System.out.println("IMAGE UPLOAD: " + imageUpload.getName());
         System.out.println("IMAGE UPLOAD: " + imageUpload.getBytes());
@@ -230,17 +222,14 @@ public class SiswaController {
         System.out.println("IMAGE UPLOAD: " + imageUpload.getOriginalFilename());
         System.out.println("IMAGE UPLOAD: " + imageUpload.getStorageDescription());
         System.out.println("IMAGE UPLOAD: " + imageUpload.toString());
+        System.out.println("HIDDEN IMAGE: " + hiddenImage);
 
         if(bindingResult.hasErrors()){
-            String displayImage = null;
+            String displayImage;
             if(!imageUpload.isEmpty()){
                 displayImage = getImageBase64(imageUpload.getBytes());
             }else {
-                displayImage = hiddenImage;
-//                byte[] siswaImage = siswaService.getImageSiswa(siswaDto.getIdSiswa());
-//                if(siswaImage != null){
-//                    displayImage = getImageBase64(siswaImage);
-//                }
+                 displayImage = hiddenImage;
             }
 
             List<EnumJenisKelamin> jenisKelamin = Arrays.asList(EnumJenisKelamin.values());
@@ -268,7 +257,13 @@ public class SiswaController {
         Siswa siswa = new Siswa();
 
         if (imageUpload.isEmpty()) {
-            siswa.setImage(siswaService.getImageSiswa(siswaDto.getIdSiswa()));
+            if(!hiddenImage.isEmpty()){
+                String[] splitHiddenImg = hiddenImage.split(",");
+                byte[] base64Image = Base64.decodeBase64(splitHiddenImg[1]);
+                siswa.setImage(base64Image);
+            }else{
+                siswa.setImage(siswaService.getImageSiswa(siswaDto.getIdSiswa()));
+            }
         } else {
             siswa.setImage(imageUpload.getBytes());
         }
@@ -281,11 +276,8 @@ public class SiswaController {
         siswa.setIdKursus(kursus);
         siswa.setIdLevel(level);
         siswa.setIdBank(bank);
-        System.out.println("INI SISWA: " + siswa.toString());
         KonfirmasiPembayaran kp;
         if (siswaDto.getIdSiswa() == null || siswaDto.getIdSiswa().isEmpty()) {
-            System.out.println("SISWA DTO: " + new Gson().toJson(siswaDto));
-            System.out.println("SISWA IS NULL");
             siswa = siswaService.saveSiswa(siswa);
             pendService.updatePendaftaran(pendaftaran);
 
@@ -295,7 +287,6 @@ public class SiswaController {
             konfirmasiPembayaran.setTotalBiaya(siswaDto.getTotalBiaya());
             konfirmasiPembayaran.setBank(bank);
             konfirmasiPembayaran.setStatus(Param.BELUM_BAYAR);
-//            konfirmasiPembayaran.setImageBukti("TES IMAGE");
             konfirmasiService.saveKonfirmasi(konfirmasiPembayaran);
             kp = konfirmasiPembayaran;
 
@@ -305,9 +296,6 @@ public class SiswaController {
             sessionModel.setEmailDaftar(siswaDto.getEmailDaftar());
             req.getSession().setAttribute("sessionModel", sessionModel);
         } else {
-            System.out.println("SISWA DTO: " + new Gson().toJson(siswaDto));
-            System.out.println("SISWA IS EXIST");
-            System.out.println("BANK: " + bank.toString());
             siswa.setIdSiswa(siswaDto.getIdSiswa());
             siswaService.updateSiswa(siswa);
             pendService.updatePendaftaran(pendaftaran);
@@ -320,7 +308,6 @@ public class SiswaController {
                 konfirmasiPembayaran.setTotalBiaya(siswaDto.getTotalBiaya());
                 konfirmasiPembayaran.setBank(bank);
                 konfirmasiPembayaran.setStatus(Param.BELUM_BAYAR);
-//                konfirmasiPembayaran.setImageBukti("TES IMAGE");
                 konfirmasiService.saveKonfirmasi(konfirmasiPembayaran);
             } else {
                 konfirmasiPembayaran.setIdSiswa(siswaDto.getIdSiswa());
@@ -349,8 +336,6 @@ public class SiswaController {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                System.out.println("START RUN NEW THREAD -> SEND EMAIL");
-                System.out.println("SISWA DTO NEW THREAD -> " + new Gson().toJson(sendSiswa));
                 HashMap<String, Object> model = new HashMap<>();
                 model.put("siswa", sendSiswa);
                 model.put("program", sendProgram);
@@ -363,15 +348,46 @@ public class SiswaController {
         });
         thread.start();
 
-        System.out.println("OKE DEHHHH");
         return "redirect:/siswa/profil";
     }
 
     @GetMapping("updateSiswa")
     public String showFormForUpdate(@RequestParam("idSiswa") String theId,
             Model theModel) {
-        Siswa siswas = siswaService.getSiswa(theId);
-        theModel.addAttribute("siswa", siswas);
+        Siswa siswa = siswaService.getSiswa(theId);
+        KonfirmasiPembayaran konfirmasiPembayaran = konfirmasiService.getKonfirmasiByIdSiswa(siswa.getIdSiswa());
+        SiswaDto siswaDto = new SiswaDto();
+        String displayImage = "";
+
+        siswaDto.setIdSiswa(siswa.getIdSiswa());
+        siswaDto.setIdDaftar(siswa.getIdDaftar().getIdDaftar());
+        siswaDto.setNamaDaftar(siswa.getIdDaftar().getNamaDaftar());
+        siswaDto.setEmailDaftar(siswa.getIdDaftar().getEmailDaftar());
+
+        siswaDto.setImage(siswa.getImage());
+
+        siswaDto.setTelepon(siswa.getTelepon());
+        siswaDto.setJenisKelamin(siswa.getJenisKelamin().name());
+        siswaDto.setTanggalLahir(siswa.getTanggalLahir());
+        siswaDto.setTempatTinggal(siswa.getTempatTinggal());
+        siswaDto.setNamaProgram(siswa.getIdProgram().getNamaProgram());
+        siswaDto.setNamaKursus(siswa.getIdKursus().getNamaKursus());
+        siswaDto.setNamaLevel(siswa.getIdLevel().getNamaLevel());
+        siswaDto.setNamaBank(siswa.getIdBank().getIdBank());
+
+        siswaDto.setTotalBiaya(konfirmasiPembayaran.getTotalBiaya());
+        siswaDto.setIdKonfirmasi(konfirmasiPembayaran.getIdKonfirmasi());
+
+        Tika tika = new Tika();
+        if (siswa.getImage() != null) {
+            String contentType = tika.detect(siswa.getImage());
+            String encodedImage = Base64.encodeBase64String(siswa.getImage());
+            displayImage = Param.IMG_SRC_PREFIX + contentType + Param.IMG_SRC_SUFIX + encodedImage;
+            System.out.println("DISPLAY IMAGE:" + displayImage);
+        }
+
+        theModel.addAttribute("imageDisplay", displayImage);
+        theModel.addAttribute("siswa", siswaDto);
         return "form_siswa";
     }
 
@@ -380,11 +396,12 @@ public class SiswaController {
         siswaService.deleteSiswa(theId);
         return "redirect:/siswa/list_siswa";
     }
-    
+
     @GetMapping(value = "/getPdf", produces = MediaType.APPLICATION_PDF_VALUE)
     @Transactional
-    public @ResponseBody byte[] downloadReport(@RequestParam("cariReport") String cariReport){
-        byte[] pdf = report.generatePdfReportSiswa(cariReport);        
+    public @ResponseBody
+    byte[] downloadReport(@RequestParam("cariReport") String cariReport) {
+        byte[] pdf = report.generatePdfReportSiswa(cariReport);
         return pdf;
     }
 
@@ -394,7 +411,6 @@ public class SiswaController {
         String contentType = tika.detect(image);
         String encodedImage = Base64.encodeBase64String(image);
         String imageBase64 = Param.IMG_SRC_PREFIX + contentType + Param.IMG_SRC_SUFIX + encodedImage;
-        System.out.println("IMAGE BASE 64: " + imageBase64);
         return imageBase64;
     }
 }

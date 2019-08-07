@@ -174,7 +174,7 @@
                     <div class="form-group">
                         <label data-error="wrong" data-success="right" for="jenisKelamin">Jenis Kelamin</label>
                         <form:select cssClass="form-control" path="jenisKelamin">
-                            <form:option value="none" label="--pilih jenis kelamin--"/>
+                            <form:option value="" label="--pilih jenis kelamin--"/>
                             <form:options items="${jenisKelamin}"/>
                         </form:select>
                         <form:errors path="jenisKelamin" cssClass="text-danger small"></form:errors>
@@ -195,7 +195,7 @@
                         <div Class="form-group">
                             <form:select path="idKursus" class="form-control formSlc2" id="kursusSelect"
                                          onchange="getBiayaKursus()">
-                                <form:option value="none">--pilih kursus--</form:option>
+                                <form:option value="">--pilih kursus--</form:option>
                                 <c:forEach items="${kursus}" var="kursus">
                                     <form:option value="${kursus.idKursus}">${kursus.namaKursus}
                                     </form:option>
@@ -214,7 +214,7 @@
                         <div Class="form-group">
                             <form:select path="idLevel" class="form-control formSlc3" id="levelSelect"
                                          onchange="getBiayaLevel()">
-                                <form:option value="none">--pilih level--</form:option>
+                                <form:option value="">--pilih level--</form:option>
                                 <c:forEach items="${level}" var="level">
                                     <form:option value="${level.idLevel}">${level.namaLevel}</form:option>
                                 </c:forEach>
@@ -231,7 +231,7 @@
                         <div Class="form-group">
                             <form:select path="idProgram" class="form-control formSlc1" id="programSelect"
                                          onchange="getBiayaProgram()">
-                                <form:option value="none">--pilih program--</form:option>
+                                <form:option value="">--pilih program--</form:option>
                                 <c:forEach items="${program}" var="program">
                                     <form:option value="${program.idProgram}">${program.namaProgram}
                                     </form:option>
@@ -247,7 +247,7 @@
                     <div Class="form-group">
                         <label for="bankSelect">Bank</label>
                         <form:select path="idBank" class="form-control" id="bankSelect">
-                            <form:option value="none">--pilih bank--</form:option>
+                            <form:option value="">--pilih bank--</form:option>
                             <c:forEach items="${bank}" var="bank">
                                 <form:option value="${bank.idBank}">${bank.namaBank}</form:option>
                             </c:forEach>
@@ -271,13 +271,18 @@
         <script src="<c:url value="/static/bootstrap4/js/sweetalert2.all.js" />" ></script>
 
         <script>
+            function setHiddenImageValue(){
+                let imageFile = $('#fileProfil').attr('src');
+                $('#hiddenImage').val(imageFile);
 
-            var fotoKu = document.getElementById('fileProfil').src;
-            console.log(fotoKu);
-
-            // tes get image base64
-            var myImage = $('#hiddenImage').val(fotoKu);
-            console.log(myImage);
+                /*$('input[name=imageUpload]').change(function(){
+                    var fotoKu = document.getElementById('fileProfil').src;
+                    let myImage = $('#hiddenImage').attr('src',fotoKu);
+                    let shit = $('input[name=imageUpload]');
+                    console.log("HIDDEN", myImage);
+                    console.log("SHIT: ", shit);
+                });*/
+            }
 
             // initial object Program
             function Program(idProgram, namaProgram, biaya) {
@@ -291,8 +296,6 @@
             var program = new Program("${list.idProgram}", "${list.namaProgram}", "${list.biaya}");
             listProgram.push(program);
             </c:forEach >
-
-
 
             // initial object Kursus
             function Kursus(idKursus, namaKursus, biaya) {
@@ -359,10 +362,11 @@
                 getTotal();
             }
 
-            // init biaya
+            // Initialize value
             getBiayaKursus();
             getBiayaLevel();
             getBiayaProgram();
+            setHiddenImageValue();
 
             function getTotal() {
                 let biayaProgram = isNaN(parseFloat($('#biayaProgram').val())) ? 0 : parseFloat($('#biayaProgram').val());
@@ -376,23 +380,24 @@
             function readURL(input, imageId) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
-
                     reader.onload = function (e) {
                         $(imageId).attr('src', e.target.result);
                     };
-
                     reader.readAsDataURL(input.files[0]);
-                    console.log(input);
-                    console.log(reader);
-                    console.log(input.files[0]);
+                    setHiddenImageValue();
+                    // console.log(input);
+                    // console.log(reader);
+                    // console.log(input.files[0]);
                 }
             }
+
+
 
             document.getElementById("tanggalLahir").addEventListener("change", function () {
                 var input = this.value;
                 var dateEntered = new Date(input);
-                console.log(input); //e.g. 2015-11-13
-                console.log(dateEntered); //e.g. Fri Nov 13 2015 00:00:00 GMT+0000 (GMT Standard Time)
+                // console.log(input); //e.g. 2015-11-13
+                // console.log(dateEntered); //e.g. Fri Nov 13 2015 00:00:00 GMT+0000 (GMT Standard Time)
             });
 
 
@@ -403,11 +408,6 @@
                     type: 'success'
                 });
             });
-
-
-
-
-
         </script>
 
     </body>
