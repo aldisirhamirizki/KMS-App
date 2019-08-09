@@ -107,49 +107,49 @@ ORDER BY s.id_siswa ASC]]>
 				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" backcolor="#F1E3FF" uuid="2088ab0b-9b11-4ab5-918c-c394fe1e817a"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="0" y="0" width="51" height="20" uuid="4289d1d1-c6cf-4660-a3b4-4760f76d7f27"/>
+				<reportElement x="13" y="0" width="51" height="20" uuid="4289d1d1-c6cf-4660-a3b4-4760f76d7f27"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[ID Siswa]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="51" y="0" width="80" height="20" uuid="4431dbc4-2377-4b47-9fac-8c6684e7ddbe"/>
+				<reportElement x="64" y="0" width="80" height="20" uuid="4431dbc4-2377-4b47-9fac-8c6684e7ddbe"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Nama Daftar]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="131" y="0" width="80" height="20" uuid="f0791304-9ebf-4bf5-abc1-d4fa3f6a0b91"/>
+				<reportElement x="144" y="0" width="80" height="20" uuid="f0791304-9ebf-4bf5-abc1-d4fa3f6a0b91"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Jenis Kelamin]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="211" y="0" width="80" height="20" uuid="6fa81115-ed2f-44db-ba0f-299e95e2fa22"/>
+				<reportElement x="224" y="0" width="80" height="20" uuid="6fa81115-ed2f-44db-ba0f-299e95e2fa22"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Tanggal Lahir]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="291" y="0" width="80" height="20" uuid="3aa384b9-cee3-4044-9bff-40a371c8d741"/>
+				<reportElement x="304" y="0" width="80" height="20" uuid="3aa384b9-cee3-4044-9bff-40a371c8d741"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Tempat Tinggal]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="371" y="0" width="80" height="20" uuid="298d5def-416c-4968-a2da-b0349c58f7f1"/>
+				<reportElement x="384" y="0" width="80" height="20" uuid="298d5def-416c-4968-a2da-b0349c58f7f1"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[Telepon]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="451" y="0" width="80" height="20" uuid="242ce8dc-3cdb-4909-837c-f870c7c770e2"/>
+				<reportElement x="464" y="0" width="80" height="20" uuid="242ce8dc-3cdb-4909-837c-f870c7c770e2"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
@@ -160,49 +160,49 @@ ORDER BY s.id_siswa ASC]]>
 	<detail>
 		<band height="32" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="51" height="20" uuid="fed71050-24e5-4e8d-84de-8467e88e62a7"/>
+				<reportElement x="13" y="0" width="51" height="20" uuid="fed71050-24e5-4e8d-84de-8467e88e62a7"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{id_siswa}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="51" y="0" width="80" height="20" uuid="1babe1b2-aa33-4825-a220-7f19be2eee81"/>
+				<reportElement x="64" y="0" width="80" height="20" uuid="1babe1b2-aa33-4825-a220-7f19be2eee81"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nama_daftar}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="131" y="0" width="80" height="20" uuid="1d08303f-aea0-444f-98e1-8b517a4af84a"/>
+				<reportElement x="144" y="0" width="80" height="20" uuid="1d08303f-aea0-444f-98e1-8b517a4af84a"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{jenis_kelamin}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="211" y="0" width="80" height="20" uuid="fef9d1e7-3c5a-4d3f-b6a5-45baf373c976"/>
+				<reportElement x="224" y="0" width="80" height="20" uuid="fef9d1e7-3c5a-4d3f-b6a5-45baf373c976"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{tanggal_lahir}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="291" y="0" width="80" height="32" uuid="8fcbf2a1-7c07-4c9e-a0ea-7630302b0e7f"/>
+				<reportElement x="304" y="0" width="80" height="32" uuid="8fcbf2a1-7c07-4c9e-a0ea-7630302b0e7f"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{tempat_tinggal}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="371" y="0" width="80" height="20" uuid="b596f99d-4d01-4b70-a980-bb32085f1c36"/>
+				<reportElement x="384" y="0" width="80" height="20" uuid="b596f99d-4d01-4b70-a980-bb32085f1c36"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{telepon}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="451" y="0" width="80" height="20" uuid="c30f0e68-1c6f-4824-a7c4-a7e23dfdcbf8"/>
+				<reportElement x="464" y="0" width="80" height="20" uuid="c30f0e68-1c6f-4824-a7c4-a7e23dfdcbf8"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>

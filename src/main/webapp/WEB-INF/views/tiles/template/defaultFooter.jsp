@@ -8,8 +8,9 @@
 <!DOCTYPE html>
 <style>
     .footer {
-        background-color: #d3d3d3;
+        background-color: #313131;
         padding: 20px 0 20px 0;
+        color: white;
     }
 </style>
 <div class="footer">

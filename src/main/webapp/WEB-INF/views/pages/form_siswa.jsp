@@ -12,11 +12,24 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="<c:url value="/static/bootstrap4/css/bootstrap.css"/>" rel="stylesheet" />
-
         <title>KMS-App</title>
+        <style>
+            #formProfil {
+                background: 0;
+                background-color: #17171791;
+            }
+            #formProfil .row {
+                padding-top: 30px;
+                background: 0;
+            }
+        </style>
     </head>
     <body>
         <div class="container" id="formProfil">
+            <h3 class="text-center">Informasi Siswa</h3>
+            <div class="text-right">
+                <button class="btn btn-warning" onclick="history.back()">Kembali</button>
+            </div>
             <div class="row">
                 <!-- edit form column -->
                 <div class="col-lg-4 text-lg-center">
@@ -84,7 +97,6 @@
                             <label for="bank">Bank</label>
                             <form:input type="text" class="form-control form-control-sm" path="namaBank" />
                         </div>
-                        <button type="submit" Class="btn btn-primary">Submit</button>
                     </div>
                 </form:form>
 

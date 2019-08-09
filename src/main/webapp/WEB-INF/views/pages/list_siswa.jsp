@@ -69,7 +69,7 @@
                 </form>
             </div>
 
-            <table class="table table-striped table-bordered table-sm">
+            <table class="table table-dark table-striped table-bordered table-sm">
                 <tr>
                     <th>Id Siswa</th>
                     <th>Nama Siswa</th>
@@ -111,7 +111,7 @@
                         <td>${temp.status}</td>
 
                         <td class="text-center" id="action">
-                            <a class="btn btn-primary" href="${updateLink}">Update</a>
+                            <a class="btn btn-primary" href="${updateLink}">Lihat</a>
                             <a class="btn btn-danger" href="${deleteLink}" 
                                onclick="if (!(confirm('apa anda yakin ingin menghapus user ini?')))
                                            return false">
