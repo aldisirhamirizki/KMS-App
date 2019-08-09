@@ -60,6 +60,11 @@
             .img-thumbnail {
                 border-radius: 50px;
             }
+
+            .navbar p {
+                margin: 0;
+                padding: 10px 5px 0 0;
+            }
         </style>
     </head>
     <body>
@@ -71,9 +76,8 @@
             <div class="nav ml-auto">
 
                 <c:if test="${sessionModel.idUser != null}">
-                    <a>
-                        <p> HAi, ${sessionModel.namaUser}</p>
-                    </a>
+                        <p>${sessionModel.namaUser}</p>
+                        <img class="rounded-circle" width="50" src="<c:url value="../static/img/profil.png" />" id="poto">
                 </c:if>
             </div>
         </nav>

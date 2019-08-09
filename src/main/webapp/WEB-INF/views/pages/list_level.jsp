@@ -25,7 +25,7 @@
                 Daftar Level
             </div>
             <div class="panel-body">
-                <table class="table table-striped table-bordered">
+                <table class="table table-dark table-striped table-bordered">
                     <tr>
                         <th>Id level</th>
                         <th>Nama level</th>
@@ -51,8 +51,8 @@
                             <td>${temp.biaya}</td>
 
                             <td>
-                                <a class="btn btn-primary" href="${updateLink}">Update</a>
-                                <a class="btn btn-danger" href="${deleteLink}" 
+                                <a class="btn btn-primary btn-sm" href="${updateLink}">Update</a>
+                                <a class="btn btn-danger btn-sm" href="${deleteLink}" 
                                    onclick="if (!(confirm('apa anda yakin ingin menghapus user ini?')))
                                                return false">
                                     Delete

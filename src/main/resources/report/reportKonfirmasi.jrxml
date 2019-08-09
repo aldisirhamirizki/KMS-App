@@ -85,28 +85,28 @@
 				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" backcolor="#F1E3FF" uuid="a90ccf6a-636f-4e8b-b32b-3284e593f22a"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="0" y="0" width="78" height="20" uuid="cc29cbc2-792f-4085-8ea3-e70f3de06bc8"/>
+				<reportElement x="13" y="0" width="78" height="20" uuid="cc29cbc2-792f-4085-8ea3-e70f3de06bc8"/>
 				<textElement verticalAlignment="Top"/>
 				<text><![CDATA[Id Siswa]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="78" y="0" width="100" height="20" uuid="7bd6cc61-c4d2-4f93-90b2-2de792e7b21d"/>
+				<reportElement x="91" y="0" width="100" height="20" uuid="7bd6cc61-c4d2-4f93-90b2-2de792e7b21d"/>
 				<text><![CDATA[Nama Siswa]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="178" y="0" width="100" height="20" uuid="9e59ff49-f9b5-4d54-b752-8f9a2b240a72"/>
+				<reportElement x="191" y="0" width="100" height="20" uuid="9e59ff49-f9b5-4d54-b752-8f9a2b240a72"/>
 				<text><![CDATA[Id Konfirmasi]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="378" y="0" width="57" height="20" uuid="fedf86dc-5043-4570-8a7b-29c4a751888c"/>
+				<reportElement x="391" y="0" width="57" height="20" uuid="fedf86dc-5043-4570-8a7b-29c4a751888c"/>
 				<text><![CDATA[Bank]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="278" y="0" width="100" height="20" uuid="02016e98-1633-4eb5-ba34-741e801d8d18"/>
+				<reportElement x="291" y="0" width="100" height="20" uuid="02016e98-1633-4eb5-ba34-741e801d8d18"/>
 				<text><![CDATA[Tanggal Konfirmasi]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="435" y="0" width="100" height="20" uuid="a044a690-7957-4001-a902-a93d98409ba8"/>
+				<reportElement x="448" y="0" width="100" height="20" uuid="a044a690-7957-4001-a902-a93d98409ba8"/>
 				<text><![CDATA[Biaya]]></text>
 			</staticText>
 		</band>
@@ -114,27 +114,27 @@
 	<detail>
 		<band height="21" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="78" height="20" uuid="b6a001a1-27d4-46a8-b213-fe89aa0d92ad"/>
+				<reportElement x="13" y="0" width="78" height="20" uuid="b6a001a1-27d4-46a8-b213-fe89aa0d92ad"/>
 				<textFieldExpression><![CDATA[$F{id_siswa}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="78" y="0" width="100" height="20" uuid="082e47e8-963d-4be3-9d2c-049a3f0a11a3"/>
+				<reportElement x="91" y="0" width="100" height="20" uuid="082e47e8-963d-4be3-9d2c-049a3f0a11a3"/>
 				<textFieldExpression><![CDATA[$F{nama_daftar}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="178" y="0" width="100" height="20" uuid="a2cf40de-b0c9-4b2f-979d-5156bccedd28"/>
+				<reportElement x="191" y="0" width="100" height="20" uuid="a2cf40de-b0c9-4b2f-979d-5156bccedd28"/>
 				<textFieldExpression><![CDATA[$F{id_konfirmasi}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="378" y="0" width="57" height="20" uuid="1c1a8f19-83fc-45ab-bbd6-2e8c30d15add"/>
+				<reportElement x="391" y="0" width="57" height="20" uuid="1c1a8f19-83fc-45ab-bbd6-2e8c30d15add"/>
 				<textFieldExpression><![CDATA[$F{bank}]]></textFieldExpression>
 			</textField>
 			<textField pattern="EEEE, dd-MM-yyyy">
-				<reportElement x="278" y="0" width="100" height="20" uuid="5701d0aa-7245-4871-82cf-6eeb5b85c252"/>
+				<reportElement x="291" y="0" width="100" height="20" uuid="5701d0aa-7245-4871-82cf-6eeb5b85c252"/>
 				<textFieldExpression><![CDATA[DateFormat.getDateInstance(DateFormat.FULL, $P{REPORT_LOCALE}).format($F{tgl_konfirmasi})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="435" y="0" width="100" height="20" uuid="eca81d5c-1986-44ba-8477-ce85bc29dc3b"/>
+				<reportElement x="448" y="0" width="100" height="20" uuid="eca81d5c-1986-44ba-8477-ce85bc29dc3b"/>
 				<textFieldExpression><![CDATA[$F{total_biaya}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -142,11 +142,11 @@
 	<summary>
 		<band height="39" splitType="Stretch">
 			<textField>
-				<reportElement x="435" y="7" width="100" height="20" uuid="f42235a6-d140-4120-8121-df412f9ddf92"/>
+				<reportElement x="447" y="7" width="100" height="20" uuid="f42235a6-d140-4120-8121-df412f9ddf92"/>
 				<textFieldExpression><![CDATA[$V{total_biaya_3}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="404" y="9" width="31" height="20" uuid="b1ab3c3a-cfab-4e0c-9546-474cffa44a06"/>
+				<reportElement x="416" y="9" width="31" height="20" uuid="b1ab3c3a-cfab-4e0c-9546-474cffa44a06"/>
 				<text><![CDATA[Total]]></text>
 			</staticText>
 			<line>
