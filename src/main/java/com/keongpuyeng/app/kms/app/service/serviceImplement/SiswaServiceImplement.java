@@ -9,6 +9,8 @@ import com.keongpuyeng.app.kms.app.dao.SiswaDao;
 import com.keongpuyeng.app.kms.app.service.ISiswaService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.keongpuyeng.app.kms.app.model.Siswa;
 import com.keongpuyeng.app.kms.app.model.SiswaDto;
@@ -118,4 +120,9 @@ public class SiswaServiceImplement implements ISiswaService {
 
     }
 
+    @Override
+    @Transactional
+    public Page<Object> getSiswaPagination(String cari, Pageable page) {
+        return siswaDao.searchTempWithPage(cari, page);
+    }
 }

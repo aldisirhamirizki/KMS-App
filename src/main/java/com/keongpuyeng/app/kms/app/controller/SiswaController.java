@@ -26,6 +26,9 @@ import com.keongpuyeng.app.kms.app.service.ILevelService;
 import com.keongpuyeng.app.kms.app.service.IMailService;
 import com.keongpuyeng.app.kms.app.service.IPendaftaranService;
 import com.keongpuyeng.app.kms.app.service.IProgramService;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -40,11 +43,15 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
 import org.apache.tika.Tika;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -62,6 +69,8 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 public class SiswaController {
 
     private static final Logger LOG = Logger.getLogger(SiswaController.class);
+
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     @Autowired
     private ISiswaService siswaService;
@@ -91,43 +100,49 @@ public class SiswaController {
     private IGenerateReport report;
 
     @GetMapping("/list_siswa")
-    public String listSiswa(Model theModel) {
-        List<Siswa> listSiswa = siswaService.getListSiswa();
-        List<KonfirmasiPembayaran> listKonfirm = konfirmasiService.getListKonfirmasi();
-        List<SiswaDto> listDto = new ArrayList<>();
+    public String listSiswaPagination(Model theModel,
+                                      @RequestParam(value = "cariSiswa", defaultValue = "") String cari,
+                                      @RequestParam(value = "page", defaultValue = "0") int currentPage) {
+        Pageable page = PageRequest.of(currentPage, 5);
+        Page<Object> objectPage = siswaService.getSiswaPagination(cari, page);
+        List<SiswaDto> dtoList = new ArrayList<>();
+        for (Object object : objectPage) {
+            Object[] obj = (Object[]) object;
+            SiswaDto dto = new SiswaDto();
+            
+            dto.setIdSiswa(obj[0].toString());
+            dto.setNamaDaftar(obj[1].toString());
+            dto.setJenisKelamin(obj[2].toString());
+            try {
+                dto.setTanggalLahir(sdf.parse(obj[3].toString()));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            dto.setTempatTinggal(obj[4].toString());
+            dto.setTelepon(obj[5].toString());
+            dto.setIdProgram(obj[6].toString());
+            dto.setIdKursus(obj[7].toString());
+            dto.setIdLevel(obj[8].toString());
+            dto.setStatus(obj[9] == null ? "" : obj[9].toString());
 
-        for (Siswa siswa : listSiswa) {
-            SiswaDto siswaDto = new SiswaDto();
-
-            siswaDto.setIdSiswa(siswa.getIdSiswa());
-            siswaDto.setIdDaftar(siswa.getIdDaftar().getIdDaftar());
-            siswaDto.setNamaDaftar(siswa.getIdDaftar().getNamaDaftar());
-            siswaDto.setTanggalLahir(siswa.getTanggalLahir());
-            siswaDto.setJenisKelamin(siswa.getJenisKelamin().name());
-            siswaDto.setTempatTinggal(siswa.getTempatTinggal());
-            siswaDto.setTelepon(siswa.getTelepon());
-            siswaDto.setIdProgram(siswa.getIdProgram().getNamaProgram());
-            siswaDto.setIdKursus(siswa.getIdKursus().getNamaKursus());
-            siswaDto.setIdLevel(siswa.getIdLevel().getNamaLevel());
-            siswaDto.setIdBank(siswa.getIdBank().getNamaBank());
-            String statusPembayaran = listKonfirm.stream()
-                    .filter(p -> p.getIdSiswa().equalsIgnoreCase(siswa.getIdSiswa()))
-                    .map(x -> x.getStatus())
-                    .collect(Collectors.joining());
-            siswaDto.setStatus(statusPembayaran);
-            // list dto
-            listDto.add(siswaDto);
-
+            dtoList.add(dto);
         }
-        theModel.addAttribute("siswa", listDto);
-        return "list_siswa";
-    }
 
-    @GetMapping("/search")
-    public String search(Model theModel, @RequestParam("cariSiswa") String cari) {
-        System.out.println("CARI:" + cari);
-        List<SiswaDto> listSearch = siswaService.getSearch(cari);
-        theModel.addAttribute("siswa", listSearch);
+        theModel.addAttribute("cari", cari);
+        theModel.addAttribute("siswa", dtoList);
+        theModel.addAttribute("page", objectPage);
+
+        LOG.info("objectPage TOTAL ELEMENTS: " + objectPage.getTotalElements());
+        LOG.info("objectPage TOTAL PAGES: " + objectPage.getTotalPages());
+        LOG.info("objectPage NUMBER (HALAMAN SAAT INI): " + objectPage.getNumber());
+        LOG.info("objectPage NUMBER OF ELEMENTS (JUMLAH ELEMENT DI HALAMAN): " + objectPage.getNumberOfElements());
+        LOG.info("objectPage CONTENT SIZE: " + objectPage.getContent().size());
+        LOG.info("objectPage IS FIRST: " + objectPage.isFirst());
+        LOG.info("objectPage IS LAST: " + objectPage.isLast());
+        LOG.info("objectPage HAS CONTENT: " + objectPage.hasContent());
+        LOG.info("objectPage HAS NEXT: " + objectPage.hasNext());
+        LOG.info("objectPage HAS PREVIOUS: " + objectPage.hasPrevious());
+        
         return "list_siswa";
     }
 
@@ -159,9 +174,7 @@ public class SiswaController {
             siswaDto.setIdDaftar(siswa.getIdDaftar().getIdDaftar());
             siswaDto.setNamaDaftar(siswa.getIdDaftar().getNamaDaftar());
             siswaDto.setEmailDaftar(siswa.getIdDaftar().getEmailDaftar());
-
             siswaDto.setImage(siswa.getImage());
-
             siswaDto.setTelepon(siswa.getTelepon());
             siswaDto.setJenisKelamin(siswa.getJenisKelamin().name());
             siswaDto.setTanggalLahir(siswa.getTanggalLahir());
@@ -173,51 +186,24 @@ public class SiswaController {
             siswaDto.setTotalBiaya(konfirmasiPembayaran.getTotalBiaya());
             siswaDto.setIdKonfirmasi(konfirmasiPembayaran.getIdKonfirmasi());
 
-            Tika tika = new Tika();
             if (siswa.getImage() != null) {
-                String contentType = tika.detect(siswa.getImage());
-                String encodedImage = Base64.encodeBase64String(siswa.getImage());
-                displayImage = Param.IMG_SRC_PREFIX + contentType + Param.IMG_SRC_SUFIX + encodedImage;
-                System.out.println("DISPLAY IMAGE:" + displayImage);
+                displayImage = getImageBase64(siswa.getImage());
             }
         }
 
         List<EnumJenisKelamin> jenisKelamin = Arrays.asList(EnumJenisKelamin.values());
-
         List<Program> listProgram = progService.getListPrograms();
-        Map<String, String> mapProgram = new HashMap<>();
-        listProgram.stream().forEach(p -> {
-            mapProgram.put(p.getIdProgram(), p.getNamaProgram());
-        });
-
         List<Kursus> listKursus = kursusService.getListKursus();
-        Map<String, String> mapKursus = new HashMap<>();
-        listKursus.stream().forEach(p -> {
-            mapKursus.put(p.getIdKursus(), p.getNamaKursus());
-        });
-
         List<Level> listLevel = levelService.getListLevel();
-        Map<String, String> mapLevel = new HashMap<>();
-        listLevel.stream().forEach(p -> {
-            mapLevel.put(p.getIdLevel(), p.getNamaLevel());
-        });
-
-        // bank disini
         List<Bank> listBank = bankService.getListBank();
-        Map<String, String> mapBank = new HashMap<>();
-        listBank.stream().forEach(p -> {
-            mapBank.put(p.getIdBank(), p.getNamaBank());
-        });
 
         theModel.addAttribute("imageDisplay", displayImage);
-
         theModel.addAttribute("jenisKelamin", jenisKelamin);
         theModel.addAttribute("program", listProgram);
         theModel.addAttribute("kursus", listKursus);
         theModel.addAttribute("level", listLevel);
         theModel.addAttribute("bank", listBank);
         theModel.addAttribute("siswa", siswaDto);
-//        theModel.addAttribute("imageUpload", imageUpload);
 
         return "profil";
     }
@@ -227,17 +213,54 @@ public class SiswaController {
     public String saveSiswa(@ModelAttribute("siswa") @Valid SiswaDto siswaDto,
             BindingResult bindingResult,
             HttpServletRequest req,
-            @RequestParam CommonsMultipartFile imageUpload) {
-
-        System.out.println("IMAGE UPLOAD: " + imageUpload.getName());
-        System.out.println("IMAGE UPLOAD: " + imageUpload.getBytes());
-        System.out.println("IMAGE UPLOAD: " + imageUpload.getContentType());
-        System.out.println("IMAGE UPLOAD: " + imageUpload.getOriginalFilename());
-        System.out.println("IMAGE UPLOAD: " + imageUpload.getStorageDescription());
-        System.out.println("IMAGE UPLOAD: " + imageUpload.toString());
+            @RequestParam CommonsMultipartFile imageUpload,
+            @RequestParam String hiddenImage, Model model) {
 
         String json = new Gson().toJson(siswaDto);
-        System.out.println("This is SISWA: " + json);
+        LOG.debug("This is SiswaDto: " + json);
+
+        bindingResult.getFieldErrors().stream().forEach(p -> {
+            LOG.debug("Field: " + p.getField());
+            LOG.debug("RejectedValue: " + (p.getRejectedValue() != null ? p.getRejectedValue().toString() : "ERROR NULL INI"));
+            LOG.debug("BindingFailure: " + p.isBindingFailure());
+            LOG.debug("Field: " + p.getField());
+            LOG.debug("Code: " + p.getCode() );
+            LOG.debug("DefaultMessage: " + p.getDefaultMessage());
+            LOG.debug("ObjectName: " + p.getObjectName());
+            LOG.debug("ToString: " + p.toString());
+            LOG.debug("----------------------");
+        });
+        
+        LOG.debug("IMAGE UPLOAD: " + imageUpload.isEmpty());
+        LOG.debug("IMAGE UPLOAD: " + imageUpload.getName());
+        LOG.debug("IMAGE UPLOAD: " + imageUpload.getBytes());
+        LOG.debug("IMAGE UPLOAD: " + imageUpload.getContentType());
+        LOG.debug("IMAGE UPLOAD: " + imageUpload.getOriginalFilename());
+        LOG.debug("IMAGE UPLOAD: " + imageUpload.getStorageDescription());
+        LOG.debug("IMAGE UPLOAD: " + imageUpload.toString());
+        LOG.debug("HIDDEN IMAGE: " + hiddenImage);
+
+        if(bindingResult.hasErrors()){
+            String displayImage;
+            if(!imageUpload.isEmpty()){
+                displayImage = getImageBase64(imageUpload.getBytes());
+            }else {
+                 displayImage = hiddenImage;
+            }
+
+            List<EnumJenisKelamin> jenisKelamin = Arrays.asList(EnumJenisKelamin.values());
+            List<Program> listProgram = progService.getListPrograms();
+            List<Kursus> listKursus = kursusService.getListKursus();
+            List<Level> listLevel = levelService.getListLevel();
+            List<Bank> listBank = bankService.getListBank();
+            model.addAttribute("imageDisplay", displayImage);
+            model.addAttribute("jenisKelamin", jenisKelamin);
+            model.addAttribute("program", listProgram);
+            model.addAttribute("kursus", listKursus);
+            model.addAttribute("level", listLevel);
+            model.addAttribute("bank", listBank);
+            return "profil";
+        }
 
         Pendaftaran pendaftaran = pendService.getPendaftaran(siswaDto.getIdDaftar());
         pendaftaran.setNamaDaftar(siswaDto.getNamaDaftar());
@@ -246,12 +269,17 @@ public class SiswaController {
         Kursus kursus = kursusService.getKursus(siswaDto.getIdKursus());
         Level level = levelService.getLevel(siswaDto.getIdLevel());
         Bank bank = bankService.getBank(siswaDto.getIdBank());
-//        System.out.println("BANKOK BANK: " + bank.toString());
 
         Siswa siswa = new Siswa();
 
         if (imageUpload.isEmpty()) {
-            siswa.setImage(siswaService.getImageSiswa(siswaDto.getIdSiswa()));
+            if(!hiddenImage.isEmpty()){
+                String[] splitHiddenImg = hiddenImage.split(",");
+                byte[] base64Image = Base64.decodeBase64(splitHiddenImg[1]);
+                siswa.setImage(base64Image);
+            }else{
+                siswa.setImage(siswaService.getImageSiswa(siswaDto.getIdSiswa()));
+            }
         } else {
             siswa.setImage(imageUpload.getBytes());
         }
@@ -264,11 +292,8 @@ public class SiswaController {
         siswa.setIdKursus(kursus);
         siswa.setIdLevel(level);
         siswa.setIdBank(bank);
-        System.out.println("INI SISWA: " + siswa.toString());
         KonfirmasiPembayaran kp;
         if (siswaDto.getIdSiswa() == null || siswaDto.getIdSiswa().isEmpty()) {
-            System.out.println("SISWA DTO: " + new Gson().toJson(siswaDto));
-            System.out.println("SISWA IS NULL");
             siswa = siswaService.saveSiswa(siswa);
             pendService.updatePendaftaran(pendaftaran);
 
@@ -278,7 +303,6 @@ public class SiswaController {
             konfirmasiPembayaran.setTotalBiaya(siswaDto.getTotalBiaya());
             konfirmasiPembayaran.setBank(bank);
             konfirmasiPembayaran.setStatus(Param.BELUM_BAYAR);
-//            konfirmasiPembayaran.setImageBukti("TES IMAGE");
             konfirmasiService.saveKonfirmasi(konfirmasiPembayaran);
             kp = konfirmasiPembayaran;
 
@@ -288,9 +312,6 @@ public class SiswaController {
             sessionModel.setEmailDaftar(siswaDto.getEmailDaftar());
             req.getSession().setAttribute("sessionModel", sessionModel);
         } else {
-            System.out.println("SISWA DTO: " + new Gson().toJson(siswaDto));
-            System.out.println("SISWA IS EXIST");
-            System.out.println("BANK: " + bank.toString());
             siswa.setIdSiswa(siswaDto.getIdSiswa());
             siswaService.updateSiswa(siswa);
             pendService.updatePendaftaran(pendaftaran);
@@ -303,7 +324,6 @@ public class SiswaController {
                 konfirmasiPembayaran.setTotalBiaya(siswaDto.getTotalBiaya());
                 konfirmasiPembayaran.setBank(bank);
                 konfirmasiPembayaran.setStatus(Param.BELUM_BAYAR);
-//                konfirmasiPembayaran.setImageBukti("TES IMAGE");
                 konfirmasiService.saveKonfirmasi(konfirmasiPembayaran);
             } else {
                 konfirmasiPembayaran.setIdSiswa(siswaDto.getIdSiswa());
@@ -332,8 +352,6 @@ public class SiswaController {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                System.out.println("START RUN NEW THREAD -> SEND EMAIL");
-                System.out.println("SISWA DTO NEW THREAD -> " + new Gson().toJson(sendSiswa));
                 HashMap<String, Object> model = new HashMap<>();
                 model.put("siswa", sendSiswa);
                 model.put("program", sendProgram);
@@ -346,7 +364,6 @@ public class SiswaController {
         });
         thread.start();
 
-        System.out.println("OKE DEHHHH");
         return "redirect:/siswa/profil";
     }
 
@@ -362,9 +379,7 @@ public class SiswaController {
         siswaDto.setIdDaftar(siswa.getIdDaftar().getIdDaftar());
         siswaDto.setNamaDaftar(siswa.getIdDaftar().getNamaDaftar());
         siswaDto.setEmailDaftar(siswa.getIdDaftar().getEmailDaftar());
-
         siswaDto.setImage(siswa.getImage());
-
         siswaDto.setTelepon(siswa.getTelepon());
         siswaDto.setJenisKelamin(siswa.getJenisKelamin().name());
         siswaDto.setTanggalLahir(siswa.getTanggalLahir());
@@ -373,7 +388,6 @@ public class SiswaController {
         siswaDto.setNamaKursus(siswa.getIdKursus().getNamaKursus());
         siswaDto.setNamaLevel(siswa.getIdLevel().getNamaLevel());
         siswaDto.setNamaBank(siswa.getIdBank().getIdBank());
-
         siswaDto.setTotalBiaya(konfirmasiPembayaran.getTotalBiaya());
         siswaDto.setIdKonfirmasi(konfirmasiPembayaran.getIdKonfirmasi());
 
@@ -382,7 +396,7 @@ public class SiswaController {
             String contentType = tika.detect(siswa.getImage());
             String encodedImage = Base64.encodeBase64String(siswa.getImage());
             displayImage = Param.IMG_SRC_PREFIX + contentType + Param.IMG_SRC_SUFIX + encodedImage;
-            System.out.println("DISPLAY IMAGE:" + displayImage);
+            LOG.debug("DISPLAY IMAGE:" + displayImage);
         }
 
         theModel.addAttribute("imageDisplay", displayImage);
@@ -403,4 +417,52 @@ public class SiswaController {
         byte[] pdf = report.generatePdfReportSiswa(cariReport);
         return pdf;
     }
+
+    private String getImageBase64(byte[] image){
+        Tika tika = new Tika();
+        String contentType = tika.detect(image);
+        String encodedImage = Base64.encodeBase64String(image);
+        String imageBase64 = Param.IMG_SRC_PREFIX + contentType + Param.IMG_SRC_SUFIX + encodedImage;
+        return imageBase64;
+    }
+
+    /*@GetMapping("/list_siswa_BOOM")
+    public String listSiswa(Model theModel) {
+        List<Siswa> listSiswa = siswaService.getListSiswa();
+        List<KonfirmasiPembayaran> listKonfirm = konfirmasiService.getListKonfirmasi();
+        List<SiswaDto> listDto = new ArrayList<>();
+
+        for (Siswa siswa : listSiswa) {
+            SiswaDto siswaDto = new SiswaDto();
+
+            siswaDto.setIdSiswa(siswa.getIdSiswa());
+            siswaDto.setIdDaftar(siswa.getIdDaftar().getIdDaftar());
+            siswaDto.setNamaDaftar(siswa.getIdDaftar().getNamaDaftar());
+            siswaDto.setTanggalLahir(siswa.getTanggalLahir());
+            siswaDto.setJenisKelamin(siswa.getJenisKelamin().name());
+            siswaDto.setTempatTinggal(siswa.getTempatTinggal());
+            siswaDto.setTelepon(siswa.getTelepon());
+            siswaDto.setIdProgram(siswa.getIdProgram().getNamaProgram());
+            siswaDto.setIdKursus(siswa.getIdKursus().getNamaKursus());
+            siswaDto.setIdLevel(siswa.getIdLevel().getNamaLevel());
+            siswaDto.setIdBank(siswa.getIdBank().getNamaBank());
+            String statusPembayaran = listKonfirm.stream()
+                    .filter(p -> p.getIdSiswa().equalsIgnoreCase(siswa.getIdSiswa()))
+                    .map(x -> x.getStatus())
+                    .collect(Collectors.joining());
+            siswaDto.setStatus(statusPembayaran);
+            listDto.add(siswaDto);
+        }
+        theModel.addAttribute("siswa", listDto);
+        return "list_siswa";
+    }*/
+
+    /*@GetMapping("/search")
+    public String search(Model theModel, @RequestParam("cariSiswa") String cari) {
+        LOG.debug("CARI:" + cari);
+        List<SiswaDto> listSearch = siswaService.getSearch(cari);
+        theModel.addAttribute("siswa", listSearch);
+        theModel.addAttribute("cari", cari);
+        return "list_siswa";
+    }*/
 }

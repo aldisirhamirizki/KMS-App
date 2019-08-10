@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <nav class="navbar navbar-expand-md navbar-light navkursus">
     <div class="container">    
-        <a class="navbar-brand" href="/KMS-App/keong/index/">
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/keong/index/">
             <img src="<c:url value="/static/img/logo.png" />" alt="kms"/>
         </a>
     </div>

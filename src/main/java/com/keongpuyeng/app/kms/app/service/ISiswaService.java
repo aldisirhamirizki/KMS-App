@@ -7,6 +7,9 @@ package com.keongpuyeng.app.kms.app.service;
 
 import com.keongpuyeng.app.kms.app.model.Siswa;
 import com.keongpuyeng.app.kms.app.model.SiswaDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 
 /**
@@ -29,4 +32,6 @@ public interface ISiswaService {
     public void updateSiswa(Siswa siswa);
     
     public void deleteSiswa(String id);
+
+    Page<Object> getSiswaPagination(String cari, Pageable page);
 }

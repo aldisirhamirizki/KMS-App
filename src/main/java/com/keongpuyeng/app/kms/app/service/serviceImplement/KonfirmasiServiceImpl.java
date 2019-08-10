@@ -83,10 +83,6 @@ public class KonfirmasiServiceImpl implements IKonfirmasiService {
         return konfirmDto;
     }
 
-//    @Override
-//    public List<KonfirmasiDto> getSearchKonfirm(String cari) {
-//        return null;
-//    }
     @Override
     public List<KonfirmasiDto> getListKonfirmasiNama() {
         List<Object> listKonfirmasiNama = Arrays.asList(konfirmasiDao.listKonfirmasiNama());
