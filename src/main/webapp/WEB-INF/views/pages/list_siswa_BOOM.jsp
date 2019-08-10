@@ -17,7 +17,7 @@
         <style>
             .panel-body .table {
                 width: 110%;
-                font-size: 12px;
+                font-size: 12px;                
             }
 
             #action {
@@ -52,18 +52,10 @@
         </div>
         <div class="panel-body">
             <div class="row" id="search">
-                <form action="${pageContext.request.contextPath}/siswa/list_siswa" >
+                <form action="${pageContext.request.contextPath}/siswa/search" >
                     <div class="form-group" id="cari">
                         <label>Pencarian</label><br>
-                        <c:choose>
-                            <c:when test="${not empty cari}">
-                                <input type="text" class="form-control-sm" id="cariSiswa" name="cariSiswa" value="${cari}"/>
-                            </c:when>
-                            <c:otherwise>
-                                <input type="text" class="form-control-sm" id="cariSiswa" name="cariSiswa"/>
-                            </c:otherwise>
-                        </c:choose>
-
+                        <input type="text" class="form-control-sm" id="cariSiswa" name="cariSiswa"/>
                         <button type="submit" class="btn btn-info">Cari</button>
                     </div>
                 </form>
@@ -95,7 +87,7 @@
 
                 <c:forEach var="temp" items="${siswa}">
 
-                    <c:url var="updateLink" value="/siswa/updateSiswa">
+                    <c:url var="updateLink" value="/siswa/updateSiswa">  
                         <c:param name="idSiswa" value="${temp.idSiswa}"/>
                     </c:url>
 
@@ -120,7 +112,7 @@
 
                         <td class="text-center" id="action">
                             <a class="btn btn-primary" href="${updateLink}">Lihat</a>
-                            <a class="btn btn-danger" href="${deleteLink}"
+                            <a class="btn btn-danger" href="${deleteLink}" 
                                onclick="if (!(confirm('apa anda yakin ingin menghapus user ini?')))
                                            return false">
                                 Delete
@@ -129,68 +121,7 @@
                     </tr>
                 </c:forEach>
             </table>
-            <nav aria-label="...">
-                <ul class="pagination pagination-sm">
-                    <c:url var="previousURL" value="${pageContext.request.contextPath}/siswa/list_siswa">
-                        <c:param name="page" value="${page.getNumber() - 1}"></c:param>
-                    </c:url>
-                    <c:url var="nextURL" value="${pageContext.request.contextPath}/siswa/list_siswa">
-                        <c:param name="page" value="${page.getNumber() + 1}"></c:param>
-                    </c:url>
-                    <c:choose>
-                        <c:when test="${page.hasPrevious()}">
-                            <li class="page-item">
-                                <a class="page-link" href="${previousURL}" tabindex="-1" onclick="getCariValue(this)">Previous</a>
-                            </li>
-                        </c:when>
-                        <c:otherwise>
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1">Previous</a>
-                            </li>
-                        </c:otherwise>
-                    </c:choose>
-
-                    <c:forEach var="i" begin="1" end="${page.getTotalPages()}" varStatus="loop">
-                        <c:url var="pageURL" value="${pageContext.request.contextPath}/siswa/list_siswa">
-                            <c:param name="page" value="${i - 1}"></c:param>
-                        </c:url>
-                        <c:choose>
-                            <c:when test="${(page.getNumber() + 1) == i}" >
-                                <li class="page-item active">
-                                    <a class="page-link" href="${pageURL}" onclick="getCariValue(this)">${i}</a>
-                                </li>
-                            </c:when>
-                            <c:otherwise>
-                                <li class="page-item"><a class="page-link" href="${pageURL}" onclick="getCariValue(this)">${i}</a></li>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:forEach>
-
-                    <c:choose>
-                        <c:when test="${page.hasNext()}">
-                            <li class="page-item">
-                                <a class="page-link" href="${nextURL}" onclick="getCariValue(this)">Next</a>
-                            </li>
-                        </c:when>
-                        <c:otherwise>
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#">Next</a>
-                            </li>
-                        </c:otherwise>
-                    </c:choose>
-                </ul>
-            </nav>
-
-
         </div>
-        <script src="<c:url value="/static/bootstrap4/jquery-3.3.1.min.js" />" ></script>
-        <script>
-            function getCariValue(e) {
-                let href = $(e).attr('href');
-                let hitLink = href + "&cariSiswa=" + $('#cariSiswa').val();
-                $(e).attr("href", hitLink);
-                return false;
-            }
-        </script>
+
     </body>
 </html>

@@ -20,6 +20,22 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class SiswaDto {
+    public SiswaDto(String idSiswa, String namaDaftar, String jenisKelamin, Date tanggalLahir, String tempatTinggal, String telepon, String namaProgram, String namaKursus, String namaLevel, String status) {
+        this.namaDaftar = namaDaftar;
+        this.idSiswa = idSiswa;
+        this.telepon = telepon;
+        this.jenisKelamin = jenisKelamin;
+        this.tanggalLahir = tanggalLahir;
+        this.tempatTinggal = tempatTinggal;
+        this.Status = status;
+        this.namaProgram = namaProgram;
+        this.namaKursus = namaKursus;
+        this.namaLevel = namaLevel;
+    }
+
+    public SiswaDto() {
+
+    }
 
     @NotNull
     @NotEmpty(message = "Nama tidak boleh kosong")
