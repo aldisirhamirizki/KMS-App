@@ -86,9 +86,7 @@
 
                                     <div class="md-form form-sm">
                                         <label data-error="wrong" data-success="right" for="namaDaftar">Nama</label>
-                                    <form:input type="text" id="namaDaftar" cssClass="form-control form-control-sm validate" path="namaDaftar" />
-
-                                    <%--<form:errors path="namaDaftar"/>--%>
+                                    <form:input type="text" id="namaDaftar" class="form-control form-control-sm validate" path="namaDaftar" />
                                 </div>
 
                                 <div class="md-form form-sm">

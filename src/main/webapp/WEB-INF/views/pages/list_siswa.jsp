@@ -131,10 +131,10 @@
             </table>
             <nav aria-label="...">
                 <ul class="pagination pagination-sm">
-                    <c:url var="previousURL" value="${pageContext.request.contextPath}/siswa/list_siswa">
+                    <c:url var="previousURL" value="/siswa/list_siswa">
                         <c:param name="page" value="${page.getNumber() - 1}"></c:param>
                     </c:url>
-                    <c:url var="nextURL" value="${pageContext.request.contextPath}/siswa/list_siswa">
+                    <c:url var="nextURL" value="/siswa/list_siswa">
                         <c:param name="page" value="${page.getNumber() + 1}"></c:param>
                     </c:url>
                     <c:choose>
@@ -151,7 +151,7 @@
                     </c:choose>
 
                     <c:forEach var="i" begin="1" end="${page.getTotalPages()}" varStatus="loop">
-                        <c:url var="pageURL" value="${pageContext.request.contextPath}/siswa/list_siswa">
+                        <c:url var="pageURL" value="/siswa/list_siswa">
                             <c:param name="page" value="${i - 1}"></c:param>
                         </c:url>
                         <c:choose>

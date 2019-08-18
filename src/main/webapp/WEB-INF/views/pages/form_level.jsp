@@ -17,7 +17,7 @@
         <title>KMS - App</title>
     </head>
     <body>
-        <h1>FORM KURSUS</h1>
+        <h1>FORM LEVEL</h1>
         <div class="container">
             <form:form action="${pageContext.request.contextPath}/level/saveLevel" method="POST" modelAttribute="level">
                 <div Class="form-group">

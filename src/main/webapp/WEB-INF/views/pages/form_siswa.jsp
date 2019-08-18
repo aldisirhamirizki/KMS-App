@@ -35,11 +35,9 @@
                 <div class="col-lg-4 text-lg-center">
                     <form:form action="${pageContext.request.contextPath}/siswa/saveSiswa" method="post"
                                modelAttribute="siswa">
+                        <label class="custom-file">Foto Profil Siswa</label>
                         <img id="fileProfil"  src="${imageDisplay}"
                              class="m-x-auto img-fluid img-circle" />
-                        <label class="custom-file">
-                            <input type="file" name="imageUpload" onchange="readURL(this, '#fileProfil');"  />
-                        </label>
                     </div>
 
                     <div class="col-lg-8">
@@ -49,53 +47,50 @@
                             <form:hidden path="idKonfirmasi" />
 
                             <label data-error="wrong" data-success="right" for="namaDaftar">Nama</label>
-                            <form:input type="text" class="form-control form-control-sm" path="namaDaftar" />
+                            <form:input type="text" class="form-control form-control-sm" path="namaDaftar" readonly="true" />
                             <form:errors path="namaDaftar"></form:errors>
                             </div>
                             <div class="form-group">
                                 <label data-error="wrong" data-success="right" for="emailDaftar">Email</label>
-                            <form:input type="email" class="form-control form-control-sm" path="emailDaftar" />
+                            <form:input type="email" class="form-control form-control-sm" path="emailDaftar" readonly="true"/>
                             <form:errors path="emailDaftar"></form:errors>
                             </div>
                             <div Class="form-group">
                                 <label data-error="wrong" data-success="right" for="tanggalLahir">Tanggal Lahir</label>
-                            <form:input type="date" class="form-control form-control-sm" path="tanggalLahir" />
+                            <form:input type="date" class="form-control form-control-sm" path="tanggalLahir" readonly="true"/>
                             <form:errors path="tanggalLahir"></form:errors>
                             </div>
                             <div class="form-group">
                                 <label data-error="wrong" data-success="right" for="jenisKelamin">Jenis Kelamin</label>
-                            <form:input type="text" class="form-control form-control-sm" path="jenisKelamin" />
+                            <form:input type="text" class="form-control form-control-sm" path="jenisKelamin" readonly="true"/>
                             <form:errors path="jenisKelamin"></form:errors>
                             </div>
                             <div Class="form-group">
                                 <label data-error="wrong" data-success="right" for="tempatTinggal">Tempat Tinggal</label>
-                            <form:input type="text" class="form-control form-control-sm" path="tempatTinggal" />
+                            <form:input type="text" class="form-control form-control-sm" path="tempatTinggal" readonly="true"/>
                             <form:errors path="tempatTinggal"></form:errors>
                             </div>
                             <div Class="form-group">
                                 <label data-error="wrong" data-success="right" for="telepon">Telepon</label>
-                            <form:input type="text" class="form-control form-control-sm" path="telepon" />
+                            <form:input type="text" class="form-control form-control-sm" path="telepon" readonly="true"/>
                             <form:errors path="telepon"></form:errors>
                             </div>
-
                             <div class="form-group">
                                 <label for="program" >Program</label>
-                            <form:input type="text" class="form-control form-control-sm" path="namaProgram" />
+                            <form:input type="text" class="form-control form-control-sm" path="namaProgram" readonly="true"/>
                         </div>
-
-
                         <div class="form-group">
                             <label for="kursus" >Kursus</label>
-                            <form:input type="text" class="form-control form-control-sm" path="namaKursus" />
+                            <form:input type="text" class="form-control form-control-sm" path="namaKursus" readonly="true"/>
                         </div>
 
                         <div class="form-group">
                             <label for="levelSelect" class="col-md-2">Level</label>
-                            <form:input type="text" class="form-control form-control-sm" path="namaLevel" />
+                            <form:input type="text" class="form-control form-control-sm" path="namaLevel" readonly="true"/>
                         </div>
                         <div Class="form-group">
                             <label for="bank">Bank</label>
-                            <form:input type="text" class="form-control form-control-sm" path="namaBank" />
+                            <form:input type="text" class="form-control form-control-sm" path="namaBank" readonly="true"/>
                         </div>
                     </div>
                 </form:form>

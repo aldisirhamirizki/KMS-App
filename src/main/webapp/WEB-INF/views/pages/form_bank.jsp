@@ -17,7 +17,7 @@
         <title>KMS - App</title>
     </head>
     <body>
-        <h1>FORM KURSUS</h1>
+        <h1>FORM BANK</h1>
         <div class="container">
             <form:form action="${pageContext.request.contextPath}/bank/saveBank" method="POST" modelAttribute="bank">
                 <div Class="form-group">

@@ -43,7 +43,7 @@ public class SiswaDto {
 
     @NotNull
     @NotEmpty(message = "Email tidak boleh kosong")
-    @Size(min = 8, max = 30, message = "Panjang karakter min. 8 dan max 30")
+//    @Size(min = 8, max = 30, message = "Panjang karakter min. 8 dan max 30")
     @Email
     private String emailDaftar;
     
@@ -81,8 +81,8 @@ public class SiswaDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date tanggalLahir;
 
-    @NotNull(message = "Mohon isi tempat tinggal Anda")
-    @Size(min = 1, max = 50)
+    @NotNull
+    @Size(min = 1, max = 50, message = "Mohon isi tempat tinggal Anda")
     private String tempatTinggal;
 
     @NotNull

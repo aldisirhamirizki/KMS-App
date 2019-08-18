@@ -48,21 +48,21 @@ public class Pendaftaran implements Serializable {
     private String idDaftar;
     @Basic(optional = false)
     @NotNull
-    @NotEmpty(message = "harus diisi")
+    @NotEmpty(message = "nama harus diisi")
 //    @Size(min = 1, max = 50)
     @Column(name = "nama_daftar")
     private String namaDaftar;
     @Basic(optional = false)
     @NotNull
-    @NotEmpty(message = "harus diisi")
-    @Size(min = 1, max = 30)
+    @NotEmpty(message = "email harus diisi")
+//    @Size(min = 1, max = 30)
     @Email
     @Column(name = "email_daftar")
     private String emailDaftar;
     @Basic(optional = false)
     @NotNull
-    @NotEmpty(message = "harus diisi")
-    @Size(min = 1, max = 30)
+    @NotEmpty(message = "password harus diisi")
+//    @Size(min = 1, max = 30)
     @Column(name = "password_daftar")
     private String passwordDaftar;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDaftar", fetch = FetchType.LAZY)
